@@ -93,6 +93,13 @@
         </testResources>
     </build>
 
+    <repositories>
+        <repository>
+            <id>yk.jcommon</id>
+            <url>https://github.com/kravchik/mvn-repo/raw/master</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -104,6 +111,11 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>yk</groupId>
+            <artifactId>jcommon</artifactId>
+            <version>0.121</version>
         </dependency>
     </dependencies>
 

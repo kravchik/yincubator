@@ -2,6 +2,7 @@ package yk.jcommon.match;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static yk.jcommon.match.JM.match;
 import static yk.jcommon.utils.Util.*;
 

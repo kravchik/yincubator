@@ -5,6 +5,7 @@ import yk.jcommon.collections.YArrayList;
 import yk.jcommon.fastgeom.Vec3f;
 import yk.jcommon.search.SSearch;
 
+import static org.junit.Assert.assertEquals;
 import static yk.jcommon.collections.YArrayList.al;
 import static yk.jcommon.collections.YHashMap.hm;
 import static yk.jcommon.match2.MatcherShortNames.p;
