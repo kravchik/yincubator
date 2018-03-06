@@ -91,9 +91,10 @@ super server"
 ```
 
 ### API
-`String serialized = YadsSerializer.serializeMap(someMap);`
+    String serialized = YadsSerializer.serializeMap(someMap);
+    Map deserialized = YadsSerializer.deserializeMap("hello=world");
+    etc...
 
-`Map deserialized = YadsSerializer.deserializeMap("hello=world");`
 
 ### syntax
 * no commas or semicolons needed, so the noise level is very low
