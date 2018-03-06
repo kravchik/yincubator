@@ -90,6 +90,11 @@ description = "Awesome
 super server"
 ```
 
+### API
+`String serialized = YadsSerializer.serializeMap(someMap);`
+
+`Map deserialized = YadsSerializer.deserializeMap("hello=world");`
+
 ### syntax
 * no commas or semicolons needed, so the noise level is very low
 * strings and keys without quotes (that also reduces noise)
