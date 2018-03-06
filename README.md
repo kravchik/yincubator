@@ -93,7 +93,11 @@ super server"
 ### API
     String serialized = YadsSerializer.serializeMap(someMap);
     Map deserialized = YadsSerializer.deserializeMap("hello=world");
-    etc...
+    ...
+    String serialized = YadsSerializer.serialize(yourInstance);
+    YourClass y = (YourClass)YadsSerializer.deserialize("import={your.package} YourClass{field1=value1 field2=value2}");
+    ...
+    etc
 
 
 ### syntax
