@@ -33,25 +33,33 @@ public class YadsSerializer {
     public static String serialize(Object o) {
         YSet<String> namespaces = hs();
         String result = serialize(namespaces, false, o);
-        return (namespaces.isEmpty() ? "" : "import= " + Util.join(namespaces, ", ") + "\n\n") + result;
+        return serializeNamespaces(namespaces) + result;
     }
 
     public static String serializeList(List o) {
         YSet<String> namespaces = hs();
         String result = serializeListImpl(namespaces, o);
-        return (namespaces.isEmpty() ? "" : "import= " + Util.join(namespaces, ", ") + "\n\n") + result;
+        return serializeNamespaces(namespaces) + result;
     }
 
     public static String serializeMap(Map o) {
         YSet<String> namespaces = hs();
         String result = serializeMapImpl(namespaces, o);
-        return (namespaces.isEmpty() ? "" : "import= " + Util.join(namespaces, ", ") + "\n\n") + result;
+        return serializeNamespaces(namespaces) + result;
     }
 
-    public static String serializeInner(Object o) {
+    public static String serializeClassBody(Object o) {
         YSet<String> namespaces = hs();
-        String result = serializeInner(namespaces, o);
-        return (namespaces.isEmpty() ? "" : "import= " + Util.join(namespaces, ", ") + "\n") + result;
+        String result = serializeClassBody(namespaces, o);
+        return serializeNamespaces(namespaces) + result;
+    }
+
+    public static String serializeNamespaces(YSet<String> namespaces) {
+        if (namespaces.size() == 0) return "";
+        //can't make imports without {}, because last one is parsed as class name if there is list or map going next
+        //if (namespaces.size() == 1) return "import=" + namespaces.first() + "\n\n";
+        return "import={" + Util.join(namespaces, " ") + "}\n\n";
+        //return (namespaces.isEmpty() ? "" : "import= " + Util.join(namespaces, ", ") + "\n\n") + result;
     }
 
     private static boolean between(char x ,char min, char max) {
@@ -164,7 +172,7 @@ public class YadsSerializer {
         if (!typeIsKnown) result += addImport(namespaces, o);
         result += " {\n";
         tab.inc();
-        result += serializeInner(namespaces, o);
+        result += serializeClassBody(namespaces, o);
         tab.dec();
         result += tab + "}\n";
         return result;
@@ -183,7 +191,7 @@ public class YadsSerializer {
         return name.substring(0, name.lastIndexOf("."));
     }
 
-    private static String serializeInner(YSet<String> namespaces, Object o) {
+    private static String serializeClassBody(YSet<String> namespaces, Object o) {
         String result = "";
         for (Field field : Reflector.getAllNonStaticFieldsReversed(o.getClass()).values()) {
             Object value = Reflector.get(o, field);
@@ -194,11 +202,13 @@ public class YadsSerializer {
     }
 
     public static YMap deserializeMap(String s) {
-        return (YMap) deserialize(s);
+        Object result = deserialize2(s);
+        if (result instanceof List && ((List) result).isEmpty()) return hm();
+        return (YMap) result;
     }
 
     public static NamedMap deserializeNamedMap(String s) {
-        Object result = deserialize(s);
+        Object result = deserialize2(s);
         if (!(result instanceof List) || ((List) result).size() != 1) BadException.die("wrong syntax inside (expected \"name{key=value}\")");
         Object m = ((List) result).get(0);
         if (!(m instanceof NamedMap)) BadException.die("wrong syntax inside (expected \"name{key=value}\")");
@@ -206,41 +216,53 @@ public class YadsSerializer {
     }
 
     public static YList deserializeList(String s) {
-        return (YList) deserialize(s);
+        return (YList) deserialize2(s);
     }
 
-    public static Object deserialize(String s) {
+    private static Object deserialize2(String s) {
         Namespaces namespaces = new Namespaces();
         namespaces.enterScope();
         namespaces.addPackage("");
         return deserialize(namespaces, s);
     }
 
+
+    public static Object deserialize(String s) {
+        Namespaces namespaces = new Namespaces();
+        namespaces.enterScope();
+        namespaces.addPackage("");
+        Object result = deserialize(namespaces, s);
+        if (!(result instanceof List)) BadException.die("bad structure on top");
+        if (((List)result).size() != 1) BadException.die("expected list with strictly one element on top");
+
+        return ((List)result).get(0);
+    }
+
     public static Object deserialize(Namespaces namespaces, String s) {
         return deserializeList(namespaces, YadsParser.parseList(s));
     }
 
-    public static <T> T deserializeClass(Class<? extends T> clazz, String s) {
+    public static <T> T deserializeClassBody(Class<? extends T> clazz, String s) {
         Namespaces namespaces = new Namespaces();
         namespaces.enterScope();
         namespaces.addPackage("");
         namespaces.addPackage(getPackageName(clazz.getName()));
-        return (T) deserializeClass(namespaces, clazz, s);
+        return (T) deserializeClassBody(namespaces, clazz, s);
     }
 
-    public static <T> T deserializeClass(Namespaces namespaces, Class<? extends T> clazz, String s) {
-        return (T) deserializeClass(namespaces, clazz, new YadsClass(null, YadsParser.parseList(s)));
+    public static <T> T deserializeClassBody(Namespaces namespaces, Class<? extends T> clazz, String s) {
+        return (T) deserializeClassBody(namespaces, clazz, new YadsClass(null, YadsParser.parseList(s)));
     }
 
     private static Object deserializeList(Namespaces namespaces, YList l) {
-        return deserializeClass(namespaces, null, new YadsClass(null, l));
+        return deserializeClassBody(namespaces, null, new YadsClass(null, l));
     }
 
-    private static Object deserializeClass(Namespaces namespaces, Object yad) {
-        return deserializeClass(namespaces, null, yad);
+    private static Object deserializeClassBody(Namespaces namespaces, Object yad) {
+        return deserializeClassBody(namespaces, null, yad);
     }
 
-    private static Object deserializeClass(Namespaces namespaces, Class clazz, Object yad) {
+    private static Object deserializeClassBody(Namespaces namespaces, Class clazz, Object yad) {
         if (yad == null) return null;
         if (clazz != null && clazz.isArray()) return parseArray(namespaces, clazz, (YadsClass) yad);
         if (clazz != null && clazz.isEnum()) return Enum.valueOf(clazz, (String) yad);
@@ -272,7 +294,7 @@ public class YadsSerializer {
 
     private static Object parseArray(Namespaces namespaces, Class clazz, YadsClass yad) {
         Object result = Array.newInstance(clazz.getComponentType(), yad.body.size());
-        for (int i = 0; i < yad.body.size(); i++) Array.set(result, i, deserializeClass(namespaces, clazz.getComponentType(), yad.body.get(i)));
+        for (int i = 0; i < yad.body.size(); i++) Array.set(result, i, deserializeClassBody(namespaces, clazz.getComponentType(), yad.body.get(i)));
         return result;
     }
 
@@ -289,23 +311,23 @@ public class YadsSerializer {
             if (element instanceof Tuple) {
                 Tuple<String, Object> t = (Tuple<String, Object>) element;
                 if ("import".equals(t.a)) {
-                    Object value = deserializeClass(namespaces, null, t.b);
+                    Object value = deserializeClassBody(namespaces, null, t.b);
                     if (value instanceof String) namespaces.addPackage((String) value);
                     else if (value instanceof YList) for (Object o : (YList) value) namespaces.addPackage((String) o);
                     else BadException.die("unknown data " + value + " for import");
                 } else {
                     Object value;
                     if (clazz == null || Map.class.isAssignableFrom(clazz)) {
-                        value = deserializeClass(namespaces, null, t.b);
+                        value = deserializeClassBody(namespaces, null, t.b);
                     } else {
                         Field field = Reflector.getField(clazz, t.a);
                         if (field == null) throw BadException.die("can't find field " + t.a + " for " + clazz);
-                        value = deserializeClass(namespaces, field.getType(), t.b);
+                        value = deserializeClassBody(namespaces, field.getType(), t.b);
                     }
                     tuples.add(new Tuple(t.a, value));
                 }
             } else {
-                array.add(deserializeClass(namespaces, null, element));
+                array.add(deserializeClassBody(namespaces, null, element));
             }
         }
         if (clazz != null && clazz.isEnum()) {
@@ -317,11 +339,15 @@ public class YadsSerializer {
         Object instance;
 
         if (clazz == null) {
-            if (yad.name != null) clazz = YadsClass.class;
-            else if (!array.isEmpty() && !tuples.isEmpty()) clazz = YadsClass.class;
-            else if (!tuples.isEmpty()) clazz = Map.class;
-            else if (!array.isEmpty()) clazz = List.class;
-            else clazz = YadsClass.class;//default is yadsclass?
+            if (yad.name == null) {
+                if (array.isEmpty() && tuples.isEmpty()) clazz = List.class;
+                else if (!array.isEmpty() && tuples.isEmpty()) clazz = List.class;
+                else if (array.isEmpty() && !tuples.isEmpty()) clazz = Map.class;
+                else clazz = YadsClass.class;
+            } else {
+                if (array.isEmpty()) clazz = NamedMap.class;
+                else clazz = YadsClass.class;
+            }
         }
 
         if (List.class.isAssignableFrom(clazz)) {
@@ -335,7 +361,10 @@ public class YadsSerializer {
             if (clazz == Map.class) instance = hm();
             else if (clazz == YMap.class) instance = hm();
             else instance = Reflector.newInstance(clazz);
-            for (Tuple t : tuples) ((Map)instance).put(t.a, t.b);
+            for (Tuple t : tuples) ((Map) instance).put(t.a, t.b);
+        } else if (clazz == NamedMap.class) {
+            instance = new NamedMap(yad.name);
+            for (Tuple t : tuples) ((NamedMap)instance).map.put(t.a, t.b);
         } else if (clazz == YadsClass.class) {
             if (array.isEmpty()) {
                 instance = new NamedMap(yad.name);

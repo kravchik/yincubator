@@ -33,16 +33,32 @@ sort map and set while serializing
 sorted out yads / yads2
 added some methods to yads
 
+03.03.18
+-reading of unknown class with multiple imports
+-serialize/deserialize list conformity
+symmetry in serialize/deserialize
 
+05.03.18
+-ser/des list/map API
+  logic, tests
+
+06.03.18
+texts
+tests
 
 //TODO
 
-usecase:
-  save and load LIST of objects
-  currently there is stupid error about imports being name of the class
-  asymmetric - load/save list
-
 file with import but without data not reading as map
+
+Yads1
+  ? special words ?
+    class SomeClass{} - to explicitly state class name
+    al{} hm{} - to distinguish between empty map and list
+    ?? [:] - map  (or (:) )
+  calc element types from list type
+  don't serialize fields with default values
+  ? remove NamedMap AND add map to YadsClass (get rid of tuples)
+  ? don't interpret string as class name if no such class ?
 
 Yads2
   [] - for arrays
@@ -68,11 +84,16 @@ Yads2
   more symbols as identifiers
   parentheses
 
-?? [:] - map  (or (:) )
+Yads2b
+  () for args and lists
+  {} - for maps and class bodies
+
+
+
 ??  {ClassName key:value}
 
 // Set {} for sets, HashMap {} for specific map class, etc...
-references (^?)
+references (^? @?)
 "." in name
 
 detect unused imports
@@ -80,7 +101,6 @@ detect unused imports
 move 'class name' to serialization level
   leave parser level with just curly braces
 -line numbers in errors
--namespaces in serialization
 
 -serialize Set
 

@@ -1,0 +1,16 @@
+
+expose ASerializer
+don't generate empty serealize/deserialize methods
+implement ABroadSerializer
+
+
+
+
+        //ser/des List
+        //ser/des ListElements
+        //ser/des Map
+        //ser/des MapElements
+        //ser/des ClassBody
+        //ser/des One
+        //ser/des ?
+

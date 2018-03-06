@@ -2,6 +2,8 @@ package yk.lang.yads;
 
 import yk.jcommon.collections.YMap;
 
+import java.util.Objects;
+
 import static yk.jcommon.collections.YHashMap.hm;
 
 /**
@@ -22,6 +24,19 @@ public class NamedMap {
     public NamedMap(String name, YMap map) {
         this.name = name;
         this.map = map;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NamedMap namedMap = (NamedMap) o;
+        return Objects.equals(name, namedMap.name) && Objects.equals(map, namedMap.map);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, map);
     }
 
     @Override
