@@ -91,8 +91,8 @@ super server"
 ```
 
 ### syntax
-* no commas or semicolons needed, so noise level is very low
-* strings and keys without quotes (that is also reduces noise)
+* no commas or semicolons needed, so the noise level is very low
+* strings and keys without quotes (that also reduces noise)
 * but can use "" or '' (for strings with spaces, for example)
 * ' ' for strings - so you can include YADS in java strings without escaping
 * spaces and tabs don't have special meaning (opposite to yaml or python), so you can arrange data-text as you wish, even in one line (important for various input types: xls cells, input fields, etc)
@@ -103,9 +103,9 @@ super server"
 * carefully controlled comma, to avoid one level parentheses like in {pos=10, 10 size=100, 200}
 
 ### serialization
-* serialize any data to human readable string, and then back to the same data without any additional effort
+* serialize any data to the human-readable string, and then back to the same data without any additional effort
 * maps, lists, arrays, objects with class preservation
-* if type is unknown - array, map, or special class is constructed
+* if a type is unknown - array, map, or special class is constructed
 
 [more on wiki](https://github.com/kravchik/jcommon/wiki/YADS-instead-of-.properties-syntax-example)
 
