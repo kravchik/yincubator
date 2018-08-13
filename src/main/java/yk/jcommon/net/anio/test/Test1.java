@@ -16,7 +16,6 @@ import static yk.jcommon.collections.YArrayList.al;
  */
 public class Test1 {
 
-
     private static YList<String> logs;
 
     private static void log(String s) {
