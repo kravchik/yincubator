@@ -81,7 +81,7 @@ public class ASocket {
                 SelectionKey key = (SelectionKey) selectedKeys.next();
                 selectedKeys.remove();
 
-                if (!key.isValid()) System.out.println("WARNING: not valid key");
+                if (!key.isValid()) BadException.die("not valid key");
                 if (key.isValid() && key.isConnectable()) this.connect(key);
                 if (key.isValid() && key.isAcceptable()) this.accept(key);
                 if (key.isValid() && key.isReadable()) this.read(key);
@@ -98,7 +98,7 @@ public class ASocket {
         try {//TODO handle right
             socketChannel.finishConnect();
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
             key.cancel();
             return;
         }
@@ -127,14 +127,12 @@ public class ASocket {
             ticket.workRead();
             ticket.inBuffer.compact();
             if (numRead == -1) closeChannel(key, ticket);
-        } catch (Exception e) {
+        } catch (Exception e) {//error in deserialialization, or with net, either way - cannot continue use this socket
             closeChannel(key, ticket);
-
         }
     }
 
     private void closeChannel(SelectionKey key, AClient ticket) {
-        //            e.printStackTrace();
         ticket.closed = true;
         if (ticket.onDisconnect != null) ticket.onDisconnect.call();
         try {

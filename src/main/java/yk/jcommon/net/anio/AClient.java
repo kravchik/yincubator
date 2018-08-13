@@ -1,5 +1,7 @@
 package yk.jcommon.net.anio;
 
+import yk.jcommon.collections.YList;
+
 import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -29,7 +31,7 @@ public class AClient {
     }
 
     final ASerializer serializer;
-    public final List<byte[]> outBytes = al();
+    public final YList<byte[]> outBytes = al();
     ByteBuffer outBuffer = ByteBuffer.allocate(BUFFER_SIZE);
 
     List<Object> inCommands = al();
@@ -46,7 +48,8 @@ public class AClient {
         synchronized (outBytes) {
             bytes = outBytes.remove(0);
         }
-        outBuffer.put(ByteBuffer.allocate(4).putInt(bytes.length).array());
+        //TODO fix if outBytes has no place
+        outBuffer.putInt(bytes.length);
         outBuffer.put(bytes);
     }
 
