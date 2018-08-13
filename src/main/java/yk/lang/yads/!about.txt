@@ -45,12 +45,14 @@ symmetry in serialize/deserialize
 06.03.18
 texts
 tests
+>>>>>>>>>>>> fixed API
 
 //TODO
 
 file with import but without data not reading as map
 
 Yads1
+  ? HBox{width=5 child} => HBox{{width=5} child} ?
   ? special words ?
     class SomeClass{} - to explicitly state class name
     al{} hm{} - to distinguish between empty map and list
