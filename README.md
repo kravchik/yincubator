@@ -33,17 +33,18 @@ java.nio wrapper with node.js style API (because java.nio's API is not for human
 
 ```java
     ASocket server = new ASocket(8000, socket -> {
-        socket.send("hello!");
-        int a = 3;
+        socket.send("welcome to server");
         socket.onData = data -> {
-            System.out.println(a);
+            System.out.println("server got: " + data);
+            socket.send("ping");
         };
     });
 
     client1 = new ASocket("localhost", 8000, socket -> {
-        socket.send("hello1b");
+        socket.send("client1 is connected");
         socket.onData = data -> {
-            client1.clientSocket.send("hello1b");
+            System.out.println("client got: " + data);
+            socket.send("pong");
         };
     });
 
