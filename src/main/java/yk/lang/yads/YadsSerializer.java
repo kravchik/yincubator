@@ -1,5 +1,6 @@
 package yk.lang.yads;
 
+import org.apache.commons.lang3.text.translate.*;
 import yk.jcommon.collections.Tuple;
 import yk.jcommon.collections.YList;
 import yk.jcommon.collections.YMap;
@@ -29,6 +30,35 @@ public class YadsSerializer {
     public static int compactWidth = 100;
     //private static YList<String> namespaces = al("", "test", "yk.lang.yads");
     private static Tab tab = new Tab("  ");
+
+    public static final CharSequenceTranslator UNESCAPE_YADS_SINGLE_QUOTES =
+            new AggregateTranslator(
+                    new OctalUnescaper(),     // .between('\1', '\377'),
+                    new UnicodeUnescaper(),
+                    new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_UNESCAPE()),
+                    new LookupTranslator(
+                            new String[][] {
+                                    {"\\\\", "\\"},
+                                    {"\\'", "'"},
+                                    {"\\", ""}
+                            })
+            );
+
+    public static final CharSequenceTranslator UNESCAPE_YADS_DOUBLE_QUOTES =
+            new AggregateTranslator(
+                    new OctalUnescaper(),     // .between('\1', '\377'),
+                    new UnicodeUnescaper(),
+                    new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_UNESCAPE()),
+                    new LookupTranslator(
+                            new String[][] {
+                                    {"\\\\", "\\"},
+                                    {"\\\"", "\""},
+                                    {"\\", ""}
+                            })
+            );
+
+    public static final AggregateTranslator ESCAPE_YADS_SINGLE_QUOTES = new AggregateTranslator(new LookupTranslator(new String[][]{{"'", "\\'"}, {"\\", "\\\\"}}), new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE()));
+    public static final AggregateTranslator ESCAPE_YADS_DOUBLE_QUOTES = new AggregateTranslator(new LookupTranslator(new String[][]{{"\"", "\\\""}, {"\\", "\\\\"}}), new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE()));
 
     public static String serialize(Object o) {
         YSet<String> namespaces = hs();
@@ -87,7 +117,7 @@ public class YadsSerializer {
                 withoutQuotes = false;
             }
             if (withoutQuotes) return s;
-            return "'" + Util.ESCAPE_YADS_SINGLE_QUOTES.translate((String) o) + "'";//TODO don't escape ' for " and vice versa?
+            return "'" + ESCAPE_YADS_SINGLE_QUOTES.translate((String) o) + "'";//TODO don't escape ' for " and vice versa?
         }
         if (o instanceof Boolean) return o + "";
         if (o instanceof List) return serializeList(namespaces, (List) o);
