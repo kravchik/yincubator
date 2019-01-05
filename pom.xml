@@ -124,7 +124,7 @@
 
         <repository>
             <id>snapshot</id>
-            <url>file://${basedir}/../../../2/public/mvn-repo</url>
+            <url>file://${basedir}/../../../1/public/mvn-repo</url>
         </repository>
     </distributionManagement>
 

@@ -130,7 +130,7 @@ super server"
 <dependency>
     <groupId>yk</groupId>
     <artifactId>yincubator</artifactId>
-    <version>0.01</version>
+    <version>0.02</version>
 </dependency>
 ```
 (current dev version is 0.120-SNAPSHOT)

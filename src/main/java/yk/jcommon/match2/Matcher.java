@@ -249,8 +249,9 @@ public class Matcher {
 
     public YSet<YMap<String, Object>> match(Object data, MatchVar pattern, YMap<String, Object> cur) {
         if (cur.containsKey(pattern.name)) {
-            if (cur.get(pattern.name).equals(data)) return hs(cur); else return hs();
-//            return match(cur.get(pattern
+            if (!cur.get(pattern.name).equals(data)) return hs();
+            if (pattern.rest == null) return hs(cur);
+            return match(data, pattern.rest, cur);
         }
         YMap<String, Object> resMap = cur.with(pattern.name, data);
         if (pattern.rest != null) return match(data, pattern.rest, resMap);
