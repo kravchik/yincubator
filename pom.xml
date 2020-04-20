@@ -4,7 +4,7 @@
 
     <groupId>yk</groupId>
     <artifactId>yincubator</artifactId>
-    <version>0.02</version>
+    <version>0.03-SNAPSHOT</version>
 
     <packaging>jar</packaging>
     <name>yincubator</name>
@@ -115,17 +115,23 @@
         <dependency>
             <groupId>yk</groupId>
             <artifactId>jcommon</artifactId>
-            <version>0.122</version>
+            <version>0.123</version>
+        </dependency>
+        <dependency>
+            
+            <groupId>yk.yast</groupId>
+            <artifactId>common</artifactId>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
-    <distributionManagement>
-        <downloadUrl>https://github.com/kravchik/mvn-repo/raw/master</downloadUrl>
+    <!--<distributionManagement>-->
+        <!--<downloadUrl>https://github.com/kravchik/mvn-repo/raw/master</downloadUrl>-->
 
-        <repository>
-            <id>snapshot</id>
-            <url>file://${basedir}/../../../1/public/mvn-repo</url>
-        </repository>
-    </distributionManagement>
+        <!--<repository>-->
+            <!--<id>snapshot</id>-->
+            <!--<url>file://${basedir}/../../../1/public/mvn-repo</url>-->
+        <!--</repository>-->
+    <!--</distributionManagement>-->
 
 </project>
