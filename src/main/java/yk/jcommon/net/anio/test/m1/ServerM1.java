@@ -13,7 +13,7 @@ public class ServerM1 {
 
     public static void main(String[] args) {
 
-        ASocket server = new ASocket(7777, socket -> {
+        ASocket server = ASocket.newServer(7777, socket -> {
             System.out.println("server on client connected");
             RemoteClient rc = new RemoteClient();
             rc.cs = new RemoteClientServices(socket::send);
@@ -25,7 +25,7 @@ public class ServerM1 {
             rc.cs.commonCs.receiveConfig("config strings");
         });
 
-        ASocket client = new ASocket("", 7777, socket -> {
+        ASocket client = ASocket.newClient("", 7777, socket -> {
             System.out.println("client on connected");
             RemoteServer rs = new RemoteServer();
             rs.ss = new RemoteServerServices(socket::send);

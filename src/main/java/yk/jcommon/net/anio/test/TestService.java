@@ -16,7 +16,7 @@ public class TestService {
 
     public static void main(String[] args) {
 
-        ASocket server = new ASocket(8000, socket -> {
+        ASocket server = ASocket.newServer(8000, socket -> {
             RemoteClientServices r = new RemoteClientServices(socket::send);
             ServerServices s = new ServerServices();
             r.clientService.receiveConfig("config strings");
@@ -26,7 +26,7 @@ public class TestService {
 
         });
 
-        ASocket client = new ASocket("", 8000, socket -> {
+        ASocket client = ASocket.newClient("", 8000, socket -> {
             RemoteServerServices r = new RemoteServerServices(socket::send);
             ClientServices s = new ClientServices(r);
 

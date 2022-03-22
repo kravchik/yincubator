@@ -7,5 +7,5 @@ package yk.jcommon.net.anio;
  * Time: 10:05 PM
  */
 public interface OnConnection {
-    public void call(AClient socket);
+    void call(AConnection connection);
 }
