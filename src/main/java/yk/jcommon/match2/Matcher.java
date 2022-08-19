@@ -130,28 +130,6 @@ public class Matcher {
         return result;
     }
 
-    public YList<Field> getAllFieldsInHierarchy(Class source) {
-        YList<Field> result = al();
-        while (!source.isAssignableFrom(Object.class)) {
-            for (Field f : source.getDeclaredFields()) {
-                result.add(f);
-            }
-            source = source.getSuperclass();
-        }
-        return result;
-    }
-
-    public YList<Method> getAllMethodsInHierarchy(Class source) {
-        YList<Method> result = al();
-        while (!source.isAssignableFrom(Object.class)) {
-            for (Method f : source.getDeclaredMethods()) {
-                result.add(f);
-            }
-            source = source.getSuperclass();
-        }
-        return result;
-    }
-
     private static boolean tryDeeper(Object data) {
         if (data == null) return false;
         if (data.getClass().isPrimitive()) return false;
@@ -262,7 +240,7 @@ public class Matcher {
 
 
     //OPTIMIZATIONS
-    public static YMap<String, Field> FIELDS = hm();
+    private static final YMap<String, Field> FIELDS = hm();
     private static Field getField(Object o, String name) {
         String key = o.getClass().toString() + ":" + name;
         if (FIELDS.containsKey(key)) return FIELDS.get(key);
@@ -270,8 +248,8 @@ public class Matcher {
         FIELDS.put(key, result);
         return result;
     }
-    public YMap<String, Method> METHODS = hm();
-    public Method getMethod(Object o, String name) {
+    private final YMap<String, Method> METHODS = hm();
+    private Method getMethod(Object o, String name) {
         String key = o.getClass().toString() + ":" + name;
         if (METHODS.containsKey(key)) return METHODS.get(key);
         Method result = null;

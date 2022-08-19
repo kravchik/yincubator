@@ -1,6 +1,8 @@
 yincubator
 =======
-Incubator for my utils.
+A small pile of stuff somehow survived the years of my professional growth.
+
+No TDD, no best practices. It is left here for nostalgic reasons. I'll not try to clean this up, just will extracting into a separate project If something useful is crystallized.
 
 ## Pattern-matching
 

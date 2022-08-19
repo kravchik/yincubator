@@ -5,6 +5,7 @@ import yk.jcommon.utils.MyMath;
 import java.io.Serializable;
 
 import static java.lang.Math.abs;
+import static yk.jcommon.utils.MyMath.sqr;
 
 /**
  * Created with IntelliJ IDEA.
@@ -170,12 +171,40 @@ public final class Vec3i implements Serializable {//TODO jcommon
         return x * x + y * y + z * z;
     }
 
+    public int lengthManhattan() {
+        return x + y + z;
+    }
+
     public int scalarProduct(Vec3i other) {
         return x * other.x + y * other.y + z * other.z;
     }
 
     public int dot(Vec3i other) {
         return x * other.x + y * other.y + z * other.z;
+    }
+
+    public Vec3i round() {
+        return v3i(Math.round(x), Math.round(y), Math.round(z));
+    }
+
+    public static float distanceSquared(Vec3i a, Vec3i b) {
+        return sqr(a.x - b.x) + sqr(a.y - b.y) + sqr(a.z - b.z);
+    }
+
+    public Vec3i cycle(int period) {
+        return new Vec3i(MyMath.cycle(x, period), MyMath.cycle(y, period), MyMath.cycle(z, period));
+    }
+
+    public Vec3i withSetX(int x) {
+        return new Vec3i(x, y, z);
+    }
+
+    public Vec3i withSetY(int y) {
+        return new Vec3i(x, y, z);
+    }
+
+    public Vec3i withSetZ(int z) {
+        return new Vec3i(x, y, z);
     }
 
     public String toString() {

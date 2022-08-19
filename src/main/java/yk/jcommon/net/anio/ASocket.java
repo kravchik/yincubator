@@ -123,4 +123,9 @@ public class ASocket {
         }
         aConnection.send(o);
     }
+
+    //TODO dont expose? or send via this only?
+    public AConnection getaConnection() {
+        return aConnection;
+    }
 }

@@ -9,6 +9,9 @@ import yk.jcommon.utils.MyMath;
 
 import java.io.Serializable;
 
+import static yk.jcommon.fastgeom.Vec3i.v3i;
+import static yk.jcommon.utils.MyMath.sqr;
+
 /**
  * Vec3
  *
@@ -40,6 +43,10 @@ public final class Vec3f implements Serializable {
         this.x = other.x;
         this.y = other.y;
         this.z = other.z;
+    }
+
+    public Vec3i toVec3i() {
+        return v3i((int)x, (int)y, (int)z);
     }
 
     public void copyFrom(Vec3f other) {
@@ -297,6 +304,10 @@ public final class Vec3f implements Serializable {
         return new Vec3f(x, y, value);
     }
 
+    public Vec3f round() {
+        return v3(Math.round(x), Math.round(y), Math.round(z));
+    }
+
     public Vec3f limit(float max) {
         float l = this.length();
         return l > max ? this.normalized(max) : this;
@@ -304,6 +315,14 @@ public final class Vec3f implements Serializable {
 
     public Vec3f limit(Vec3f center, float max) {
         return (this.sub(center)).limit(max).add(center);
+    }
+
+    public Vec3f cycle(float period) {
+        return new Vec3f(MyMath.cycle(x, period), MyMath.cycle(y, period), MyMath.cycle(z, period));
+    }
+
+    public static float distanceSquared(Vec3f a, Vec3f b) {
+        return sqr(a.x - b.x) + sqr(a.y - b.y) + sqr(a.z - b.z);
     }
 
 

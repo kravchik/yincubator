@@ -18,7 +18,7 @@ import static yk.jcommon.collections.YArrayList.al;
  * Date: 12/12/13
  * Time: 10:10 PM
  */
-public class AConnection {
+public class AConnection {//TODO merge back with ASocket?
     private static final int BUFFER_SIZE = 1000000;
     public OnData onData;
     public OnDisconnect onDisconnect;
@@ -32,7 +32,7 @@ public class AConnection {
     }
     private List<Object> inCommands = al();
     private int nextInSize = -1;
-    ByteBuffer inBuffer = ByteBuffer.allocate(BUFFER_SIZE);
+    private ByteBuffer inBuffer = ByteBuffer.allocate(BUFFER_SIZE);
     private final byte[] bytes = new byte[BUFFER_SIZE];
 
     AConnection(ASerializer serializer) {
@@ -90,13 +90,27 @@ public class AConnection {
         }
     }
 
+    //TODO test
+    public void sendRaw(byte[] bytes) {
+        synchronized (outBytes) {
+            outBytes.add(bytes);
+        }
+    }
+
+    //TODO test
+    public boolean canSend(int size) {
+        return outBuffer.remaining() >= size + 4;//4 - is for int size
+    }
+
     void workWrite() {
         outBuffer.clear();
         if (outBytes.isEmpty()) return;
         byte[] bytes;
         synchronized (outBytes) {
+            //TODO use better structure
             bytes = outBytes.remove(0);
         }
+        //TODO var len length (1-byte, 2-bytes, 3-bytes, etc)
         //TODO fix if outBytes has no place
         outBuffer.putInt(bytes.length);
         outBuffer.put(bytes);

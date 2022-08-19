@@ -6,6 +6,7 @@
 package yk.jcommon.fastgeom;
 
 import yk.jcommon.utils.BadException;
+import yk.jcommon.utils.MyMath;
 
 import java.io.Serializable;
 
@@ -93,6 +94,26 @@ public final class Vec4f implements Serializable {
 
     public Vec4f sub(float w, float x, float y, float z) {
         return new Vec4f(this.x - x, this.y - y, this.z - z, this.w - w);
+    }
+
+    public Vec4f cycle(float period) {
+        return new Vec4f(MyMath.cycle(x, period), MyMath.cycle(y, period), MyMath.cycle(z, period), MyMath.cycle(w, period));
+    }
+
+    public Vec4f withSetX(float x) {
+        return new Vec4f(x, y, z, w);
+    }
+
+    public Vec4f withSetY(float y) {
+        return new Vec4f(x, y, z, w);
+    }
+
+    public Vec4f withSetZ(float z) {
+        return new Vec4f(x, y, z, w);
+    }
+
+    public Vec4f withSetW(float w) {
+        return new Vec4f(x, y, z, w);
     }
 
     @Override

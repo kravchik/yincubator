@@ -50,22 +50,10 @@ public class Matrix4 {
     }
 
     public static Matrix4 setIdentity(Matrix4 m) {
-        m.data[0 * 4 + 0] = 1.0f;
-        m.data[0 * 4 + 1] = 0.0f;
-        m.data[0 * 4 + 2] = 0.0f;
-        m.data[0 * 4 + 3] = 0.0f;
-        m.data[1 * 4 + 0] = 0.0f;
-        m.data[1 * 4 + 1] = 1.0f;
-        m.data[1 * 4 + 2] = 0.0f;
-        m.data[1 * 4 + 3] = 0.0f;
-        m.data[2 * 4 + 0] = 0.0f;
-        m.data[2 * 4 + 1] = 0.0f;
-        m.data[2 * 4 + 2] = 1.0f;
-        m.data[2 * 4 + 3] = 0.0f;
-        m.data[3 * 4 + 0] = 0.0f;
-        m.data[3 * 4 + 1] = 0.0f;
-        m.data[3 * 4 + 2] = 0.0f;
-        m.data[3 * 4 + 3] = 1.0f;
+        m.data[0] = 1.0f;m.data[1] = 0.0f;m.data[2] = 0.0f;m.data[3] = 0.0f;
+        m.data[4] = 0.0f;m.data[5] = 1.0f;m.data[6] = 0.0f;m.data[7] = 0.0f;
+        m.data[8] = 0.0f;m.data[9] = 0.0f;m.data[10] = 1.0f;m.data[11] = 0.0f;
+        m.data[12] = 0.0f;m.data[13] = 0.0f;m.data[14] = 0.0f;m.data[15] = 1.0f;
         return m;
     }
 
@@ -80,29 +68,22 @@ public class Matrix4 {
 
     public Matrix4 multiply(Matrix4 by) {
         Matrix4 result = Matrix4.zero();
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                float r = 0;
-                for (int k = 0; k < 4; k++) r += get(k, i) * by.get(j, k);
-                result.set(j, i, r);
-            }
-        }
+        seMultiply(this, by, result);
+        //for (int i = 0; i < 4; i++) {
+        //    for (int j = 0; j < 4; j++) {
+        //        float r = 0;
+        //        for (int k = 0; k < 4; k++) r += get(k, i) * by.get(j, k);
+        //        result.set(j, i, r);
+        //    }
+        //}
         return result;
     }
 
-    public void multiplySe(Matrix4 by, Matrix4 result) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                float r = 0;
-                for (int k = 0; k < 4; k++) r += get(k, i) * by.get(j, k);
-                result.set(j, i, r);
-            }
-        }
+    public void seMultiply(Matrix4 by, Matrix4 result) {
+        seMultiply(this, by, result);
     }
 
-    //WARNING, result can't be '==' neither a, nor b
-    public static void staticMultiply(Matrix4 a, Matrix4 b, Matrix4 result) {
+    public static void seMultiply(Matrix4 a, Matrix4 b, Matrix4 result) {
 //        for (int i = 0; i < 4; i++) {
 //            for (int j = 0; j < 4; j++) {
 //                float r = 0;
@@ -112,103 +93,54 @@ public class Matrix4 {
 //        }
 
         //optimized
-        float i12_r = 0;
-        i12_r = (i12_r + (a.data[0] * b.data[0]));
-        i12_r = (i12_r + (a.data[4] * b.data[1]));
-        i12_r = (i12_r + (a.data[8] * b.data[2]));
-        i12_r = (i12_r + (a.data[12] * b.data[3]));
-        result.data[0] = i12_r;
-        float i13_r = 0;
-        i13_r = (i13_r + (a.data[0] * b.data[4]));
-        i13_r = (i13_r + (a.data[4] * b.data[5]));
-        i13_r = (i13_r + (a.data[8] * b.data[6]));
-        i13_r = (i13_r + (a.data[12] * b.data[7]));
-        result.data[4] = i13_r;
-        float i14_r = 0;
-        i14_r = (i14_r + (a.data[0] * b.data[8]));
-        i14_r = (i14_r + (a.data[4] * b.data[9]));
-        i14_r = (i14_r + (a.data[8] * b.data[10]));
-        i14_r = (i14_r + (a.data[12] * b.data[11]));
-        result.data[8] = i14_r;
-        float i15_r = 0;
-        i15_r = (i15_r + (a.data[0] * b.data[12]));
-        i15_r = (i15_r + (a.data[4] * b.data[13]));
-        i15_r = (i15_r + (a.data[8] * b.data[14]));
-        i15_r = (i15_r + (a.data[12] * b.data[15]));
-        result.data[12] = i15_r;
-        float i16_r = 0;
-        i16_r = (i16_r + (a.data[1] * b.data[0]));
-        i16_r = (i16_r + (a.data[5] * b.data[1]));
-        i16_r = (i16_r + (a.data[9] * b.data[2]));
-        i16_r = (i16_r + (a.data[13] * b.data[3]));
-        result.data[1] = i16_r;
-        float i17_r = 0;
-        i17_r = (i17_r + (a.data[1] * b.data[4]));
-        i17_r = (i17_r + (a.data[5] * b.data[5]));
-        i17_r = (i17_r + (a.data[9] * b.data[6]));
-        i17_r = (i17_r + (a.data[13] * b.data[7]));
-        result.data[5] = i17_r;
-        float i18_r = 0;
-        i18_r = (i18_r + (a.data[1] * b.data[8]));
-        i18_r = (i18_r + (a.data[5] * b.data[9]));
-        i18_r = (i18_r + (a.data[9] * b.data[10]));
-        i18_r = (i18_r + (a.data[13] * b.data[11]));
-        result.data[9] = i18_r;
-        float i19_r = 0;
-        i19_r = (i19_r + (a.data[1] * b.data[12]));
-        i19_r = (i19_r + (a.data[5] * b.data[13]));
-        i19_r = (i19_r + (a.data[9] * b.data[14]));
-        i19_r = (i19_r + (a.data[13] * b.data[15]));
-        result.data[13] = i19_r;
-        float i20_r = 0;
-        i20_r = (i20_r + (a.data[2] * b.data[0]));
-        i20_r = (i20_r + (a.data[6] * b.data[1]));
-        i20_r = (i20_r + (a.data[10] * b.data[2]));
-        i20_r = (i20_r + (a.data[14] * b.data[3]));
-        result.data[2] = i20_r;
-        float i21_r = 0;
-        i21_r = (i21_r + (a.data[2] * b.data[4]));
-        i21_r = (i21_r + (a.data[6] * b.data[5]));
-        i21_r = (i21_r + (a.data[10] * b.data[6]));
-        i21_r = (i21_r + (a.data[14] * b.data[7]));
-        result.data[6] = i21_r;
-        float i22_r = 0;
-        i22_r = (i22_r + (a.data[2] * b.data[8]));
-        i22_r = (i22_r + (a.data[6] * b.data[9]));
-        i22_r = (i22_r + (a.data[10] * b.data[10]));
-        i22_r = (i22_r + (a.data[14] * b.data[11]));
-        result.data[10] = i22_r;
-        float i23_r = 0;
-        i23_r = (i23_r + (a.data[2] * b.data[12]));
-        i23_r = (i23_r + (a.data[6] * b.data[13]));
-        i23_r = (i23_r + (a.data[10] * b.data[14]));
-        i23_r = (i23_r + (a.data[14] * b.data[15]));
-        result.data[14] = i23_r;
-        float i24_r = 0;
-        i24_r = (i24_r + (a.data[3] * b.data[0]));
-        i24_r = (i24_r + (a.data[7] * b.data[1]));
-        i24_r = (i24_r + (a.data[11] * b.data[2]));
-        i24_r = (i24_r + (a.data[15] * b.data[3]));
-        result.data[3] = i24_r;
-        float i25_r = 0;
-        i25_r = (i25_r + (a.data[3] * b.data[4]));
-        i25_r = (i25_r + (a.data[7] * b.data[5]));
-        i25_r = (i25_r + (a.data[11] * b.data[6]));
-        i25_r = (i25_r + (a.data[15] * b.data[7]));
-        result.data[7] = i25_r;
-        float i26_r = 0;
-        i26_r = (i26_r + (a.data[3] * b.data[8]));
-        i26_r = (i26_r + (a.data[7] * b.data[9]));
-        i26_r = (i26_r + (a.data[11] * b.data[10]));
-        i26_r = (i26_r + (a.data[15] * b.data[11]));
-        result.data[11] = i26_r;
-        float i27_r = 0;
-        i27_r = (i27_r + (a.data[3] * b.data[12]));
-        i27_r = (i27_r + (a.data[7] * b.data[13]));
-        i27_r = (i27_r + (a.data[11] * b.data[14]));
-        i27_r = (i27_r + (a.data[15] * b.data[15]));
-        result.data[15] = i27_r;
-
+        float r0 = 0;
+        r0 = (r0 + (a.data[0] * b.data[0]));r0 = (r0 + (a.data[4] * b.data[1]));r0 = (r0 + (a.data[8] * b.data[2]));r0 = (r0 + (a.data[12] * b.data[3]));
+        float r4 = 0;
+        r4 = (r4 + (a.data[0] * b.data[4]));r4 = (r4 + (a.data[4] * b.data[5]));r4 = (r4 + (a.data[8] * b.data[6]));r4 = (r4 + (a.data[12] * b.data[7]));
+        float r8 = 0;
+        r8 = (r8 + (a.data[0] * b.data[8]));r8 = (r8 + (a.data[4] * b.data[9]));r8 = (r8 + (a.data[8] * b.data[10]));r8 = (r8 + (a.data[12] * b.data[11]));
+        float r12 = 0;
+        r12 = (r12 + (a.data[0] * b.data[12]));r12 = (r12 + (a.data[4] * b.data[13]));r12 = (r12 + (a.data[8] * b.data[14]));r12 = (r12 + (a.data[12] * b.data[15]));
+        float r1 = 0;
+        r1 = (r1 + (a.data[1] * b.data[0]));r1 = (r1 + (a.data[5] * b.data[1]));r1 = (r1 + (a.data[9] * b.data[2]));r1 = (r1 + (a.data[13] * b.data[3]));
+        float r5 = 0;
+        r5 = (r5 + (a.data[1] * b.data[4]));r5 = (r5 + (a.data[5] * b.data[5]));r5 = (r5 + (a.data[9] * b.data[6]));r5 = (r5 + (a.data[13] * b.data[7]));
+        float r9 = 0;
+        r9 = (r9 + (a.data[1] * b.data[8]));r9 = (r9 + (a.data[5] * b.data[9]));r9 = (r9 + (a.data[9] * b.data[10]));r9 = (r9 + (a.data[13] * b.data[11]));
+        float r13 = 0;
+        r13 = (r13 + (a.data[1] * b.data[12]));r13 = (r13 + (a.data[5] * b.data[13]));r13 = (r13 + (a.data[9] * b.data[14]));r13 = (r13 + (a.data[13] * b.data[15]));
+        float r2 = 0;
+        r2 = (r2 + (a.data[2] * b.data[0]));r2 = (r2 + (a.data[6] * b.data[1]));r2 = (r2 + (a.data[10] * b.data[2]));r2 = (r2 + (a.data[14] * b.data[3]));
+        float r6 = 0;
+        r6 = (r6 + (a.data[2] * b.data[4]));r6 = (r6 + (a.data[6] * b.data[5]));r6 = (r6 + (a.data[10] * b.data[6]));r6 = (r6 + (a.data[14] * b.data[7]));
+        float r10 = 0;
+        r10 = (r10 + (a.data[2] * b.data[8]));r10 = (r10 + (a.data[6] * b.data[9]));r10 = (r10 + (a.data[10] * b.data[10]));r10 = (r10 + (a.data[14] * b.data[11]));
+        float r14 = 0;
+        r14 = (r14 + (a.data[2] * b.data[12]));r14 = (r14 + (a.data[6] * b.data[13]));r14 = (r14 + (a.data[10] * b.data[14]));r14 = (r14 + (a.data[14] * b.data[15]));
+        float r3 = 0;
+        r3 = (r3 + (a.data[3] * b.data[0]));r3 = (r3 + (a.data[7] * b.data[1]));r3 = (r3 + (a.data[11] * b.data[2]));r3 = (r3 + (a.data[15] * b.data[3]));
+        float r7 = 0;
+        r7 = (r7 + (a.data[3] * b.data[4]));r7 = (r7 + (a.data[7] * b.data[5]));r7 = (r7 + (a.data[11] * b.data[6]));r7 = (r7 + (a.data[15] * b.data[7]));
+        float r11 = 0;
+        r11 = (r11 + (a.data[3] * b.data[8]));r11 = (r11 + (a.data[7] * b.data[9]));r11 = (r11 + (a.data[11] * b.data[10]));r11 = (r11 + (a.data[15] * b.data[11]));
+        float r15 = 0;
+        r15 = (r15 + (a.data[3] * b.data[12]));r15 = (r15 + (a.data[7] * b.data[13]));r15 = (r15 + (a.data[11] * b.data[14]));r15 = (r15 + (a.data[15] * b.data[15]));
+        result.data[0] = r0;
+        result.data[4] = r4;
+        result.data[8] = r8;
+        result.data[12] = r12;
+        result.data[1] = r1;
+        result.data[5] = r5;
+        result.data[9] = r9;
+        result.data[13] = r13;
+        result.data[2] = r2;
+        result.data[6] = r6;
+        result.data[10] = r10;
+        result.data[14] = r14;
+        result.data[3] = r3;
+        result.data[7] = r7;
+        result.data[11] = r11;
+        result.data[15] = r15;
     }
 
     public static void copy(Matrix4 from, Matrix4 to) {

@@ -23,26 +23,32 @@ public class Quaternionf implements Serializable {
     public static final Quaternionf ZERO_ROT = new Quaternionf(1, 0, 0, 0);
 
     /**
-     *
      * @param angle radians
-     * @param axis of length == 1
-     * @return
+     * @param axis (length should be of length 1 !)
+     * @return quaternion that rotates a point counter-clock-wise if look to the 000 from the end of the 'axis'.
      */
-    //TODO rename or get rid
     public static Quaternionf fromAngleAxisFast(final float angle, final Vec3f axis) {
-        float forPare_12 = angle / 2;
-        float as = (float)(Math.sin(forPare_12));
-        return new Quaternionf((float)(Math.cos(forPare_12)), (axis.x * as), (axis.y * as), (axis.z * as));
+        float a2 = angle / 2;
+        float as = (float)(Math.sin(a2));
+        return new Quaternionf((float)(Math.cos(a2)), (axis.x * as), (axis.y * as), (axis.z * as));
 //        return new Quaternionf((float) Math.cos(angle / 2), axis.mul((float) Math.sin(angle / 2)));
     }
 
-
+    /**
+     * Works like rotation FROM this basis.
+     * <br>So in v1 = q.rotate(v), v - was defined in these provided XYZ axes, v1 - is defined in standard basis.
+     * <br>Use q.conjug() to get TO this basis
+     * <br>All vectors SHOULD already be normalized
+     */
     public static Quaternionf fromAxes(Vec3f X, Vec3f Y, Vec3f Z) {
         return fromAxes(X.x, X.y, X.z, Y.x, Y.y, Y.z, Z.x, Z.y, Z.z);
     }
-    //works like rotation FROM this basis, not TO this basis
-    //use conjug() after this to get TO this basis
-    //TODO rename TO AXES
+
+    /**
+     * Works like rotation FROM this basis.
+     * <br>So in v1 = q.rotate(v), v - was defined in these provided XYZ axes, v1 - is defined in standard basis.
+     * <br>Use q.conjug() to get TO this basis
+     */
     public static Quaternionf fromAxes(float xx, float xy, float xz, float yx, float yy, float yz, float zx, float zy, float zz) {
         final float trace = xx + yy + zz;
         if (trace >= 0) {
@@ -64,55 +70,108 @@ public class Quaternionf implements Serializable {
         }
     }
 
+    /**
+     * Works like rotation TO this basis.
+     * <br>So in v1 = q.rotate(v), v - was defined in standard basis, v1 - is defined in these provided XYZ axes (rotated to these axes).
+     * <br>All vectors SHOULD already be normalized
+     */
     public static Quaternionf qToAxes(Vec3f X, Vec3f Y, Vec3f Z) {
         return qToAxes(X.x, X.y, X.z, Y.x, Y.y, Y.z, Z.x, Z.y, Z.z);
     }
 
+    /**
+     * Works like rotation TO this basis.
+     * <br>So in v1 = q.rotate(v), v - was defined in standard basis, v1 - is defined in these provided XYZ axes (rotated to these axes).
+     * <br>All vectors SHOULD already be normalized
+     * @param X doesn't change direction
+     * @param Y used only for Z calculation and then recalculated
+     */
     public static Quaternionf qToAxes(Vec3f X, Vec3f Y) {
         return qToAxesXY(X, Y);
     }
 
+    /**
+     * Works like rotation TO this basis.
+     * <br>So in v1 = q.rotate(v), v - was defined in standard basis, v1 - is defined in these provided XYZ axes (rotated to these axes).
+     * <br>All vectors SHOULD already be normalized
+     * @param X doesn't change direction
+     * @param Y used only for Z calculation and then recalculated
+     */
     public static Quaternionf qToAxesXY(Vec3f X, Vec3f Y) {
         X = X.normalized();
         Vec3f Z = X.crossProduct(Y).normalized();
-        Y = Z.crossProduct(X).normalized();
+        Y = Z.crossProduct(X);
         return qToAxes(X.x, X.y, X.z, Y.x, Y.y, Y.z, Z.x, Z.y, Z.z);
     }
 
-    //Just the same as qToAxesXY, but Y is main here (Y don't changes direction and X used only for Z calculation)
+    /**
+     * Works like rotation TO this basis.
+     * <br>So in v1 = q.rotate(v), v - was defined in standard basis, v1 - is defined in these provided XYZ axes (rotated to these axes).
+     * <br>All vectors SHOULD already be normalized
+     * @param Y doesn't change direction
+     * @param X used only for Z calculation and then recalculated
+     */
     public static Quaternionf qToAxesYX(Vec3f Y, Vec3f X) {
         Y = Y.normalized();
         Vec3f Z = X.crossProduct(Y).normalized();
-        X = Y.crossProduct(Z).normalized();
+        X = Y.crossProduct(Z);
         return qToAxes(X.x, X.y, X.z, Y.x, Y.y, Y.z, Z.x, Z.y, Z.z);
     }
 
+    /**
+     * Works like rotation TO this basis.
+     * <br>So in v1 = q.rotate(v), v - was defined in standard basis, v1 - is defined in these provided XYZ axes (rotated to these axes).
+     * <br>All vectors SHOULD already be normalized
+     * @param X doesn't change direction
+     * @param Z used only for Y calculation and then recalculated
+     */
     public static Quaternionf qToAxesXZ(Vec3f X, Vec3f Z) {
         X = X.normalized();
         Vec3f Y = Z.crossProduct(X).normalized();
-        Z = X.crossProduct(Y).normalized();
+        Z = X.crossProduct(Y);
         return qToAxes(X.x, X.y, X.z, Y.x, Y.y, Y.z, Z.x, Z.y, Z.z);
     }
 
+    /**
+     * Works like rotation TO this basis.
+     * <br>So in v1 = q.rotate(v), v - was defined in standard basis, v1 - is defined in these provided XYZ axes (rotated to these axes).
+     * <br>All vectors SHOULD already be normalized
+     * @param Y doesn't change direction
+     * @param Z used only for X calculation and then recalculated
+     */
     public static Quaternionf qToAxesYZ(Vec3f Y, Vec3f Z) {
         Y = Y.normalized();
         Vec3f X = Y.crossProduct(Z).normalized();
-        Z = X.crossProduct(Y).normalized();
+        Z = X.crossProduct(Y);
         return qToAxes(X.x, X.y, X.z, Y.x, Y.y, Y.z, Z.x, Z.y, Z.z);
     }
 
+    /**
+     * Works like rotation TO this basis.
+     * <br>So in v1 = q.rotate(v), v - was defined in standard basis, v1 - is defined in these provided XYZ axes (rotated to these axes).
+     * <br>All vectors SHOULD already be normalized
+     * @param Z doesn't change direction
+     * @param X used only for Y calculation and then recalculated
+     */
     public static Quaternionf qToAxesZX(Vec3f Z, Vec3f X) {
         Z = Z.normalized();
         Vec3f Y = Z.crossProduct(X).normalized();
-        X = Y.crossProduct(Z).normalized();
+        X = Y.crossProduct(Z);
         return qToAxes(X.x, X.y, X.z, Y.x, Y.y, Y.z, Z.x, Z.y, Z.z);
     }
 
-
+    /**
+     /**
+     * Works like rotation TO this basis.
+     * <br>So in v1 = q.rotate(v), v - was defined in standard basis, v1 - is defined in these provided XYZ axes (rotated to these axes).
+     * <br>All vectors SHOULD already be normalized
+     * @param Z doesn't change direction
+     * @param Y used only for X calculation and then recalculated
+     */
     public static Quaternionf qToAxesZY(Vec3f Z, Vec3f Y) {
         Z = Z.normalized();
         Vec3f X = Y.crossProduct(Z).normalized();
-        Y = Z.crossProduct(X).normalized();
+        Y = Z.crossProduct(X);
         return qToAxes(X.x, X.y, X.z, Y.x, Y.y, Y.z, Z.x, Z.y, Z.z);
     }
 
@@ -153,10 +212,6 @@ public class Quaternionf implements Serializable {
 
 
 //        return Quaternion.LookRotation(new Vector3(zx, zy, zz), new Vector3(yx, yy, yz));
-    }
-
-    public static Quaternionf toAngleAxis(float angle, Vec3f axis) {
-        return Quaternionf.fromAngleAxisFast(angle, axis);
     }
 
     //http://lolengine.net/blog/2014/02/24/quaternion-from-two-vectors-final
@@ -322,14 +377,9 @@ public class Quaternionf implements Serializable {
         return result.normalized();
     }
 
-    /**
-     * This quaternion must be of 1 length
-     * @param vector
-     * @return
-     */
-    @Deprecated //not that kind of rotation
+    @Deprecated
     public Vec3f rotateFast(final Vec3f vector) {//TODO get rid
-        return conjug().mul(new Quaternionf(vector)).mul(this).getXYZ();
+        return conjug().rotate(vector);
     }
 
     public Vec3f rotate(final Vec3f vector) {

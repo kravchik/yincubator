@@ -13,23 +13,66 @@ import yk.jcommon.fastgeom.Vec4f;
 public class MyMath {
     public static float PI = (float) Math.PI;
 
-    public static int module(int v, int m) {
-        int res = v % m;
-        return res < 0 ? res + m : res;
+    /**
+     * Maps any value to be inside some period. As in angles.
+     * <br>
+     * <br>
+     * <br>The simplest example can be given for angles, where the period is 360 degrees:
+     * <li>cycle(-20, 360) = 340
+     * <li>cycle(-10, 360) = 350
+     * <li>cycle(0, 360) = 0
+     * <li>cycle(10, 360) = 10
+     * <li>cycle(20, 360) = 20
+     *
+     * <br>
+     * <br>Works the same way as Math.floorMod
+     *
+     * @return value enclosed in this period
+     */
+    public static int cycle(int value, int period) {
+        int res = value % period;
+        return res < 0 ? res + period : res;
     }
 
-    //POSITIVE remainder of the division
-    public static float module(float v, float m) {
-        float res = v % m;
-        return res < 0 ? res + m : res;
+    /**
+     * Maps any value to be inside some period. As in angles.
+     * <br>
+     * <br>
+     * <br>The simplest example can be given for angles, where the period is 2PI (6.2831855):
+     * <li>cycle(-0.2, 6.2831855) = 6.0831857
+     * <li>cycle(-0.1, 6.2831855) = 6.1831856
+     * <li>cycle(0.0, 6.2831855) = 0.0
+     * <li>cycle(0.1, 6.2831855) = 0.1
+     * <li>cycle(0.2, 6.2831855) = 0.2
+     *
+     * @return value enclosed in this period
+     */
+    public static float cycle(float value, float period) {
+        float res = value % period;
+        return res < 0 ? res + period : res;
+    }
+
+    // This method is a *lot* faster than using (int)Math.floor(x) (quote from SimplexNoise)
+    // my estimation - it could be 150ms vs 500ms faster
+    // Try avoid using java.lang.Math
+    public static int floorFast(float f) {
+        int fi = (int)f;
+        return f < fi ? fi - 1 : fi;
+    }
+    public static float fractFast(float f) {
+        return f - floorFast(f);
     }
 
     public static int floorBy(int x, int by) {
-        return (int) (Math.floor((float) x / by) * by);
+        return floorFast((float) x / by) * by;
+    }
+
+    public static int log2(int N) {
+        return (int)(Math.log(N) / Math.log(2));
     }
 
     public static int floorBy(float x, float by) {
-        return (int) (Math.floor(x / by) * by);
+        return (int) (floorFast(x / by) * by);
     }
     public static int max(int arg0, int arg1) {return Math.max(arg0, arg1);}
     public static int min(int arg0, int arg1) {return Math.min(arg0, arg1);}
@@ -43,7 +86,7 @@ public class MyMath {
 
     //make angle [0..2PI)
     public static float angleNormalize02PI(float a) {
-        return module(a, 2 * PI);
+        return cycle(a, 2 * PI);
     }
 
     //make angle (-PI..PI]
@@ -69,7 +112,7 @@ public class MyMath {
      * Converts 'progress [0-1]' to hemicircle with top on 0.5 and bots at 0 and 1
      */
     public static float circleCurve(float progress) {
-        return (float) sin(acos(clamp(progress, 0, 1) * 2 - 1));
+        return sin(acos(clamp(progress, 0, 1) * 2 - 1));
     }
 
     public static float sqr(float v) {
@@ -78,94 +121,94 @@ public class MyMath {
 
 
     //gglsl auto generated text
-public static Float plus(Float arg0, Float arg1) {return (float)arg0+(float)arg1;}
-public static Vec2f plus(Vec2f arg0, Vec2f arg1) {return Vec2f.v2((float)arg0.x+(float)arg1.x, (float)arg0.y+(float)arg1.y);}
-public static Vec3f plus(Vec3f arg0, Vec3f arg1) {return Vec3f.v3((float)arg0.x+(float)arg1.x, (float)arg0.y+(float)arg1.y, (float)arg0.z+(float)arg1.z);}
-public static Vec4f plus(Vec4f arg0, Vec4f arg1) {return Vec4f.v4((float)arg0.x+(float)arg1.x, (float)arg0.y+(float)arg1.y, (float)arg0.z+(float)arg1.z, (float)arg0.w+(float)arg1.w);}
-public static Vec2f plus(float arg0, Vec2f arg1) {return Vec2f.v2((float)arg0+(float)arg1.x, (float)arg0+(float)arg1.y);}
-public static Vec3f plus(float arg0, Vec3f arg1) {return Vec3f.v3((float)arg0+(float)arg1.x, (float)arg0+(float)arg1.y, (float)arg0+(float)arg1.z);}
-public static Vec4f plus(float arg0, Vec4f arg1) {return Vec4f.v4((float)arg0+(float)arg1.x, (float)arg0+(float)arg1.y, (float)arg0+(float)arg1.z, (float)arg0+(float)arg1.w);}
-public static Vec2f plus(Float arg0, Vec2f arg1) {return Vec2f.v2((float)arg0+(float)arg1.x, (float)arg0+(float)arg1.y);}
-public static Vec3f plus(Float arg0, Vec3f arg1) {return Vec3f.v3((float)arg0+(float)arg1.x, (float)arg0+(float)arg1.y, (float)arg0+(float)arg1.z);}
-public static Vec4f plus(Float arg0, Vec4f arg1) {return Vec4f.v4((float)arg0+(float)arg1.x, (float)arg0+(float)arg1.y, (float)arg0+(float)arg1.z, (float)arg0+(float)arg1.w);}
-public static Vec2f plus(Number arg0, Vec2f arg1) {return Vec2f.v2((float)arg0+(float)arg1.x, (float)arg0+(float)arg1.y);}
-public static Vec3f plus(Number arg0, Vec3f arg1) {return Vec3f.v3((float)arg0+(float)arg1.x, (float)arg0+(float)arg1.y, (float)arg0+(float)arg1.z);}
-public static Vec4f plus(Number arg0, Vec4f arg1) {return Vec4f.v4((float)arg0+(float)arg1.x, (float)arg0+(float)arg1.y, (float)arg0+(float)arg1.z, (float)arg0+(float)arg1.w);}
-public static Vec2f plus(Vec2f arg0, float arg1) {return Vec2f.v2((float)arg0.x+(float)arg1, (float)arg0.y+(float)arg1);}
-public static Vec3f plus(Vec3f arg0, float arg1) {return Vec3f.v3((float)arg0.x+(float)arg1, (float)arg0.y+(float)arg1, (float)arg0.z+(float)arg1);}
-public static Vec4f plus(Vec4f arg0, float arg1) {return Vec4f.v4((float)arg0.x+(float)arg1, (float)arg0.y+(float)arg1, (float)arg0.z+(float)arg1, (float)arg0.w+(float)arg1);}
-public static Vec2f plus(Vec2f arg0, Float arg1) {return Vec2f.v2((float)arg0.x+(float)arg1, (float)arg0.y+(float)arg1);}
-public static Vec3f plus(Vec3f arg0, Float arg1) {return Vec3f.v3((float)arg0.x+(float)arg1, (float)arg0.y+(float)arg1, (float)arg0.z+(float)arg1);}
-public static Vec4f plus(Vec4f arg0, Float arg1) {return Vec4f.v4((float)arg0.x+(float)arg1, (float)arg0.y+(float)arg1, (float)arg0.z+(float)arg1, (float)arg0.w+(float)arg1);}
-public static Vec2f plus(Vec2f arg0, Number arg1) {return Vec2f.v2((float)arg0.x+(float)arg1, (float)arg0.y+(float)arg1);}
-public static Vec3f plus(Vec3f arg0, Number arg1) {return Vec3f.v3((float)arg0.x+(float)arg1, (float)arg0.y+(float)arg1, (float)arg0.z+(float)arg1);}
-public static Vec4f plus(Vec4f arg0, Number arg1) {return Vec4f.v4((float)arg0.x+(float)arg1, (float)arg0.y+(float)arg1, (float)arg0.z+(float)arg1, (float)arg0.w+(float)arg1);}
-public static Float minus(Float arg0, Float arg1) {return (float)arg0-(float)arg1;}
-public static Vec2f minus(Vec2f arg0, Vec2f arg1) {return Vec2f.v2((float)arg0.x-(float)arg1.x, (float)arg0.y-(float)arg1.y);}
-public static Vec3f minus(Vec3f arg0, Vec3f arg1) {return Vec3f.v3((float)arg0.x-(float)arg1.x, (float)arg0.y-(float)arg1.y, (float)arg0.z-(float)arg1.z);}
-public static Vec4f minus(Vec4f arg0, Vec4f arg1) {return Vec4f.v4((float)arg0.x-(float)arg1.x, (float)arg0.y-(float)arg1.y, (float)arg0.z-(float)arg1.z, (float)arg0.w-(float)arg1.w);}
-public static Vec2f minus(float arg0, Vec2f arg1) {return Vec2f.v2((float)arg0-(float)arg1.x, (float)arg0-(float)arg1.y);}
-public static Vec3f minus(float arg0, Vec3f arg1) {return Vec3f.v3((float)arg0-(float)arg1.x, (float)arg0-(float)arg1.y, (float)arg0-(float)arg1.z);}
-public static Vec4f minus(float arg0, Vec4f arg1) {return Vec4f.v4((float)arg0-(float)arg1.x, (float)arg0-(float)arg1.y, (float)arg0-(float)arg1.z, (float)arg0-(float)arg1.w);}
-public static Vec2f minus(Float arg0, Vec2f arg1) {return Vec2f.v2((float)arg0-(float)arg1.x, (float)arg0-(float)arg1.y);}
-public static Vec3f minus(Float arg0, Vec3f arg1) {return Vec3f.v3((float)arg0-(float)arg1.x, (float)arg0-(float)arg1.y, (float)arg0-(float)arg1.z);}
-public static Vec4f minus(Float arg0, Vec4f arg1) {return Vec4f.v4((float)arg0-(float)arg1.x, (float)arg0-(float)arg1.y, (float)arg0-(float)arg1.z, (float)arg0-(float)arg1.w);}
-public static Vec2f minus(Number arg0, Vec2f arg1) {return Vec2f.v2((float)arg0-(float)arg1.x, (float)arg0-(float)arg1.y);}
-public static Vec3f minus(Number arg0, Vec3f arg1) {return Vec3f.v3((float)arg0-(float)arg1.x, (float)arg0-(float)arg1.y, (float)arg0-(float)arg1.z);}
-public static Vec4f minus(Number arg0, Vec4f arg1) {return Vec4f.v4((float)arg0-(float)arg1.x, (float)arg0-(float)arg1.y, (float)arg0-(float)arg1.z, (float)arg0-(float)arg1.w);}
-public static Vec2f minus(Vec2f arg0, float arg1) {return Vec2f.v2((float)arg0.x-(float)arg1, (float)arg0.y-(float)arg1);}
-public static Vec3f minus(Vec3f arg0, float arg1) {return Vec3f.v3((float)arg0.x-(float)arg1, (float)arg0.y-(float)arg1, (float)arg0.z-(float)arg1);}
-public static Vec4f minus(Vec4f arg0, float arg1) {return Vec4f.v4((float)arg0.x-(float)arg1, (float)arg0.y-(float)arg1, (float)arg0.z-(float)arg1, (float)arg0.w-(float)arg1);}
-public static Vec2f minus(Vec2f arg0, Float arg1) {return Vec2f.v2((float)arg0.x-(float)arg1, (float)arg0.y-(float)arg1);}
-public static Vec3f minus(Vec3f arg0, Float arg1) {return Vec3f.v3((float)arg0.x-(float)arg1, (float)arg0.y-(float)arg1, (float)arg0.z-(float)arg1);}
-public static Vec4f minus(Vec4f arg0, Float arg1) {return Vec4f.v4((float)arg0.x-(float)arg1, (float)arg0.y-(float)arg1, (float)arg0.z-(float)arg1, (float)arg0.w-(float)arg1);}
-public static Vec2f minus(Vec2f arg0, Number arg1) {return Vec2f.v2((float)arg0.x-(float)arg1, (float)arg0.y-(float)arg1);}
-public static Vec3f minus(Vec3f arg0, Number arg1) {return Vec3f.v3((float)arg0.x-(float)arg1, (float)arg0.y-(float)arg1, (float)arg0.z-(float)arg1);}
-public static Vec4f minus(Vec4f arg0, Number arg1) {return Vec4f.v4((float)arg0.x-(float)arg1, (float)arg0.y-(float)arg1, (float)arg0.z-(float)arg1, (float)arg0.w-(float)arg1);}
-public static Float multiply(Float arg0, Float arg1) {return (float)arg0*(float)arg1;}
-public static Vec2f multiply(Vec2f arg0, Vec2f arg1) {return Vec2f.v2((float)arg0.x*(float)arg1.x, (float)arg0.y*(float)arg1.y);}
-public static Vec3f multiply(Vec3f arg0, Vec3f arg1) {return Vec3f.v3((float)arg0.x*(float)arg1.x, (float)arg0.y*(float)arg1.y, (float)arg0.z*(float)arg1.z);}
-public static Vec4f multiply(Vec4f arg0, Vec4f arg1) {return Vec4f.v4((float)arg0.x*(float)arg1.x, (float)arg0.y*(float)arg1.y, (float)arg0.z*(float)arg1.z, (float)arg0.w*(float)arg1.w);}
-public static Vec2f multiply(float arg0, Vec2f arg1) {return Vec2f.v2((float)arg0*(float)arg1.x, (float)arg0*(float)arg1.y);}
-public static Vec3f multiply(float arg0, Vec3f arg1) {return Vec3f.v3((float)arg0*(float)arg1.x, (float)arg0*(float)arg1.y, (float)arg0*(float)arg1.z);}
-public static Vec4f multiply(float arg0, Vec4f arg1) {return Vec4f.v4((float)arg0*(float)arg1.x, (float)arg0*(float)arg1.y, (float)arg0*(float)arg1.z, (float)arg0*(float)arg1.w);}
-public static Vec2f multiply(Float arg0, Vec2f arg1) {return Vec2f.v2((float)arg0*(float)arg1.x, (float)arg0*(float)arg1.y);}
-public static Vec3f multiply(Float arg0, Vec3f arg1) {return Vec3f.v3((float)arg0*(float)arg1.x, (float)arg0*(float)arg1.y, (float)arg0*(float)arg1.z);}
-public static Vec4f multiply(Float arg0, Vec4f arg1) {return Vec4f.v4((float)arg0*(float)arg1.x, (float)arg0*(float)arg1.y, (float)arg0*(float)arg1.z, (float)arg0*(float)arg1.w);}
-public static Vec2f multiply(Number arg0, Vec2f arg1) {return Vec2f.v2((float)arg0*(float)arg1.x, (float)arg0*(float)arg1.y);}
-public static Vec3f multiply(Number arg0, Vec3f arg1) {return Vec3f.v3((float)arg0*(float)arg1.x, (float)arg0*(float)arg1.y, (float)arg0*(float)arg1.z);}
-public static Vec4f multiply(Number arg0, Vec4f arg1) {return Vec4f.v4((float)arg0*(float)arg1.x, (float)arg0*(float)arg1.y, (float)arg0*(float)arg1.z, (float)arg0*(float)arg1.w);}
-public static Vec2f multiply(Vec2f arg0, float arg1) {return Vec2f.v2((float)arg0.x*(float)arg1, (float)arg0.y*(float)arg1);}
-public static Vec3f multiply(Vec3f arg0, float arg1) {return Vec3f.v3((float)arg0.x*(float)arg1, (float)arg0.y*(float)arg1, (float)arg0.z*(float)arg1);}
-public static Vec4f multiply(Vec4f arg0, float arg1) {return Vec4f.v4((float)arg0.x*(float)arg1, (float)arg0.y*(float)arg1, (float)arg0.z*(float)arg1, (float)arg0.w*(float)arg1);}
-public static Vec2f multiply(Vec2f arg0, Float arg1) {return Vec2f.v2((float)arg0.x*(float)arg1, (float)arg0.y*(float)arg1);}
-public static Vec3f multiply(Vec3f arg0, Float arg1) {return Vec3f.v3((float)arg0.x*(float)arg1, (float)arg0.y*(float)arg1, (float)arg0.z*(float)arg1);}
-public static Vec4f multiply(Vec4f arg0, Float arg1) {return Vec4f.v4((float)arg0.x*(float)arg1, (float)arg0.y*(float)arg1, (float)arg0.z*(float)arg1, (float)arg0.w*(float)arg1);}
-public static Vec2f multiply(Vec2f arg0, Number arg1) {return Vec2f.v2((float)arg0.x*(float)arg1, (float)arg0.y*(float)arg1);}
-public static Vec3f multiply(Vec3f arg0, Number arg1) {return Vec3f.v3((float)arg0.x*(float)arg1, (float)arg0.y*(float)arg1, (float)arg0.z*(float)arg1);}
-public static Vec4f multiply(Vec4f arg0, Number arg1) {return Vec4f.v4((float)arg0.x*(float)arg1, (float)arg0.y*(float)arg1, (float)arg0.z*(float)arg1, (float)arg0.w*(float)arg1);}
-public static Float div(Float arg0, Float arg1) {return (float)arg0/(float)arg1;}
-public static Vec2f div(Vec2f arg0, Vec2f arg1) {return Vec2f.v2((float)arg0.x/(float)arg1.x, (float)arg0.y/(float)arg1.y);}
-public static Vec3f div(Vec3f arg0, Vec3f arg1) {return Vec3f.v3((float)arg0.x/(float)arg1.x, (float)arg0.y/(float)arg1.y, (float)arg0.z/(float)arg1.z);}
-public static Vec4f div(Vec4f arg0, Vec4f arg1) {return Vec4f.v4((float)arg0.x/(float)arg1.x, (float)arg0.y/(float)arg1.y, (float)arg0.z/(float)arg1.z, (float)arg0.w/(float)arg1.w);}
-public static Vec2f div(float arg0, Vec2f arg1) {return Vec2f.v2((float)arg0/(float)arg1.x, (float)arg0/(float)arg1.y);}
-public static Vec3f div(float arg0, Vec3f arg1) {return Vec3f.v3((float)arg0/(float)arg1.x, (float)arg0/(float)arg1.y, (float)arg0/(float)arg1.z);}
-public static Vec4f div(float arg0, Vec4f arg1) {return Vec4f.v4((float)arg0/(float)arg1.x, (float)arg0/(float)arg1.y, (float)arg0/(float)arg1.z, (float)arg0/(float)arg1.w);}
-public static Vec2f div(Float arg0, Vec2f arg1) {return Vec2f.v2((float)arg0/(float)arg1.x, (float)arg0/(float)arg1.y);}
-public static Vec3f div(Float arg0, Vec3f arg1) {return Vec3f.v3((float)arg0/(float)arg1.x, (float)arg0/(float)arg1.y, (float)arg0/(float)arg1.z);}
-public static Vec4f div(Float arg0, Vec4f arg1) {return Vec4f.v4((float)arg0/(float)arg1.x, (float)arg0/(float)arg1.y, (float)arg0/(float)arg1.z, (float)arg0/(float)arg1.w);}
-public static Vec2f div(Number arg0, Vec2f arg1) {return Vec2f.v2((float)arg0/(float)arg1.x, (float)arg0/(float)arg1.y);}
-public static Vec3f div(Number arg0, Vec3f arg1) {return Vec3f.v3((float)arg0/(float)arg1.x, (float)arg0/(float)arg1.y, (float)arg0/(float)arg1.z);}
-public static Vec4f div(Number arg0, Vec4f arg1) {return Vec4f.v4((float)arg0/(float)arg1.x, (float)arg0/(float)arg1.y, (float)arg0/(float)arg1.z, (float)arg0/(float)arg1.w);}
-public static Vec2f div(Vec2f arg0, float arg1) {return Vec2f.v2((float)arg0.x/(float)arg1, (float)arg0.y/(float)arg1);}
-public static Vec3f div(Vec3f arg0, float arg1) {return Vec3f.v3((float)arg0.x/(float)arg1, (float)arg0.y/(float)arg1, (float)arg0.z/(float)arg1);}
-public static Vec4f div(Vec4f arg0, float arg1) {return Vec4f.v4((float)arg0.x/(float)arg1, (float)arg0.y/(float)arg1, (float)arg0.z/(float)arg1, (float)arg0.w/(float)arg1);}
-public static Vec2f div(Vec2f arg0, Float arg1) {return Vec2f.v2((float)arg0.x/(float)arg1, (float)arg0.y/(float)arg1);}
-public static Vec3f div(Vec3f arg0, Float arg1) {return Vec3f.v3((float)arg0.x/(float)arg1, (float)arg0.y/(float)arg1, (float)arg0.z/(float)arg1);}
-public static Vec4f div(Vec4f arg0, Float arg1) {return Vec4f.v4((float)arg0.x/(float)arg1, (float)arg0.y/(float)arg1, (float)arg0.z/(float)arg1, (float)arg0.w/(float)arg1);}
-public static Vec2f div(Vec2f arg0, Number arg1) {return Vec2f.v2((float)arg0.x/(float)arg1, (float)arg0.y/(float)arg1);}
-public static Vec3f div(Vec3f arg0, Number arg1) {return Vec3f.v3((float)arg0.x/(float)arg1, (float)arg0.y/(float)arg1, (float)arg0.z/(float)arg1);}
-public static Vec4f div(Vec4f arg0, Number arg1) {return Vec4f.v4((float)arg0.x/(float)arg1, (float)arg0.y/(float)arg1, (float)arg0.z/(float)arg1, (float)arg0.w/(float)arg1);}
+public static Float plus(Float arg0, Float arg1) {return arg0 + arg1;}
+public static Vec2f plus(Vec2f arg0, Vec2f arg1) {return Vec2f.v2(arg0.x + arg1.x, arg0.y + arg1.y);}
+public static Vec3f plus(Vec3f arg0, Vec3f arg1) {return Vec3f.v3(arg0.x + arg1.x, arg0.y + arg1.y, arg0.z + arg1.z);}
+public static Vec4f plus(Vec4f arg0, Vec4f arg1) {return Vec4f.v4(arg0.x + arg1.x, arg0.y + arg1.y, arg0.z + arg1.z, arg0.w + arg1.w);}
+public static Vec2f plus(float arg0, Vec2f arg1) {return Vec2f.v2(arg0 + arg1.x, arg0 + arg1.y);}
+public static Vec3f plus(float arg0, Vec3f arg1) {return Vec3f.v3(arg0 + arg1.x, arg0 + arg1.y, arg0 + arg1.z);}
+public static Vec4f plus(float arg0, Vec4f arg1) {return Vec4f.v4(arg0 + arg1.x, arg0 + arg1.y, arg0 + arg1.z, arg0 + arg1.w);}
+public static Vec2f plus(Float arg0, Vec2f arg1) {return Vec2f.v2(arg0 + arg1.x, arg0 + arg1.y);}
+public static Vec3f plus(Float arg0, Vec3f arg1) {return Vec3f.v3(arg0 + arg1.x, arg0 + arg1.y, arg0 + arg1.z);}
+public static Vec4f plus(Float arg0, Vec4f arg1) {return Vec4f.v4(arg0 + arg1.x, arg0 + arg1.y, arg0 + arg1.z, arg0 + arg1.w);}
+public static Vec2f plus(Number arg0, Vec2f arg1) {return Vec2f.v2((float)arg0+ arg1.x, (float)arg0+ arg1.y);}
+public static Vec3f plus(Number arg0, Vec3f arg1) {return Vec3f.v3((float)arg0+ arg1.x, (float)arg0+ arg1.y, (float)arg0+ arg1.z);}
+public static Vec4f plus(Number arg0, Vec4f arg1) {return Vec4f.v4((float)arg0+ arg1.x, (float)arg0+ arg1.y, (float)arg0+ arg1.z, (float)arg0+ arg1.w);}
+public static Vec2f plus(Vec2f arg0, float arg1) {return Vec2f.v2(arg0.x + arg1, arg0.y + arg1);}
+public static Vec3f plus(Vec3f arg0, float arg1) {return Vec3f.v3(arg0.x + arg1, arg0.y + arg1, arg0.z + arg1);}
+public static Vec4f plus(Vec4f arg0, float arg1) {return Vec4f.v4(arg0.x + arg1, arg0.y + arg1, arg0.z + arg1, arg0.w + arg1);}
+public static Vec2f plus(Vec2f arg0, Float arg1) {return Vec2f.v2(arg0.x + arg1, arg0.y + arg1);}
+public static Vec3f plus(Vec3f arg0, Float arg1) {return Vec3f.v3(arg0.x + arg1, arg0.y + arg1, arg0.z + arg1);}
+public static Vec4f plus(Vec4f arg0, Float arg1) {return Vec4f.v4(arg0.x + arg1, arg0.y + arg1, arg0.z + arg1, arg0.w + arg1);}
+public static Vec2f plus(Vec2f arg0, Number arg1) {return Vec2f.v2(arg0.x +(float)arg1, arg0.y +(float)arg1);}
+public static Vec3f plus(Vec3f arg0, Number arg1) {return Vec3f.v3(arg0.x +(float)arg1, arg0.y +(float)arg1, arg0.z +(float)arg1);}
+public static Vec4f plus(Vec4f arg0, Number arg1) {return Vec4f.v4(arg0.x +(float)arg1, arg0.y +(float)arg1, arg0.z +(float)arg1, arg0.w +(float)arg1);}
+public static Float minus(Float arg0, Float arg1) {return arg0 - arg1;}
+public static Vec2f minus(Vec2f arg0, Vec2f arg1) {return Vec2f.v2(arg0.x - arg1.x, arg0.y - arg1.y);}
+public static Vec3f minus(Vec3f arg0, Vec3f arg1) {return Vec3f.v3(arg0.x - arg1.x, arg0.y - arg1.y, arg0.z - arg1.z);}
+public static Vec4f minus(Vec4f arg0, Vec4f arg1) {return Vec4f.v4(arg0.x - arg1.x, arg0.y - arg1.y, arg0.z - arg1.z, arg0.w - arg1.w);}
+public static Vec2f minus(float arg0, Vec2f arg1) {return Vec2f.v2(arg0 - arg1.x, arg0 - arg1.y);}
+public static Vec3f minus(float arg0, Vec3f arg1) {return Vec3f.v3(arg0 - arg1.x, arg0 - arg1.y, arg0 - arg1.z);}
+public static Vec4f minus(float arg0, Vec4f arg1) {return Vec4f.v4(arg0 - arg1.x, arg0 - arg1.y, arg0 - arg1.z, arg0 - arg1.w);}
+public static Vec2f minus(Float arg0, Vec2f arg1) {return Vec2f.v2(arg0 - arg1.x, arg0 - arg1.y);}
+public static Vec3f minus(Float arg0, Vec3f arg1) {return Vec3f.v3(arg0 - arg1.x, arg0 - arg1.y, arg0 - arg1.z);}
+public static Vec4f minus(Float arg0, Vec4f arg1) {return Vec4f.v4(arg0 - arg1.x, arg0 - arg1.y, arg0 - arg1.z, arg0 - arg1.w);}
+public static Vec2f minus(Number arg0, Vec2f arg1) {return Vec2f.v2((float)arg0- arg1.x, (float)arg0- arg1.y);}
+public static Vec3f minus(Number arg0, Vec3f arg1) {return Vec3f.v3((float)arg0- arg1.x, (float)arg0- arg1.y, (float)arg0- arg1.z);}
+public static Vec4f minus(Number arg0, Vec4f arg1) {return Vec4f.v4((float)arg0- arg1.x, (float)arg0- arg1.y, (float)arg0- arg1.z, (float)arg0- arg1.w);}
+public static Vec2f minus(Vec2f arg0, float arg1) {return Vec2f.v2(arg0.x - arg1, arg0.y - arg1);}
+public static Vec3f minus(Vec3f arg0, float arg1) {return Vec3f.v3(arg0.x - arg1, arg0.y - arg1, arg0.z - arg1);}
+public static Vec4f minus(Vec4f arg0, float arg1) {return Vec4f.v4(arg0.x - arg1, arg0.y - arg1, arg0.z - arg1, arg0.w - arg1);}
+public static Vec2f minus(Vec2f arg0, Float arg1) {return Vec2f.v2(arg0.x - arg1, arg0.y - arg1);}
+public static Vec3f minus(Vec3f arg0, Float arg1) {return Vec3f.v3(arg0.x - arg1, arg0.y - arg1, arg0.z - arg1);}
+public static Vec4f minus(Vec4f arg0, Float arg1) {return Vec4f.v4(arg0.x - arg1, arg0.y - arg1, arg0.z - arg1, arg0.w - arg1);}
+public static Vec2f minus(Vec2f arg0, Number arg1) {return Vec2f.v2(arg0.x -(float)arg1, arg0.y -(float)arg1);}
+public static Vec3f minus(Vec3f arg0, Number arg1) {return Vec3f.v3(arg0.x -(float)arg1, arg0.y -(float)arg1, arg0.z -(float)arg1);}
+public static Vec4f minus(Vec4f arg0, Number arg1) {return Vec4f.v4(arg0.x -(float)arg1, arg0.y -(float)arg1, arg0.z -(float)arg1, arg0.w -(float)arg1);}
+public static Float multiply(Float arg0, Float arg1) {return arg0 * arg1;}
+public static Vec2f multiply(Vec2f arg0, Vec2f arg1) {return Vec2f.v2(arg0.x * arg1.x, arg0.y * arg1.y);}
+public static Vec3f multiply(Vec3f arg0, Vec3f arg1) {return Vec3f.v3(arg0.x * arg1.x, arg0.y * arg1.y, arg0.z * arg1.z);}
+public static Vec4f multiply(Vec4f arg0, Vec4f arg1) {return Vec4f.v4(arg0.x * arg1.x, arg0.y * arg1.y, arg0.z * arg1.z, arg0.w * arg1.w);}
+public static Vec2f multiply(float arg0, Vec2f arg1) {return Vec2f.v2(arg0 * arg1.x, arg0 * arg1.y);}
+public static Vec3f multiply(float arg0, Vec3f arg1) {return Vec3f.v3(arg0 * arg1.x, arg0 * arg1.y, arg0 * arg1.z);}
+public static Vec4f multiply(float arg0, Vec4f arg1) {return Vec4f.v4(arg0 * arg1.x, arg0 * arg1.y, arg0 * arg1.z, arg0 * arg1.w);}
+public static Vec2f multiply(Float arg0, Vec2f arg1) {return Vec2f.v2(arg0 * arg1.x, arg0 * arg1.y);}
+public static Vec3f multiply(Float arg0, Vec3f arg1) {return Vec3f.v3(arg0 * arg1.x, arg0 * arg1.y, arg0 * arg1.z);}
+public static Vec4f multiply(Float arg0, Vec4f arg1) {return Vec4f.v4(arg0 * arg1.x, arg0 * arg1.y, arg0 * arg1.z, arg0 * arg1.w);}
+public static Vec2f multiply(Number arg0, Vec2f arg1) {return Vec2f.v2((float)arg0* arg1.x, (float)arg0* arg1.y);}
+public static Vec3f multiply(Number arg0, Vec3f arg1) {return Vec3f.v3((float)arg0* arg1.x, (float)arg0* arg1.y, (float)arg0* arg1.z);}
+public static Vec4f multiply(Number arg0, Vec4f arg1) {return Vec4f.v4((float)arg0* arg1.x, (float)arg0* arg1.y, (float)arg0* arg1.z, (float)arg0* arg1.w);}
+public static Vec2f multiply(Vec2f arg0, float arg1) {return Vec2f.v2(arg0.x * arg1, arg0.y * arg1);}
+public static Vec3f multiply(Vec3f arg0, float arg1) {return Vec3f.v3(arg0.x * arg1, arg0.y * arg1, arg0.z * arg1);}
+public static Vec4f multiply(Vec4f arg0, float arg1) {return Vec4f.v4(arg0.x * arg1, arg0.y * arg1, arg0.z * arg1, arg0.w * arg1);}
+public static Vec2f multiply(Vec2f arg0, Float arg1) {return Vec2f.v2(arg0.x * arg1, arg0.y * arg1);}
+public static Vec3f multiply(Vec3f arg0, Float arg1) {return Vec3f.v3(arg0.x * arg1, arg0.y * arg1, arg0.z * arg1);}
+public static Vec4f multiply(Vec4f arg0, Float arg1) {return Vec4f.v4(arg0.x * arg1, arg0.y * arg1, arg0.z * arg1, arg0.w * arg1);}
+public static Vec2f multiply(Vec2f arg0, Number arg1) {return Vec2f.v2(arg0.x *(float)arg1, arg0.y *(float)arg1);}
+public static Vec3f multiply(Vec3f arg0, Number arg1) {return Vec3f.v3(arg0.x *(float)arg1, arg0.y *(float)arg1, arg0.z *(float)arg1);}
+public static Vec4f multiply(Vec4f arg0, Number arg1) {return Vec4f.v4(arg0.x *(float)arg1, arg0.y *(float)arg1, arg0.z *(float)arg1, arg0.w *(float)arg1);}
+public static Float div(Float arg0, Float arg1) {return arg0 / arg1;}
+public static Vec2f div(Vec2f arg0, Vec2f arg1) {return Vec2f.v2(arg0.x / arg1.x, arg0.y / arg1.y);}
+public static Vec3f div(Vec3f arg0, Vec3f arg1) {return Vec3f.v3(arg0.x / arg1.x, arg0.y / arg1.y, arg0.z / arg1.z);}
+public static Vec4f div(Vec4f arg0, Vec4f arg1) {return Vec4f.v4(arg0.x / arg1.x, arg0.y / arg1.y, arg0.z / arg1.z, arg0.w / arg1.w);}
+public static Vec2f div(float arg0, Vec2f arg1) {return Vec2f.v2(arg0 / arg1.x, arg0 / arg1.y);}
+public static Vec3f div(float arg0, Vec3f arg1) {return Vec3f.v3(arg0 / arg1.x, arg0 / arg1.y, arg0 / arg1.z);}
+public static Vec4f div(float arg0, Vec4f arg1) {return Vec4f.v4(arg0 / arg1.x, arg0 / arg1.y, arg0 / arg1.z, arg0 / arg1.w);}
+public static Vec2f div(Float arg0, Vec2f arg1) {return Vec2f.v2(arg0 / arg1.x, arg0 / arg1.y);}
+public static Vec3f div(Float arg0, Vec3f arg1) {return Vec3f.v3(arg0 / arg1.x, arg0 / arg1.y, arg0 / arg1.z);}
+public static Vec4f div(Float arg0, Vec4f arg1) {return Vec4f.v4(arg0 / arg1.x, arg0 / arg1.y, arg0 / arg1.z, arg0 / arg1.w);}
+public static Vec2f div(Number arg0, Vec2f arg1) {return Vec2f.v2((float)arg0/ arg1.x, (float)arg0/ arg1.y);}
+public static Vec3f div(Number arg0, Vec3f arg1) {return Vec3f.v3((float)arg0/ arg1.x, (float)arg0/ arg1.y, (float)arg0/ arg1.z);}
+public static Vec4f div(Number arg0, Vec4f arg1) {return Vec4f.v4((float)arg0/ arg1.x, (float)arg0/ arg1.y, (float)arg0/ arg1.z, (float)arg0/ arg1.w);}
+public static Vec2f div(Vec2f arg0, float arg1) {return Vec2f.v2(arg0.x / arg1, arg0.y / arg1);}
+public static Vec3f div(Vec3f arg0, float arg1) {return Vec3f.v3(arg0.x / arg1, arg0.y / arg1, arg0.z / arg1);}
+public static Vec4f div(Vec4f arg0, float arg1) {return Vec4f.v4(arg0.x / arg1, arg0.y / arg1, arg0.z / arg1, arg0.w / arg1);}
+public static Vec2f div(Vec2f arg0, Float arg1) {return Vec2f.v2(arg0.x / arg1, arg0.y / arg1);}
+public static Vec3f div(Vec3f arg0, Float arg1) {return Vec3f.v3(arg0.x / arg1, arg0.y / arg1, arg0.z / arg1);}
+public static Vec4f div(Vec4f arg0, Float arg1) {return Vec4f.v4(arg0.x / arg1, arg0.y / arg1, arg0.z / arg1, arg0.w / arg1);}
+public static Vec2f div(Vec2f arg0, Number arg1) {return Vec2f.v2(arg0.x /(float)arg1, arg0.y /(float)arg1);}
+public static Vec3f div(Vec3f arg0, Number arg1) {return Vec3f.v3(arg0.x /(float)arg1, arg0.y /(float)arg1, arg0.z /(float)arg1);}
+public static Vec4f div(Vec4f arg0, Number arg1) {return Vec4f.v4(arg0.x /(float)arg1, arg0.y /(float)arg1, arg0.z /(float)arg1, arg0.w /(float)arg1);}
 public static float radians(float arg0) {return (float)(arg0/180f*Math.PI);}
 public static Vec2f radians(Vec2f arg0) {return Vec2f.v2((float)(arg0.x/180f*Math.PI), (float)(arg0.y/180f*Math.PI));}
 public static Vec3f radians(Vec3f arg0) {return Vec3f.v3((float)(arg0.x/180f*Math.PI), (float)(arg0.y/180f*Math.PI), (float)(arg0.z/180f*Math.PI));}
@@ -226,29 +269,10 @@ public static float sign(float arg0) {return Math.signum(arg0);}
 public static Vec2f sign(Vec2f arg0) {return Vec2f.v2(Math.signum(arg0.x), Math.signum(arg0.y));}
 public static Vec3f sign(Vec3f arg0) {return Vec3f.v3(Math.signum(arg0.x), Math.signum(arg0.y), Math.signum(arg0.z));}
 public static Vec4f sign(Vec4f arg0) {return Vec4f.v4(Math.signum(arg0.x), Math.signum(arg0.y), Math.signum(arg0.z), Math.signum(arg0.w));}
-public static float floor(float arg0) {return (float)Math.floor(arg0);}
-public static Vec2f floor(Vec2f arg0) {return Vec2f.v2((float)Math.floor(arg0.x), (float)Math.floor(arg0.y));}
-public static Vec3f floor(Vec3f arg0) {return Vec3f.v3((float)Math.floor(arg0.x), (float)Math.floor(arg0.y), (float)Math.floor(arg0.z));}
-public static Vec4f floor(Vec4f arg0) {return Vec4f.v4((float)Math.floor(arg0.x), (float)Math.floor(arg0.y), (float)Math.floor(arg0.z), (float)Math.floor(arg0.w));}
 public static float ceil(float arg0) {return (float)Math.ceil(arg0);}
 public static Vec2f ceil(Vec2f arg0) {return Vec2f.v2((float)Math.ceil(arg0.x), (float)Math.ceil(arg0.y));}
 public static Vec3f ceil(Vec3f arg0) {return Vec3f.v3((float)Math.ceil(arg0.x), (float)Math.ceil(arg0.y), (float)Math.ceil(arg0.z));}
 public static Vec4f ceil(Vec4f arg0) {return Vec4f.v4((float)Math.ceil(arg0.x), (float)Math.ceil(arg0.y), (float)Math.ceil(arg0.z), (float)Math.ceil(arg0.w));}
-public static float fract(float arg0) {return arg0 - (float)Math.floor(arg0);}
-public static Vec2f fract(Vec2f arg0) {return Vec2f.v2(arg0.x - (float)Math.floor(arg0.x), arg0.y - (float)Math.floor(arg0.y));}
-public static Vec3f fract(Vec3f arg0) {return Vec3f.v3(arg0.x - (float)Math.floor(arg0.x), arg0.y - (float)Math.floor(arg0.y), arg0.z - (float)Math.floor(arg0.z));}
-public static Vec4f fract(Vec4f arg0) {return Vec4f.v4(arg0.x - (float)Math.floor(arg0.x), arg0.y - (float)Math.floor(arg0.y), arg0.z - (float)Math.floor(arg0.z), arg0.w - (float)Math.floor(arg0.w));}
-public static float mod(float value, float by) {return (float)(value-by*Math.floor(value/by));}
-public static Vec2f mod(Vec2f value, Vec2f by) {return Vec2f.v2((float)(value.x-by.x*Math.floor(value.x/by.x)), (float)(value.y-by.y*Math.floor(value.y/by.y)));}
-public static Vec3f mod(Vec3f value, Vec3f by) {return Vec3f.v3((float)(value.x-by.x*Math.floor(value.x/by.x)), (float)(value.y-by.y*Math.floor(value.y/by.y)), (float)(value.z-by.z*Math.floor(value.z/by.z)));}
-public static Vec4f mod(Vec4f value, Vec4f by) {return Vec4f.v4((float)(value.x-by.x*Math.floor(value.x/by.x)), (float)(value.y-by.y*Math.floor(value.y/by.y)), (float)(value.z-by.z*Math.floor(value.z/by.z)), (float)(value.w-by.w*Math.floor(value.w/by.w)));}
-public static float min(float arg0, float arg1) {return Math.min(arg0, arg1);}
-public static Vec2f min(Vec2f arg0, Vec2f arg1) {return Vec2f.v2(Math.min(arg0.x, arg1.x), Math.min(arg0.y, arg1.y));}
-public static Vec3f min(Vec3f arg0, Vec3f arg1) {return Vec3f.v3(Math.min(arg0.x, arg1.x), Math.min(arg0.y, arg1.y), Math.min(arg0.z, arg1.z));}
-public static Vec4f min(Vec4f arg0, Vec4f arg1) {return Vec4f.v4(Math.min(arg0.x, arg1.x), Math.min(arg0.y, arg1.y), Math.min(arg0.z, arg1.z), Math.min(arg0.w, arg1.w));}
-public static Vec2f min(Vec2f arg0, float arg1) {return Vec2f.v2(Math.min(arg0.x, arg1), Math.min(arg0.y, arg1));}
-public static Vec3f min(Vec3f arg0, float arg1) {return Vec3f.v3(Math.min(arg0.x, arg1), Math.min(arg0.y, arg1), Math.min(arg0.z, arg1));}
-public static Vec4f min(Vec4f arg0, float arg1) {return Vec4f.v4(Math.min(arg0.x, arg1), Math.min(arg0.y, arg1), Math.min(arg0.z, arg1), Math.min(arg0.w, arg1));}
 public static float max(float arg0, float arg1) {return Math.max(arg0, arg1);}
 public static Vec2f max(Vec2f arg0, Vec2f arg1) {return Vec2f.v2(Math.max(arg0.x, arg1.x), Math.max(arg0.y, arg1.y));}
 public static Vec3f max(Vec3f arg0, Vec3f arg1) {return Vec3f.v3(Math.max(arg0.x, arg1.x), Math.max(arg0.y, arg1.y), Math.max(arg0.z, arg1.z));}
@@ -256,13 +280,6 @@ public static Vec4f max(Vec4f arg0, Vec4f arg1) {return Vec4f.v4(Math.max(arg0.x
 public static Vec2f max(Vec2f arg0, float arg1) {return Vec2f.v2(Math.max(arg0.x, arg1), Math.max(arg0.y, arg1));}
 public static Vec3f max(Vec3f arg0, float arg1) {return Vec3f.v3(Math.max(arg0.x, arg1), Math.max(arg0.y, arg1), Math.max(arg0.z, arg1));}
 public static Vec4f max(Vec4f arg0, float arg1) {return Vec4f.v4(Math.max(arg0.x, arg1), Math.max(arg0.y, arg1), Math.max(arg0.z, arg1), Math.max(arg0.w, arg1));}
-public static float clamp(float value, float min, float max) {return Math.max(min, Math.min(value, max));}
-public static Vec2f clamp(Vec2f value, Vec2f min, Vec2f max) {return Vec2f.v2(Math.max(min.x, Math.min(value.x, max.x)), Math.max(min.y, Math.min(value.y, max.y)));}
-public static Vec3f clamp(Vec3f value, Vec3f min, Vec3f max) {return Vec3f.v3(Math.max(min.x, Math.min(value.x, max.x)), Math.max(min.y, Math.min(value.y, max.y)), Math.max(min.z, Math.min(value.z, max.z)));}
-public static Vec4f clamp(Vec4f value, Vec4f min, Vec4f max) {return Vec4f.v4(Math.max(min.x, Math.min(value.x, max.x)), Math.max(min.y, Math.min(value.y, max.y)), Math.max(min.z, Math.min(value.z, max.z)), Math.max(min.w, Math.min(value.w, max.w)));}
-public static Vec2f clamp(Vec2f value, float min, float max) {return Vec2f.v2(Math.max(min, Math.min(value.x, max)), Math.max(min, Math.min(value.y, max)));}
-public static Vec3f clamp(Vec3f value, float min, float max) {return Vec3f.v3(Math.max(min, Math.min(value.x, max)), Math.max(min, Math.min(value.y, max)), Math.max(min, Math.min(value.z, max)));}
-public static Vec4f clamp(Vec4f value, float min, float max) {return Vec4f.v4(Math.max(min, Math.min(value.x, max)), Math.max(min, Math.min(value.y, max)), Math.max(min, Math.min(value.z, max)), Math.max(min, Math.min(value.w, max)));}
 public static float mix(float from, float to, float progress) {return from * (1 - progress) + to * progress;}
 public static Vec2f mix(Vec2f from, Vec2f to, Vec2f progress) {return Vec2f.v2(from.x * (1 - progress.x) + to.x * progress.x, from.y * (1 - progress.y) + to.y * progress.y);}
 public static Vec3f mix(Vec3f from, Vec3f to, Vec3f progress) {return Vec3f.v3(from.x * (1 - progress.x) + to.x * progress.x, from.y * (1 - progress.y) + to.y * progress.y, from.z * (1 - progress.z) + to.z * progress.z);}
@@ -286,4 +303,148 @@ public static Vec3f smoothstep(float from, float to, Vec3f progress) {return Vec
 public static Vec4f smoothstep(float from, float to, Vec4f progress) {return Vec4f.v4(progress.x < from ? 0 : progress.x > to ? 1 : progress.x*progress.x*(3 - 2*progress.x), progress.y < from ? 0 : progress.y > to ? 1 : progress.y*progress.y*(3 - 2*progress.y), progress.z < from ? 0 : progress.z > to ? 1 : progress.z*progress.z*(3 - 2*progress.z), progress.w < from ? 0 : progress.w > to ? 1 : progress.w*progress.w*(3 - 2*progress.w));}
 
 //gglsl auto generated text
+
+//filled in from cs version
+
+    public static float toRadians(float deg) {
+        return deg * PI / 180f;
+    }
+
+    public static float regionMap(float value, float srcFrom, float srcTo, float dstFrom, float dstTo) {
+        return (value - srcFrom) / (srcTo - srcFrom) * (dstTo - dstFrom) + dstFrom;
+    }
+
+    public static float regionMapClamp(float value, float srcFrom, float srcTo, float dstFrom, float dstTo) {
+        float res = regionMap(value, srcFrom, srcTo, dstFrom, dstTo);
+        return dstFrom < dstTo ? clamp(res, dstFrom, dstTo) : clamp(res, dstTo, dstFrom);
+    }
+
+    public static float angleNormalizesignumed(float a) {
+        a = angleNormalize02PI(a);
+        if ((a > PI))  {
+            a = (a - (2 * PI));
+        }
+        return a;
+    }
+    public static float floor(float arg0) {
+        return floorFast(arg0);
+    }
+    public static Vec2f floor(Vec2f arg0) {
+        return new Vec2f(floorFast(arg0.x), floorFast(arg0.y));
+    }
+    public static Vec3f floor(Vec3f arg0) {
+        return new Vec3f(floorFast(arg0.x), floorFast(arg0.y), floorFast(arg0.z));
+    }
+    public static Vec4f floor(Vec4f arg0) {
+        return new Vec4f(floorFast(arg0.x), floorFast(arg0.y), floorFast(arg0.z), floorFast(arg0.w));
+    }
+    public static float fract(float arg0) {
+        return (arg0 - floorFast(arg0));
+    }
+    public static Vec2f fract(Vec2f arg0) {
+        return new Vec2f((arg0.x - floorFast(arg0.x)), (arg0.y - floorFast(arg0.y)));
+    }
+    public static Vec3f fract(Vec3f arg0) {
+        return new Vec3f((arg0.x - floorFast(arg0.x)), (arg0.y - floorFast(arg0.y)), (arg0.z - floorFast(arg0.z)));
+    }
+    public static Vec4f fract(Vec4f arg0) {
+        return new Vec4f(
+                (arg0.x - floorFast(arg0.x)),
+                (arg0.y - floorFast(arg0.y)),
+                (arg0.z - floorFast(arg0.z)),
+                (arg0.w - floorFast(arg0.w)));
+    }
+    public static float mod(float value, float by) {
+        return ((value - (by * floorFast(value / by))));
+    }
+    public static Vec2f mod(Vec2f value, Vec2f by) {
+        return new Vec2f(
+                ((value.x - (by.x * floorFast(value.x / by.x)))),
+                ((value.y - (by.y * floorFast(value.y / by.y)))));
+    }
+    public static Vec3f mod(Vec3f value, Vec3f by) {
+        return new Vec3f(
+                ((value.x - (by.x * floorFast(value.x / by.x)))),
+                ((value.y - (by.y * floorFast(value.y / by.y)))),
+                ((value.z - (by.z * floorFast(value.z / by.z)))));
+    }
+    public static Vec4f mod(Vec4f value, Vec4f by) {
+        return new Vec4f(
+                ((value.x - (by.x * floorFast(value.x / by.x)))),
+                ((value.y - (by.y * floorFast(value.y / by.y)))),
+                ((value.z - (by.z * floorFast(value.z / by.z)))),
+                ((value.w - (by.w * floorFast(value.w / by.w)))));
+    }
+    public static float min(float arg0, float arg1) {
+        return arg0 < arg1 ? arg0 : arg1;
+    }
+    public static Vec2f min(Vec2f arg0, Vec2f arg1) {
+        return new Vec2f(min(arg0.x, arg1.x), min(arg0.y, arg1.y));
+    }
+    public static Vec3f min(Vec3f arg0, Vec3f arg1) {
+        return new Vec3f(min(arg0.x, arg1.x), min(arg0.y, arg1.y), min(arg0.z, arg1.z));
+    }
+    public static Vec4f min(Vec4f arg0, Vec4f arg1) {
+        return new Vec4f(min(arg0.x, arg1.x), min(arg0.y, arg1.y), min(arg0.z, arg1.z), min(arg0.w, arg1.w));
+    }
+    public static Vec2f min(Vec2f arg0, float arg1) {
+        return new Vec2f(min(arg0.x, arg1), min(arg0.y, arg1));
+    }
+    public static Vec3f min(Vec3f arg0, float arg1) {
+        return new Vec3f(min(arg0.x, arg1), min(arg0.y, arg1), min(arg0.z, arg1));
+    }
+    public static Vec4f min(Vec4f arg0, float arg1) {
+        return new Vec4f(min(arg0.x, arg1), min(arg0.y, arg1), min(arg0.z, arg1), min(arg0.w, arg1));
+    }
+    public static float max(float arg0, float arg1, float arg2) {
+        return max(arg2, max(arg0, arg1));
+    }
+    public static float max(float arg0, float arg1, float arg2, float arg3) {
+        return max(max(arg2, arg3), max(arg0, arg1));
+    }
+    public static float clamp(float value, float minMax) {
+        return max(-minMax, min(value, minMax));
+    }
+    public static float clamp(float value, float min, float max) {
+        return MyMath.max(min, MyMath.min(value, max));
+    }
+    public static int clamp(int value, int minMax) {
+        return max(-minMax, min(value, minMax));
+    }
+    public static int clamp(int value, int min, int max) {
+        return MyMath.max(min, MyMath.min(value, max));
+    }
+    public static Vec2f clamp(Vec2f value, Vec2f min, Vec2f max) {
+        return new Vec2f(MyMath.max(min.x, MyMath.min(value.x, max.x)), MyMath.max(min.y, MyMath.min(value.y, max.y)));
+    }
+    public static Vec3f clamp(Vec3f value, Vec3f min, Vec3f max) {
+        return new Vec3f(
+                MyMath.max(min.x, MyMath.min(value.x, max.x)),
+                MyMath.max(min.y, MyMath.min(value.y, max.y)),
+                MyMath.max(min.z, MyMath.min(value.z, max.z)));
+    }
+    public static Vec4f clamp(Vec4f value, Vec4f min, Vec4f max) {
+        return new Vec4f(
+                MyMath.max(min.x, MyMath.min(value.x, max.x)),
+                MyMath.max(min.y, MyMath.min(value.y, max.y)),
+                MyMath.max(min.z, MyMath.min(value.z, max.z)),
+                MyMath.max(min.w, MyMath.min(value.w, max.w)));
+    }
+    public static Vec2f clamp(Vec2f value, float min, float max) {
+        return new Vec2f(MyMath.max(min, MyMath.min(value.x, max)), MyMath.max(min, MyMath.min(value.y, max)));
+    }
+    public static Vec3f clamp(Vec3f value, float min, float max) {
+        return new Vec3f(MyMath.max(min, MyMath.min(value.x, max)), MyMath.max(min, MyMath.min(value.y, max)), MyMath.max(min, MyMath.min(value.z, max)));
+    }
+    public static Vec4f clamp(Vec4f value, float min, float max) {
+        return new Vec4f(
+                MyMath.max(min, MyMath.min(value.x, max)),
+                MyMath.max(min, MyMath.min(value.y, max)),
+                MyMath.max(min, MyMath.min(value.z, max)),
+                MyMath.max(min, MyMath.min(value.w, max)));
+    }
+
+
+
+
 }
