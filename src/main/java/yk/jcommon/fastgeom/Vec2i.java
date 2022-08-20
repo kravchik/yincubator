@@ -1,6 +1,7 @@
 package yk.jcommon.fastgeom;
 
 import yk.jcommon.collections.YList;
+import yk.jcommon.utils.MyMath;
 import yk.jcommon.utils.Reflector;
 
 import java.io.Serializable;
@@ -11,9 +12,11 @@ import java.io.Serializable;
 * Time: 18:32:56
 */
 public final class Vec2i implements Serializable {
-    public static Vec2i ZERO = new Vec2i(0, 0);
-
     public int x, y;
+
+    public static Vec2i ZERO = new Vec2i(0, 0);
+    public static final Vec2i AXIS_X = new Vec2i(1, 0);
+    public static final Vec2i AXIS_Y = new Vec2i(0, 1);
 
     public Vec2i() {
         x = 0;
@@ -49,18 +52,6 @@ public final class Vec2i implements Serializable {
     }
     public Vec2i addY(int y) {
         return new Vec2i(x, this.y + y);
-    }
-    public Vec2i add(int x, int y) {
-        return new Vec2i(this.x + x, this.y + y);
-    }
-    public Vec2i add(Vec2i v) {
-        return new Vec2i(this.x + v.x, this.y + v.y);
-    }
-    public Vec2i sub(Vec2i v) {
-        return new Vec2i(this.x - v.x, this.y - v.y);
-    }
-    public Vec2i sub(int x, int y) {
-        return new Vec2i(this.x - x, this.y - y);
     }
     public boolean is(int x, int y) {
         return this.x == x && this.y == y;
@@ -128,4 +119,29 @@ public final class Vec2i implements Serializable {
         result = 31 * result + y;
         return result;
     }
+
+//2022 auto generated text
+/*2022*/public Vec2i add(Vec2i other) {return new Vec2i(x + other.x, y + other.y);}
+/*2022*/public Vec2i add(int v) {return new Vec2i(x + v, y + v);}
+/*2022*/public Vec2i add(int x, int y) {return new Vec2i(this.x + x, this.y + y);}
+/*2022*/public Vec2i sub(Vec2i other) {return new Vec2i(x - other.x, y - other.y);}
+/*2022*/public Vec2i sub(int v) {return new Vec2i(x - v, y - v);}
+/*2022*/public Vec2i sub(int x, int y) {return new Vec2i(this.x - x, this.y - y);}
+/*2022*/public Vec2i mul(Vec2i other) {return new Vec2i(x * other.x, y * other.y);}
+/*2022*/public Vec2i mul(int v) {return new Vec2i(x * v, y * v);}
+/*2022*/public Vec2i mul(int x, int y) {return new Vec2i(this.x * x, this.y * y);}
+/*2022*/public Vec2i div(Vec2i other) {return new Vec2i(x / other.x, y / other.y);}
+/*2022*/public Vec2i div(int v) {return new Vec2i(x / v, y / v);}
+/*2022*/public Vec2i div(int x, int y) {return new Vec2i(this.x / x, this.y / y);}
+/*2022*/public Vec2i min(Vec2i b) {return new Vec2i(MyMath.min(x, b.x), MyMath.min(y, b.y));}
+/*2022*/public Vec2i min(int b) {return new Vec2i(MyMath.min(x, b), MyMath.min(y, b));}
+/*2022*/public Vec2i min(int x, int y) {return new Vec2i(MyMath.min(this.x, x), MyMath.min(this.y, y));}
+/*2022*/public Vec2i max(Vec2i b) {return new Vec2i(MyMath.max(x, b.x), MyMath.max(y, b.y));}
+/*2022*/public Vec2i max(int b) {return new Vec2i(MyMath.max(x, b), MyMath.max(y, b));}
+/*2022*/public Vec2i max(int x, int y) {return new Vec2i(MyMath.max(this.x, x), MyMath.max(this.y, y));}
+/*2022*/public Vec2i cycle(Vec2i b) {return new Vec2i(MyMath.cycle(x, b.x), MyMath.cycle(y, b.y));}
+/*2022*/public Vec2i cycle(int b) {return new Vec2i(MyMath.cycle(x, b), MyMath.cycle(y, b));}
+/*2022*/public Vec2i cycle(int x, int y) {return new Vec2i(MyMath.cycle(this.x, x), MyMath.cycle(this.y, y));}
+//2022 auto generated text
+
 }

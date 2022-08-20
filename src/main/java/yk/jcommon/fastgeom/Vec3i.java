@@ -13,10 +13,14 @@ import static yk.jcommon.utils.MyMath.sqr;
  * Date: 24/09/15
  * Time: 11:10
  */
-public final class Vec3i implements Serializable {//TODO jcommon
+public final class Vec3i implements Serializable {
     public int x, y, z;
 
-    //common auto generated text
+    public static final Vec3i ZERO = new Vec3i();
+    public static final Vec3i AXIS_X = new Vec3i(1, 0, 0);
+    public static final Vec3i AXIS_Y = new Vec3i(0, 1, 0);
+    public static final Vec3i AXIS_Z = new Vec3i(0, 0, 1);
+
     public Vec3i(int x, int y, int z) {
         this.x = x;
         this.y = y;
@@ -39,18 +43,6 @@ public final class Vec3i implements Serializable {//TODO jcommon
         z = other.z;
     }
 
-    public Vec3i add(Vec3i other) {
-        return new Vec3i(this.x + other.x, this.y + other.y, this.z + other.z);
-    }
-
-    public Vec3i add(int scalar) {
-        return new Vec3i(x + scalar, y + scalar, z + scalar);
-    }
-
-    public Vec3i add(int x, int y, int z) {
-        return new Vec3i(this.x + x, this.y + y, this.z + z);
-    }
-
     public void seAdd(Vec3i other) {
         x = x + other.x;
         y = y + other.y;
@@ -67,18 +59,6 @@ public final class Vec3i implements Serializable {//TODO jcommon
         this.x = this.x + x;
         this.y = this.y + y;
         this.z = this.z + z;
-    }
-
-    public Vec3i sub(Vec3i other) {
-        return new Vec3i(this.x - other.x, this.y - other.y, this.z - other.z);
-    }
-
-    public Vec3i sub(int scalar) {
-        return new Vec3i(x - scalar, y - scalar, z - scalar);
-    }
-
-    public Vec3i sub(int x, int y, int z) {
-        return new Vec3i(this.x - x, this.y - y, this.z - z);
     }
 
     public void seSub(Vec3i other) {
@@ -99,18 +79,6 @@ public final class Vec3i implements Serializable {//TODO jcommon
         this.z = this.z - z;
     }
 
-    public Vec3i mul(Vec3i other) {
-        return new Vec3i(this.x * other.x, this.y * other.y, this.z * other.z);
-    }
-
-    public Vec3i mul(int scalar) {
-        return new Vec3i(x * scalar, y * scalar, z * scalar);
-    }
-
-    public Vec3i mul(int x, int y, int z) {
-        return new Vec3i(this.x * x, this.y * y, this.z * z);
-    }
-
     public void seMul(Vec3i other) {
         x = x * other.x;
         y = y * other.y;
@@ -127,18 +95,6 @@ public final class Vec3i implements Serializable {//TODO jcommon
         this.x = this.x * x;
         this.y = this.y * y;
         this.z = this.z * z;
-    }
-
-    public Vec3i div(Vec3i other) {
-        return new Vec3i(this.x / other.x, this.y / other.y, this.z / other.z);
-    }
-
-    public Vec3i div(int scalar) {
-        return new Vec3i(x / scalar, y / scalar, z / scalar);
-    }
-
-    public Vec3i div(int x, int y, int z) {
-        return new Vec3i(this.x / x, this.y / y, this.z / z);
     }
 
     public void seDiv(Vec3i other) {
@@ -191,10 +147,6 @@ public final class Vec3i implements Serializable {//TODO jcommon
         return sqr(a.x - b.x) + sqr(a.y - b.y) + sqr(a.z - b.z);
     }
 
-    public Vec3i cycle(int period) {
-        return new Vec3i(MyMath.cycle(x, period), MyMath.cycle(y, period), MyMath.cycle(z, period));
-    }
-
     public Vec3i withSetX(int x) {
         return new Vec3i(x, y, z);
     }
@@ -210,9 +162,6 @@ public final class Vec3i implements Serializable {//TODO jcommon
     public String toString() {
         return "" + x + " " + y + " " + z;
     }
-
-
-//common auto generated text
 
     public Vec3f toVec3f() {
         return new Vec3f(x, y, z);
@@ -260,4 +209,29 @@ public final class Vec3i implements Serializable {//TODO jcommon
     public Vec2i getYz() {
         return new Vec2i(y, z);
     }
+
+//2022 auto generated text
+/*2022*/public Vec3i add(Vec3i other) {return new Vec3i(x + other.x, y + other.y, z + other.z);}
+/*2022*/public Vec3i add(int v) {return new Vec3i(x + v, y + v, z + v);}
+/*2022*/public Vec3i add(int x, int y, int z) {return new Vec3i(this.x + x, this.y + y, this.z + z);}
+/*2022*/public Vec3i sub(Vec3i other) {return new Vec3i(x - other.x, y - other.y, z - other.z);}
+/*2022*/public Vec3i sub(int v) {return new Vec3i(x - v, y - v, z - v);}
+/*2022*/public Vec3i sub(int x, int y, int z) {return new Vec3i(this.x - x, this.y - y, this.z - z);}
+/*2022*/public Vec3i mul(Vec3i other) {return new Vec3i(x * other.x, y * other.y, z * other.z);}
+/*2022*/public Vec3i mul(int v) {return new Vec3i(x * v, y * v, z * v);}
+/*2022*/public Vec3i mul(int x, int y, int z) {return new Vec3i(this.x * x, this.y * y, this.z * z);}
+/*2022*/public Vec3i div(Vec3i other) {return new Vec3i(x / other.x, y / other.y, z / other.z);}
+/*2022*/public Vec3i div(int v) {return new Vec3i(x / v, y / v, z / v);}
+/*2022*/public Vec3i div(int x, int y, int z) {return new Vec3i(this.x / x, this.y / y, this.z / z);}
+/*2022*/public Vec3i min(Vec3i b) {return new Vec3i(MyMath.min(x, b.x), MyMath.min(y, b.y), MyMath.min(z, b.z));}
+/*2022*/public Vec3i min(int b) {return new Vec3i(MyMath.min(x, b), MyMath.min(y, b), MyMath.min(z, b));}
+/*2022*/public Vec3i min(int x, int y, int z) {return new Vec3i(MyMath.min(this.x, x), MyMath.min(this.y, y), MyMath.min(this.z, z));}
+/*2022*/public Vec3i max(Vec3i b) {return new Vec3i(MyMath.max(x, b.x), MyMath.max(y, b.y), MyMath.max(z, b.z));}
+/*2022*/public Vec3i max(int b) {return new Vec3i(MyMath.max(x, b), MyMath.max(y, b), MyMath.max(z, b));}
+/*2022*/public Vec3i max(int x, int y, int z) {return new Vec3i(MyMath.max(this.x, x), MyMath.max(this.y, y), MyMath.max(this.z, z));}
+/*2022*/public Vec3i cycle(Vec3i b) {return new Vec3i(MyMath.cycle(x, b.x), MyMath.cycle(y, b.y), MyMath.cycle(z, b.z));}
+/*2022*/public Vec3i cycle(int b) {return new Vec3i(MyMath.cycle(x, b), MyMath.cycle(y, b), MyMath.cycle(z, b));}
+/*2022*/public Vec3i cycle(int x, int y, int z) {return new Vec3i(MyMath.cycle(this.x, x), MyMath.cycle(this.y, y), MyMath.cycle(this.z, z));}
+//2022 auto generated text
+
 }

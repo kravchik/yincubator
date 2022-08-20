@@ -10,6 +10,7 @@ import yk.jcommon.fastgeom.Vec4f;
  * Date: 5/9/14
  * Time: 3:02 PM
  */
+//TODO rename FMath
 public class MyMath {
     public static float PI = (float) Math.PI;
 

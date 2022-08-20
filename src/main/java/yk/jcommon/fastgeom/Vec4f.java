@@ -19,11 +19,15 @@ public final class Vec4f implements Serializable {
     public float x, y, z, w;
 
     public static final Vec4f ZERO = new Vec4f(0, 0, 0, 0);
+    public static final Vec4f AXIS_X = new Vec4f(1, 0, 0, 0);
+    public static final Vec4f AXIS_Y = new Vec4f(0, 1, 0, 0);
+    public static final Vec4f AXIS_Z = new Vec4f(0, 0, 1, 0);
+    public static final Vec4f AXIS_W = new Vec4f(0, 0, 0, 1);
+
 
     public Vec4f() {
     }
 
-    @Deprecated //remove deprecated later
     public Vec4f(final float x, final float y, final float z, final float w) {
         this.w = w;
         this.x = x;this.y = y;
@@ -49,29 +53,9 @@ public final class Vec4f implements Serializable {
         this.z = from.z;
     }
 
-    public Vec4f add(final Vec4f b) {
-        return new Vec4f(x + b.x, y + b.y, z + b.z, w + b.w);
-    }
-
-    public Vec4f add(float w, float x, float y, float z) {
-        return new Vec4f(this.x + x, this.y + y, this.z + z, this.w + w);
-    }
-
 //    public Vec4f crossProduct(final Vec4f b) {
 //        return new Vec4f(y * b.z - z * b.y, z * b.x - x * b.z, x * b.y - y * b.x);
 //    }
-
-    public Vec4f mul(final float b) {
-        return new Vec4f(x * b, y * b, z * b, w * b);
-    }
-
-    public Vec4f mul(final Vec4f b) {
-        return new Vec4f(x * b.x, y * b.y, z * b.z, w * b.w);
-    }
-
-    public Vec4f mul(float w, float x, float y, float z) {
-        return new Vec4f(this.x * x, this.y * y, this.z * z, this.w * w);
-    }
 
     public Vec4f normalized() {
         return normalized(1);
@@ -87,18 +71,6 @@ public final class Vec4f implements Serializable {
 //    public float scalarProduct(final Vec4f b) {
 //        return x * b.x + y * b.y + z * b.z;
 //    }
-
-    public Vec4f sub(final Vec4f b) {
-        return new Vec4f(x - b.x, y - b.y, z - b.z, w - b.w);
-    }
-
-    public Vec4f sub(float w, float x, float y, float z) {
-        return new Vec4f(this.x - x, this.y - y, this.z - z, this.w - w);
-    }
-
-    public Vec4f cycle(float period) {
-        return new Vec4f(MyMath.cycle(x, period), MyMath.cycle(y, period), MyMath.cycle(z, period), MyMath.cycle(w, period));
-    }
 
     public Vec4f withSetX(float x) {
         return new Vec4f(x, y, z, w);
@@ -191,7 +163,32 @@ public final class Vec4f implements Serializable {
         return v4(x, y, z, w);
     }
 
-    //gglsl auto generated text
+//2022 auto generated text
+/*2022*/public Vec4f add(Vec4f other) {return new Vec4f(x + other.x, y + other.y, z + other.z, w + other.w);}
+/*2022*/public Vec4f add(float v) {return new Vec4f(x + v, y + v, z + v, w + v);}
+/*2022*/public Vec4f add(float x, float y, float z, float w) {return new Vec4f(this.x + x, this.y + y, this.z + z, this.w + w);}
+/*2022*/public Vec4f sub(Vec4f other) {return new Vec4f(x - other.x, y - other.y, z - other.z, w - other.w);}
+/*2022*/public Vec4f sub(float v) {return new Vec4f(x - v, y - v, z - v, w - v);}
+/*2022*/public Vec4f sub(float x, float y, float z, float w) {return new Vec4f(this.x - x, this.y - y, this.z - z, this.w - w);}
+/*2022*/public Vec4f mul(Vec4f other) {return new Vec4f(x * other.x, y * other.y, z * other.z, w * other.w);}
+/*2022*/public Vec4f mul(float v) {return new Vec4f(x * v, y * v, z * v, w * v);}
+/*2022*/public Vec4f mul(float x, float y, float z, float w) {return new Vec4f(this.x * x, this.y * y, this.z * z, this.w * w);}
+/*2022*/public Vec4f div(Vec4f other) {return new Vec4f(x / other.x, y / other.y, z / other.z, w / other.w);}
+/*2022*/public Vec4f div(float v) {return new Vec4f(x / v, y / v, z / v, w / v);}
+/*2022*/public Vec4f div(float x, float y, float z, float w) {return new Vec4f(this.x / x, this.y / y, this.z / z, this.w / w);}
+/*2022*/public Vec4f floor() {return new Vec4f(MyMath.floorFast(x), MyMath.floorFast(y), MyMath.floorFast(z), MyMath.floorFast(w));}
+/*2022*/public Vec4f min(Vec4f b) {return new Vec4f(MyMath.min(x, b.x), MyMath.min(y, b.y), MyMath.min(z, b.z), MyMath.min(w, b.w));}
+/*2022*/public Vec4f min(float b) {return new Vec4f(MyMath.min(x, b), MyMath.min(y, b), MyMath.min(z, b), MyMath.min(w, b));}
+/*2022*/public Vec4f min(float x, float y, float z, float w) {return new Vec4f(MyMath.min(this.x, x), MyMath.min(this.y, y), MyMath.min(this.z, z), MyMath.min(this.w, w));}
+/*2022*/public Vec4f max(Vec4f b) {return new Vec4f(MyMath.max(x, b.x), MyMath.max(y, b.y), MyMath.max(z, b.z), MyMath.max(w, b.w));}
+/*2022*/public Vec4f max(float b) {return new Vec4f(MyMath.max(x, b), MyMath.max(y, b), MyMath.max(z, b), MyMath.max(w, b));}
+/*2022*/public Vec4f max(float x, float y, float z, float w) {return new Vec4f(MyMath.max(this.x, x), MyMath.max(this.y, y), MyMath.max(this.z, z), MyMath.max(this.w, w));}
+/*2022*/public Vec4f cycle(Vec4f b) {return new Vec4f(MyMath.cycle(x, b.x), MyMath.cycle(y, b.y), MyMath.cycle(z, b.z), MyMath.cycle(w, b.w));}
+/*2022*/public Vec4f cycle(float b) {return new Vec4f(MyMath.cycle(x, b), MyMath.cycle(y, b), MyMath.cycle(z, b), MyMath.cycle(w, b));}
+/*2022*/public Vec4f cycle(float x, float y, float z, float w) {return new Vec4f(MyMath.cycle(this.x, x), MyMath.cycle(this.y, y), MyMath.cycle(this.z, z), MyMath.cycle(this.w, w));}
+//2022 auto generated text
+
+//gglsl auto generated text
 public Vec4f plus(Vec4f arg1) {return Vec4f.v4((float)this.x+(float)arg1.x, (float)this.y+(float)arg1.y, (float)this.z+(float)arg1.z, (float)this.w+(float)arg1.w);}
 public Vec4f plus(float arg1) {return Vec4f.v4((float)this.x+(float)arg1, (float)this.y+(float)arg1, (float)this.z+(float)arg1, (float)this.w+(float)arg1);}
 public Vec4f plus(Float arg1) {return Vec4f.v4((float)this.x+(float)arg1, (float)this.y+(float)arg1, (float)this.z+(float)arg1, (float)this.w+(float)arg1);}
@@ -204,8 +201,6 @@ public Vec4f multiply(Vec4f arg1) {return Vec4f.v4((float)this.x*(float)arg1.x, 
 public Vec4f multiply(float arg1) {return Vec4f.v4((float)this.x*(float)arg1, (float)this.y*(float)arg1, (float)this.z*(float)arg1, (float)this.w*(float)arg1);}
 public Vec4f multiply(Float arg1) {return Vec4f.v4((float)this.x*(float)arg1, (float)this.y*(float)arg1, (float)this.z*(float)arg1, (float)this.w*(float)arg1);}
 public Vec4f multiply(Number arg1) {return Vec4f.v4((float)this.x*(float)arg1, (float)this.y*(float)arg1, (float)this.z*(float)arg1, (float)this.w*(float)arg1);}
-public Vec4f div(Vec4f arg1) {return Vec4f.v4((float)this.x/(float)arg1.x, (float)this.y/(float)arg1.y, (float)this.z/(float)arg1.z, (float)this.w/(float)arg1.w);}
-public Vec4f div(float arg1) {return Vec4f.v4((float)this.x/(float)arg1, (float)this.y/(float)arg1, (float)this.z/(float)arg1, (float)this.w/(float)arg1);}
 public Vec4f div(Float arg1) {return Vec4f.v4((float)this.x/(float)arg1, (float)this.y/(float)arg1, (float)this.z/(float)arg1, (float)this.w/(float)arg1);}
 public Vec4f div(Number arg1) {return Vec4f.v4((float)this.x/(float)arg1, (float)this.y/(float)arg1, (float)this.z/(float)arg1, (float)this.w/(float)arg1);}
 public Vec4f radians() {return Vec4f.v4((float)(this.x/180f*Math.PI), (float)(this.y/180f*Math.PI), (float)(this.z/180f*Math.PI), (float)(this.w/180f*Math.PI));}
@@ -223,20 +218,14 @@ public Vec4f log() {return Vec4f.v4((float)Math.log(this.x), (float)Math.log(thi
 public Vec4f sqrt() {return Vec4f.v4((float)Math.sqrt(this.x), (float)Math.sqrt(this.y), (float)Math.sqrt(this.z), (float)Math.sqrt(this.w));}
 public Vec4f abs() {return Vec4f.v4(Math.abs(this.x), Math.abs(this.y), Math.abs(this.z), Math.abs(this.w));}
 public Vec4f sign() {return Vec4f.v4(Math.signum(this.x), Math.signum(this.y), Math.signum(this.z), Math.signum(this.w));}
-public Vec4f floor() {return Vec4f.v4((float)Math.floor(this.x), (float)Math.floor(this.y), (float)Math.floor(this.z), (float)Math.floor(this.w));}
 public Vec4f ceil() {return Vec4f.v4((float)Math.ceil(this.x), (float)Math.ceil(this.y), (float)Math.ceil(this.z), (float)Math.ceil(this.w));}
 public Vec4f fract() {return Vec4f.v4(this.x - (float)Math.floor(this.x), this.y - (float)Math.floor(this.y), this.z - (float)Math.floor(this.z), this.w - (float)Math.floor(this.w));}
 public Vec4f mod(Vec4f by) {return Vec4f.v4((float)(this.x-by.x*Math.floor(this.x/by.x)), (float)(this.y-by.y*Math.floor(this.y/by.y)), (float)(this.z-by.z*Math.floor(this.z/by.z)), (float)(this.w-by.w*Math.floor(this.w/by.w)));}
-public Vec4f min(Vec4f arg1) {return Vec4f.v4(Math.min(this.x, arg1.x), Math.min(this.y, arg1.y), Math.min(this.z, arg1.z), Math.min(this.w, arg1.w));}
-public Vec4f min(float arg1) {return Vec4f.v4(Math.min(this.x, arg1), Math.min(this.y, arg1), Math.min(this.z, arg1), Math.min(this.w, arg1));}
-public Vec4f max(Vec4f arg1) {return Vec4f.v4(Math.max(this.x, arg1.x), Math.max(this.y, arg1.y), Math.max(this.z, arg1.z), Math.max(this.w, arg1.w));}
-public Vec4f max(float arg1) {return Vec4f.v4(Math.max(this.x, arg1), Math.max(this.y, arg1), Math.max(this.z, arg1), Math.max(this.w, arg1));}
 public Vec4f clamp(Vec4f min, Vec4f max) {return Vec4f.v4(Math.max(min.x, Math.min(this.x, max.x)), Math.max(min.y, Math.min(this.y, max.y)), Math.max(min.z, Math.min(this.z, max.z)), Math.max(min.w, Math.min(this.w, max.w)));}
 public Vec4f clamp(float min, float max) {return Vec4f.v4(Math.max(min, Math.min(this.x, max)), Math.max(min, Math.min(this.y, max)), Math.max(min, Math.min(this.z, max)), Math.max(min, Math.min(this.w, max)));}
 public Vec4f mix(Vec4f to, Vec4f progress) {return Vec4f.v4(this.x * (1 - progress.x) + to.x * progress.x, this.y * (1 - progress.y) + to.y * progress.y, this.z * (1 - progress.z) + to.z * progress.z, this.w * (1 - progress.w) + to.w * progress.w);}
 public Vec4f mix(Vec4f to, float progress) {return Vec4f.v4(this.x * (1 - progress) + to.x * progress, this.y * (1 - progress) + to.y * progress, this.z * (1 - progress) + to.z * progress, this.w * (1 - progress) + to.w * progress);}
 public Vec4f step(Vec4f value) {return Vec4f.v4(value.x < this.x ? 0 : 1, value.y < this.y ? 0 : 1, value.z < this.z ? 0 : 1, value.w < this.w ? 0 : 1);}
 public Vec4f smoothstep(Vec4f to, Vec4f progress) {return Vec4f.v4(progress.x < this.x ? 0 : progress.x > to.x ? 1 : progress.x*progress.x*(3 - 2*progress.x), progress.y < this.y ? 0 : progress.y > to.y ? 1 : progress.y*progress.y*(3 - 2*progress.y), progress.z < this.z ? 0 : progress.z > to.z ? 1 : progress.z*progress.z*(3 - 2*progress.z), progress.w < this.w ? 0 : progress.w > to.w ? 1 : progress.w*progress.w*(3 - 2*progress.w));}
-
 //gglsl auto generated text
 }

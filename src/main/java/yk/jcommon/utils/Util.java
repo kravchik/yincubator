@@ -296,15 +296,15 @@ public class Util {
         }
     }
 
-    private static final String s = " auto generated text";
+    private static final String AUTO_GENERATED_TEXT = " auto generated text";
 
     public static String insertLines(String body, String prefix, List<String> lines) {
-        String splitter = "//" + prefix + s;
+        String splitter = "//" + prefix + AUTO_GENERATED_TEXT;
         String[] split = body.split(splitter);
         String result = split[0];
         result = result + splitter + "\n";
-        for (String line : lines) result = result + line + "\n";
-        result = result + "\n" + splitter;
+        for (String line : lines) result = result + "/*" + prefix + "*/" + line + "\n";
+        result = result + splitter;
         result = result + split[2];
         return result;
     }

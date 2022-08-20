@@ -20,15 +20,19 @@ import static yk.jcommon.utils.MyMath.sqr;
 public final class Vec3f implements Serializable {
     public float x, y, z;
 
+    public static final Vec3f ZERO = new Vec3f();
+    public static final Vec3f AXIS_X = new Vec3f(1, 0, 0);
+    public static final Vec3f AXIS_Y = new Vec3f(0, 1, 0);
+    public static final Vec3f AXIS_Z = new Vec3f(0, 0, 1);
+
     public static Vec3f ZERO() {return new Vec3f(0, 0, 0);}
-    public static Vec3f AXISX() {return new Vec3f(1, 0, 0);}
-    public static Vec3f AXISY() {return new Vec3f(0, 1, 0);}
-    public static Vec3f AXISZ() {return new Vec3f(0, 0, 1);}
+    public static Vec3f AXIS_X() {return new Vec3f(1, 0, 0);}
+    public static Vec3f AXIS_Y() {return new Vec3f(0, 1, 0);}
+    public static Vec3f AXIS_Z() {return new Vec3f(0, 0, 1);}
 
     public Vec3f() {
     }
 
-    //common auto generated text
     public Vec3f(float x, float y, float z) {
         this.x = x;
         this.y = y;
@@ -55,18 +59,6 @@ public final class Vec3f implements Serializable {
         z = other.z;
     }
 
-    public Vec3f add(Vec3f other) {
-        return new Vec3f(this.x + other.x, this.y + other.y, this.z + other.z);
-    }
-
-    public Vec3f add(float scalar) {
-        return new Vec3f(x + scalar, y + scalar, z + scalar);
-    }
-
-    public Vec3f add(float x, float y, float z) {
-        return new Vec3f(this.x + x, this.y + y, this.z + z);
-    }
-
     public void seAdd(Vec3f other) {
         x = x + other.x;
         y = y + other.y;
@@ -83,18 +75,6 @@ public final class Vec3f implements Serializable {
         this.x = this.x + x;
         this.y = this.y + y;
         this.z = this.z + z;
-    }
-
-    public Vec3f sub(Vec3f other) {
-        return new Vec3f(this.x - other.x, this.y - other.y, this.z - other.z);
-    }
-
-    public Vec3f sub(float scalar) {
-        return new Vec3f(x - scalar, y - scalar, z - scalar);
-    }
-
-    public Vec3f sub(float x, float y, float z) {
-        return new Vec3f(this.x - x, this.y - y, this.z - z);
     }
 
     public void seSub(Vec3f other) {
@@ -115,18 +95,6 @@ public final class Vec3f implements Serializable {
         this.z = this.z - z;
     }
 
-    public Vec3f mul(Vec3f other) {
-        return new Vec3f(this.x * other.x, this.y * other.y, this.z * other.z);
-    }
-
-    public Vec3f mul(float scalar) {
-        return new Vec3f(x * scalar, y * scalar, z * scalar);
-    }
-
-    public Vec3f mul(float x, float y, float z) {
-        return new Vec3f(this.x * x, this.y * y, this.z * z);
-    }
-
     public void seMul(Vec3f other) {
         x = x * other.x;
         y = y * other.y;
@@ -143,18 +111,6 @@ public final class Vec3f implements Serializable {
         this.x = this.x * x;
         this.y = this.y * y;
         this.z = this.z * z;
-    }
-
-    public Vec3f div(Vec3f other) {
-        return new Vec3f(this.x / other.x, this.y / other.y, this.z / other.z);
-    }
-
-    public Vec3f div(float scalar) {
-        return new Vec3f(x / scalar, y / scalar, z / scalar);
-    }
-
-    public Vec3f div(float x, float y, float z) {
-        return new Vec3f(this.x / x, this.y / y, this.z / z);
     }
 
     public void seDiv(Vec3f other) {
@@ -217,14 +173,6 @@ public final class Vec3f implements Serializable {
 
     public String toString() {
         return "" + x + " " + y + " " + z;
-    }
-
-
-//common auto generated text
-
-
-    public static Vec3f v23(Vec2f v, float z) {
-        return new Vec3f(v, z);
     }
 
     public Vec3f(Vec2f v, float z) {
@@ -317,33 +265,52 @@ public final class Vec3f implements Serializable {
         return (this.sub(center)).limit(max).add(center);
     }
 
-    public Vec3f cycle(float period) {
-        return new Vec3f(MyMath.cycle(x, period), MyMath.cycle(y, period), MyMath.cycle(z, period));
-    }
-
     public static float distanceSquared(Vec3f a, Vec3f b) {
         return sqr(a.x - b.x) + sqr(a.y - b.y) + sqr(a.z - b.z);
     }
 
 
+//2022 auto generated text
+/*2022*/public Vec3f add(Vec3f other) {return new Vec3f(x + other.x, y + other.y, z + other.z);}
+/*2022*/public Vec3f add(float v) {return new Vec3f(x + v, y + v, z + v);}
+/*2022*/public Vec3f add(float x, float y, float z) {return new Vec3f(this.x + x, this.y + y, this.z + z);}
+/*2022*/public Vec3f sub(Vec3f other) {return new Vec3f(x - other.x, y - other.y, z - other.z);}
+/*2022*/public Vec3f sub(float v) {return new Vec3f(x - v, y - v, z - v);}
+/*2022*/public Vec3f sub(float x, float y, float z) {return new Vec3f(this.x - x, this.y - y, this.z - z);}
+/*2022*/public Vec3f mul(Vec3f other) {return new Vec3f(x * other.x, y * other.y, z * other.z);}
+/*2022*/public Vec3f mul(float v) {return new Vec3f(x * v, y * v, z * v);}
+/*2022*/public Vec3f mul(float x, float y, float z) {return new Vec3f(this.x * x, this.y * y, this.z * z);}
+/*2022*/public Vec3f div(Vec3f other) {return new Vec3f(x / other.x, y / other.y, z / other.z);}
+/*2022*/public Vec3f div(float v) {return new Vec3f(x / v, y / v, z / v);}
+/*2022*/public Vec3f div(float x, float y, float z) {return new Vec3f(this.x / x, this.y / y, this.z / z);}
+/*2022*/public Vec3f floor() {return new Vec3f(MyMath.floorFast(x), MyMath.floorFast(y), MyMath.floorFast(z));}
+/*2022*/public Vec3f min(Vec3f b) {return new Vec3f(MyMath.min(x, b.x), MyMath.min(y, b.y), MyMath.min(z, b.z));}
+/*2022*/public Vec3f min(float b) {return new Vec3f(MyMath.min(x, b), MyMath.min(y, b), MyMath.min(z, b));}
+/*2022*/public Vec3f min(float x, float y, float z) {return new Vec3f(MyMath.min(this.x, x), MyMath.min(this.y, y), MyMath.min(this.z, z));}
+/*2022*/public Vec3f max(Vec3f b) {return new Vec3f(MyMath.max(x, b.x), MyMath.max(y, b.y), MyMath.max(z, b.z));}
+/*2022*/public Vec3f max(float b) {return new Vec3f(MyMath.max(x, b), MyMath.max(y, b), MyMath.max(z, b));}
+/*2022*/public Vec3f max(float x, float y, float z) {return new Vec3f(MyMath.max(this.x, x), MyMath.max(this.y, y), MyMath.max(this.z, z));}
+/*2022*/public Vec3f cycle(Vec3f b) {return new Vec3f(MyMath.cycle(x, b.x), MyMath.cycle(y, b.y), MyMath.cycle(z, b.z));}
+/*2022*/public Vec3f cycle(float b) {return new Vec3f(MyMath.cycle(x, b), MyMath.cycle(y, b), MyMath.cycle(z, b));}
+/*2022*/public Vec3f cycle(float x, float y, float z) {return new Vec3f(MyMath.cycle(this.x, x), MyMath.cycle(this.y, y), MyMath.cycle(this.z, z));}
+//2022 auto generated text
 
-    //gglsl auto generated text
-public Vec3f plus(Vec3f arg1) {return Vec3f.v3((float)this.x+(float)arg1.x, (float)this.y+(float)arg1.y, (float)this.z+(float)arg1.z);}
-public Vec3f plus(float arg1) {return Vec3f.v3((float)this.x+(float)arg1, (float)this.y+(float)arg1, (float)this.z+(float)arg1);}
-public Vec3f plus(Float arg1) {return Vec3f.v3((float)this.x+(float)arg1, (float)this.y+(float)arg1, (float)this.z+(float)arg1);}
-public Vec3f plus(Number arg1) {return Vec3f.v3((float)this.x+(float)arg1, (float)this.y+(float)arg1, (float)this.z+(float)arg1);}
-public Vec3f minus(Vec3f arg1) {return Vec3f.v3((float)this.x-(float)arg1.x, (float)this.y-(float)arg1.y, (float)this.z-(float)arg1.z);}
-public Vec3f minus(float arg1) {return Vec3f.v3((float)this.x-(float)arg1, (float)this.y-(float)arg1, (float)this.z-(float)arg1);}
-public Vec3f minus(Float arg1) {return Vec3f.v3((float)this.x-(float)arg1, (float)this.y-(float)arg1, (float)this.z-(float)arg1);}
-public Vec3f minus(Number arg1) {return Vec3f.v3((float)this.x-(float)arg1, (float)this.y-(float)arg1, (float)this.z-(float)arg1);}
-public Vec3f multiply(Vec3f arg1) {return Vec3f.v3((float)this.x*(float)arg1.x, (float)this.y*(float)arg1.y, (float)this.z*(float)arg1.z);}
-public Vec3f multiply(float arg1) {return Vec3f.v3((float)this.x*(float)arg1, (float)this.y*(float)arg1, (float)this.z*(float)arg1);}
-public Vec3f multiply(Float arg1) {return Vec3f.v3((float)this.x*(float)arg1, (float)this.y*(float)arg1, (float)this.z*(float)arg1);}
-public Vec3f multiply(Number arg1) {return Vec3f.v3((float)this.x*(float)arg1, (float)this.y*(float)arg1, (float)this.z*(float)arg1);}
-//public Vec3f div(Vec3f arg1) {return Vec3f.v3((float)this.x/(float)arg1.x, (float)this.y/(float)arg1.y, (float)this.z/(float)arg1.z);}
-//public Vec3f div(float arg1) {return Vec3f.v3((float)this.x/(float)arg1, (float)this.y/(float)arg1, (float)this.z/(float)arg1);}
-public Vec3f div(Float arg1) {return Vec3f.v3((float)this.x/(float)arg1, (float)this.y/(float)arg1, (float)this.z/(float)arg1);}
-public Vec3f div(Number arg1) {return Vec3f.v3((float)this.x/(float)arg1, (float)this.y/(float)arg1, (float)this.z/(float)arg1);}
+//gglsl auto generated text
+public Vec3f plus(Vec3f arg1) {return Vec3f.v3(this.x + arg1.x, this.y + arg1.y, this.z + arg1.z);}
+public Vec3f plus(float arg1) {return Vec3f.v3(this.x + arg1, this.y + arg1, this.z + arg1);}
+public Vec3f plus(Float arg1) {return Vec3f.v3(this.x + arg1, this.y + arg1, this.z + arg1);}
+public Vec3f plus(Number arg1) {return Vec3f.v3(this.x +(float)arg1, this.y +(float)arg1, this.z +(float)arg1);}
+public Vec3f minus(Vec3f arg1) {return Vec3f.v3(this.x - arg1.x, this.y - arg1.y, this.z - arg1.z);}
+public Vec3f minus(float arg1) {return Vec3f.v3(this.x - arg1, this.y - arg1, this.z - arg1);}
+public Vec3f minus(Float arg1) {return Vec3f.v3(this.x - arg1, this.y - arg1, this.z - arg1);}
+public Vec3f minus(Number arg1) {return Vec3f.v3(this.x -(float)arg1, this.y -(float)arg1, this.z -(float)arg1);}
+public Vec3f multiply(Vec3f arg1) {return Vec3f.v3(this.x * arg1.x, this.y * arg1.y, this.z * arg1.z);}
+public Vec3f multiply(float arg1) {return Vec3f.v3(this.x * arg1, this.y * arg1, this.z * arg1);}
+public Vec3f multiply(Float arg1) {return Vec3f.v3(this.x * arg1, this.y * arg1, this.z * arg1);}
+public Vec3f multiply(Number arg1) {return Vec3f.v3(this.x *(float)arg1, this.y *(float)arg1, this.z *(float)arg1);}
+public Vec3f div(Float arg1) {return Vec3f.v3(this.x / arg1, this.y / arg1, this.z / arg1);}
+public Vec3f div(Number arg1) {return Vec3f.v3(this.x /(float)arg1, this.y /(float)arg1, this.z /(float)arg1);}
+
 public Vec3f radians() {return Vec3f.v3((float)(this.x/180f*Math.PI), (float)(this.y/180f*Math.PI), (float)(this.z/180f*Math.PI));}
 public Vec3f degrees() {return Vec3f.v3((float)(this.x/Math.PI*180), (float)(this.y/Math.PI*180), (float)(this.z/Math.PI*180));}
 public Vec3f sin() {return Vec3f.v3((float)Math.sin(this.x), (float)Math.sin(this.y), (float)Math.sin(this.z));}
@@ -359,21 +326,15 @@ public Vec3f log() {return Vec3f.v3((float)Math.log(this.x), (float)Math.log(thi
 public Vec3f sqrt() {return Vec3f.v3((float)Math.sqrt(this.x), (float)Math.sqrt(this.y), (float)Math.sqrt(this.z));}
 public Vec3f abs() {return Vec3f.v3(Math.abs(this.x), Math.abs(this.y), Math.abs(this.z));}
 public Vec3f sign() {return Vec3f.v3(Math.signum(this.x), Math.signum(this.y), Math.signum(this.z));}
-public Vec3f floor() {return Vec3f.v3((float)Math.floor(this.x), (float)Math.floor(this.y), (float)Math.floor(this.z));}
 public Vec3f ceil() {return Vec3f.v3((float)Math.ceil(this.x), (float)Math.ceil(this.y), (float)Math.ceil(this.z));}
 public Vec3f fract() {return Vec3f.v3(this.x - (float)Math.floor(this.x), this.y - (float)Math.floor(this.y), this.z - (float)Math.floor(this.z));}
 public Vec3f mod(Vec3f by) {return Vec3f.v3((float)(this.x-by.x*Math.floor(this.x/by.x)), (float)(this.y-by.y*Math.floor(this.y/by.y)), (float)(this.z-by.z*Math.floor(this.z/by.z)));}
-public Vec3f min(Vec3f arg1) {return Vec3f.v3(Math.min(this.x, arg1.x), Math.min(this.y, arg1.y), Math.min(this.z, arg1.z));}
-public Vec3f min(float arg1) {return Vec3f.v3(Math.min(this.x, arg1), Math.min(this.y, arg1), Math.min(this.z, arg1));}
-public Vec3f max(Vec3f arg1) {return Vec3f.v3(Math.max(this.x, arg1.x), Math.max(this.y, arg1.y), Math.max(this.z, arg1.z));}
-public Vec3f max(float arg1) {return Vec3f.v3(Math.max(this.x, arg1), Math.max(this.y, arg1), Math.max(this.z, arg1));}
 public Vec3f clamp(Vec3f min, Vec3f max) {return Vec3f.v3(Math.max(min.x, Math.min(this.x, max.x)), Math.max(min.y, Math.min(this.y, max.y)), Math.max(min.z, Math.min(this.z, max.z)));}
 public Vec3f clamp(float min, float max) {return Vec3f.v3(Math.max(min, Math.min(this.x, max)), Math.max(min, Math.min(this.y, max)), Math.max(min, Math.min(this.z, max)));}
 public Vec3f mix(Vec3f to, Vec3f progress) {return Vec3f.v3(this.x * (1 - progress.x) + to.x * progress.x, this.y * (1 - progress.y) + to.y * progress.y, this.z * (1 - progress.z) + to.z * progress.z);}
 public Vec3f mix(Vec3f to, float progress) {return Vec3f.v3(this.x * (1 - progress) + to.x * progress, this.y * (1 - progress) + to.y * progress, this.z * (1 - progress) + to.z * progress);}
 public Vec3f step(Vec3f value) {return Vec3f.v3(value.x < this.x ? 0 : 1, value.y < this.y ? 0 : 1, value.z < this.z ? 0 : 1);}
 public Vec3f smoothstep(Vec3f to, Vec3f progress) {return Vec3f.v3(progress.x < this.x ? 0 : progress.x > to.x ? 1 : progress.x*progress.x*(3 - 2*progress.x), progress.y < this.y ? 0 : progress.y > to.y ? 1 : progress.y*progress.y*(3 - 2*progress.y), progress.z < this.z ? 0 : progress.z > to.z ? 1 : progress.z*progress.z*(3 - 2*progress.z));}
-
 //gglsl auto generated text
 
 }
