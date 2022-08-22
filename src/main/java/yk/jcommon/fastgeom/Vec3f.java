@@ -25,9 +25,13 @@ public final class Vec3f implements Serializable {
     public static final Vec3f AXIS_Y = new Vec3f(0, 1, 0);
     public static final Vec3f AXIS_Z = new Vec3f(0, 0, 1);
 
+    @Deprecated
     public static Vec3f ZERO() {return new Vec3f(0, 0, 0);}
+    @Deprecated
     public static Vec3f AXIS_X() {return new Vec3f(1, 0, 0);}
+    @Deprecated
     public static Vec3f AXIS_Y() {return new Vec3f(0, 1, 0);}
+    @Deprecated
     public static Vec3f AXIS_Z() {return new Vec3f(0, 0, 1);}
 
     public Vec3f() {
@@ -41,6 +45,10 @@ public final class Vec3f implements Serializable {
 
     public static Vec3f v3(float x, float y, float z) {
         return new Vec3f(x, y, z);
+    }
+
+    public static Vec3f v3(Vec2f v, float z) {
+        return new Vec3f(v.x, v.y, z);
     }
 
     public Vec3f(Vec3f other) {

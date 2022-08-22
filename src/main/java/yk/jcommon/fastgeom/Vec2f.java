@@ -10,6 +10,7 @@ import yk.jcommon.utils.MyMath;
 
 import java.io.Serializable;
 
+import static yk.jcommon.fastgeom.Vec3f.v3;
 import static yk.jcommon.utils.Util.sqr;
 
 /**
@@ -169,6 +170,26 @@ public final class Vec2f implements Serializable {
 
     public float dist(Vec2f b) {
         return sub(b).length();
+    }
+
+    public Vec3f v3WithX(float x) {
+        return v3(x, this.x, y);
+    }
+
+    public Vec3f v3WithY(float y) {
+        return v3(x, y, this.y);
+    }
+
+    public Vec3f v3WithZ(float z) {
+        return v3(x, y, z);
+    }
+
+    public Vec2f withSetX(float x) {
+        return new Vec2f(x, y);
+    }
+
+    public Vec2f withSetY(float y) {
+        return new Vec2f(x, y);
     }
 
 //2022 auto generated text

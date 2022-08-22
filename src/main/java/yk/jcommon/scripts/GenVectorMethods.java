@@ -7,10 +7,9 @@ import yk.jcommon.utils.IO;
 import yk.jcommon.utils.Tab;
 import yk.jcommon.utils.Util;
 
-import java.util.function.BiFunction;
-
 import static java.lang.String.format;
 import static yk.jcommon.collections.YArrayList.al;
+import static yk.jcommon.collections.YCollections.zip;
 import static yk.jcommon.collections.YHashMap.hm;
 import static yk.jcommon.collections.YHashSet.hs;
 
@@ -99,7 +98,9 @@ public class GenVectorMethods {
                 lines.addAll(genElementsOp(className, m, methodToOp.get(m)));
 
                 seLines.addAll(genSeVecOp(className, m, tab, methodToOp.get(m)));
+                seLines.addAll(genSeVecOpA(className, m, tab, methodToOp.get(m)));
                 seLines.addAll(genSeScalarOp(className, classToScalar.get(className), m, tab, methodToOp.get(m)));
+                seLines.addAll(genSeScalarOpA(className, classToScalar.get(className), m, tab, methodToOp.get(m)));
             }
             for (String m : methodTo0Fun.keySet()) {
                 if (classToMethodSkip.get(className) != null && classToMethodSkip.get(className).contains(m)) continue;
@@ -161,9 +162,19 @@ public class GenVectorMethods {
                 .with(genSeBodyOp("a", "res", fields(className), fields(className).map(l -> "b." + l), op).map(l -> tab + l)).with("}");
     }
 
+    public static YList<String> genSeVecOpA(String className, String methodName, Tab tab, String op) {
+        return al(format("public static void nm%s(%s a_res, %s b) {", capitalize(methodName), className, className, className))
+                .with(genSeBodyOp("a_res", "a_res", fields(className), fields(className).map(l -> "b." + l), op).map(l -> tab + l)).with("}");
+    }
+
     public static YList<String> genSeScalarOp(String className, String c2, String methodName, Tab tab, String op) {
         return al(format("public static void nm%s(%s a, %s b, %s res) {", capitalize(methodName), className, c2, className))
                 .with(genSeBodyOp("a", "res", fields(className), fields(className).map(l -> "b"), op).map(l -> tab + l)).with("}");
+    }
+
+    public static YList<String> genSeScalarOpA(String className, String c2, String methodName, Tab tab, String op) {
+        return al(format("public static void nm%s(%s a_res, %s b) {", capitalize(methodName), className, c2, className))
+                .with(genSeBodyOp("a_res", "a_res", fields(className), fields(className).map(l -> "b"), op).map(l -> tab + l)).with("}");
     }
 
     //fun0
@@ -211,15 +222,6 @@ public class GenVectorMethods {
     }
     public static String genConstructorOp(String className, YList<String> lefts, String op, YList<String> rights) {
         return format("return new %s(%s);", className, zip(lefts, rights, (f, of) -> f + " " + op + " " + of).toString(", "));
-    }
-
-    public static <T1, T2, T3> YList<T3> zip(YList<T1> a, YList<T2> b, BiFunction<T1, T2, T3> f) {
-        YList<T3> result = al();
-        for (int i = 0; i < a.size(); i++) {
-            if (b.size() <= i) break;
-            result.add(f.apply(a.get(i), b.get(i)));
-        }
-        return result;
     }
 
     private static String capitalize(String methodName) {

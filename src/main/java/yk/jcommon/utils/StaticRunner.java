@@ -12,10 +12,10 @@ import static yk.jcommon.utils.Util.sleep;
  * Time: 10:50 PM
  */
 public class StaticRunner {
-    public static final List<Threads.Foo> runnables = list();
+    public static final List<Threads.Executable> runnables = list();
     public static long sleepTime = 10;
 
-    public static void spawn(Threads.Foo r) {
+    public static void spawn(Threads.Executable r) {
         synchronized (runnables) {
             runnables.add(r);
         }
@@ -30,7 +30,7 @@ public class StaticRunner {
                     while (true) {
                         synchronized (runnables) {
                             for (int i = 0; i < runnables.size(); i++) {
-                                Threads.Foo runnable = runnables.get(i);
+                                Threads.Executable runnable = runnables.get(i);
                                 if (!runnable.execute()) {
                                     runnables.remove(i);
                                     i--;
@@ -50,7 +50,7 @@ public class StaticRunner {
     }
 
     public static void main(String[] args) {
-        spawn(new Threads.Foo() {
+        spawn(new Threads.Executable() {
             int i = 0;
 
             @Override
@@ -59,7 +59,7 @@ public class StaticRunner {
                 return i++ < 5;
             }
         });
-        spawn(new Threads.Foo() {
+        spawn(new Threads.Executable() {
             int i = 0;
 
             @Override

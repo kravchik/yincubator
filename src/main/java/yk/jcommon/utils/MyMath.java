@@ -76,7 +76,9 @@ public class MyMath {
         return (int) (floorFast(x / by) * by);
     }
     public static int max(int arg0, int arg1) {return Math.max(arg0, arg1);}
+    public static long max(long arg0, long arg1) {return Math.max(arg0, arg1);}
     public static int min(int arg0, int arg1) {return Math.min(arg0, arg1);}
+    public static long min(long arg0, long arg1) {return Math.min(arg0, arg1);}
     public static float to01(float value, float from, float to) {return (value - from) / (to - from);}
 
     public static void mix(Vec3f from, Vec3f to, float progress, Vec3f res) {
