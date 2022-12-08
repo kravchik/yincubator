@@ -42,16 +42,16 @@ public class MatcherShortNames {
         return MatchProperty.p1("getClass", true, al(c).with((List) al(rest)).toArray());
     }
 
-    public static MatchByIndex i(Object rest) {
-        return new MatchByIndex(rest);
+    public static MatchByIndex i(Object value) {
+        return new MatchByIndex(value);
     }
 
     public static MatchByIndex i() {
         return new MatchByIndex();
     }
 
-    public static MatchByIndex i(Object index, Object rest) {
-        return new MatchByIndex(index, rest);
+    public static MatchByIndex i(Object index, Object value) {
+        return new MatchByIndex(index, value);
     }
 
     public static MatchList ml(Object... oo) {
@@ -85,8 +85,8 @@ public class MatcherShortNames {
                 lastPare.b.value = last;
             } else if (o instanceof MatchByIndex) {
                 MatchByIndex bi = (MatchByIndex) o;
-                if (bi.rest != null) bi.index = bi.rest;
-                bi.rest = last;
+                if (bi.value != null) bi.index = bi.value;
+                bi.value = last;
             } else {
                 if (Reflector.getField(o.getClass(), "rest") == null) BadException.die("expected object with field 'rest', but was " + o);
                 if (Reflector.get(o, "rest") != null) BadException.die("expected null at 'rest' but was " + Reflector.get(o, "rest"));

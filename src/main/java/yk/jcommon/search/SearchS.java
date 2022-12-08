@@ -22,7 +22,7 @@ abstract public class SearchS<STATE> implements Comparator<SearchS.Node<STATE>> 
      */
     @Override
     public int compare(Node<STATE> a, Node<STATE> b) {
-        return breadthFirst ? a.w - b.w : b.w - a.w;
+        return breadthFirst ? a.depth - b.depth : b.depth - a.depth;
     }
 
     public SearchS(STATE begin) {
@@ -43,19 +43,13 @@ abstract public class SearchS<STATE> implements Comparator<SearchS.Node<STATE>> 
             iterations++;
             Collections.sort(edge, this);
             current = edge.get(0);
-            if (isEnd(current.state)){
-                //System.out.println("end");
-                break;
-            }
-            if (current.w >= curLimit) {
-                //System.out.println("out of limit");
-                break;
-            }
+            if (isEnd(current.state))break;
+            if (current.depth >= curLimit) break;
             edge.remove(0);
             for (STATE n : next(current)) {
                 //Node<STATE> node = null;
                 Node<STATE> node = seen.get(n);
-                if (node == null || node.w > current.w + 1) {
+                if (node == null || node.depth > current.depth + 1) {
                     Node<STATE> newNode = new Node<STATE>(current, n);
                     seen.put(n, newNode);
                     common.add(newNode);
@@ -80,7 +74,6 @@ abstract public class SearchS<STATE> implements Comparator<SearchS.Node<STATE>> 
     public List<Node<STATE>> getResult() {
         List<Node<STATE>> result = new ArrayList<Node<STATE>>();
         Node<STATE> current = edge.isEmpty() ? null : edge.get(0);
-        //Node<STATE> current = common.isEmpty() ? null : common.get(0);
         if (current == null) return null;
         while(current.prevNode != null) {
             result.add(0, current);
@@ -93,17 +86,17 @@ abstract public class SearchS<STATE> implements Comparator<SearchS.Node<STATE>> 
     public static class Node<STATE> {
         public STATE state;
         public Node<STATE> prevNode;//node with state from which we getFromList here with 'action'
-        public int w;//number of steps taken on the route from the start
+        public int depth;//number of steps taken on the route from the start
 
         public Node(Node<STATE> prevNode, STATE state) {
             this.prevNode = prevNode;
-            if (prevNode != null) this.w = prevNode.w + 1;
+            if (prevNode != null) this.depth = prevNode.depth + 1;
             this.state = state;
         }
 
         @Override
         public String toString() {
-            return "Node{prevNode.state=" + (prevNode == null ? "null" : prevNode.state) + ", w=" + w + ", state=" + state + "}\n";
+            return "Node{prevNode.state=" + (prevNode == null ? "null" : prevNode.state) + ", w=" + depth + ", state=" + state + "}\n";
         }
     }
 

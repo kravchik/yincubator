@@ -17,11 +17,11 @@ import static yk.jcommon.collections.YHashSet.hs;
  */
 public class MatchByIndex implements MatchCustom {
     public Object index;
-    public Object rest;
+    public Object value;
 
-    public MatchByIndex(Object rest) {
+    public MatchByIndex(Object value) {
         index = new MatchAny();
-        this.rest = rest;
+        this.value = value;
     }
 
     public MatchByIndex() {
@@ -29,9 +29,9 @@ public class MatchByIndex implements MatchCustom {
     }
 
     //TODO assert index either Int or Var
-    public MatchByIndex(Object index, Object rest) {
+    public MatchByIndex(Object index, Object value) {
         this.index = index;
-        this.rest = rest;
+        this.value = value;
     }
 
     @Override
@@ -40,10 +40,10 @@ public class MatchByIndex implements MatchCustom {
             List l = (List) data;
             Object index = matcher.resolve(this.index, cur);
 
-            if (this.index instanceof Number) return matcher.match(l.get(((Number) index).intValue()), this.rest, cur);
+            if (this.index instanceof Number) return matcher.match(l.get(((Number) index).intValue()), this.value, cur);
             YSet<YMap<String, Object>> result = hs();
             for (int i = 0; i < l.size(); i++) {
-                for (YMap<String, Object> m : matcher.match(l.get(i), this.rest, cur)) {
+                for (YMap<String, Object> m : matcher.match(l.get(i), this.value, cur)) {
                     if (this.index == null) result.add(m);
                     else result.addAll(matcher.match(i, index, m));
                 }
@@ -52,12 +52,12 @@ public class MatchByIndex implements MatchCustom {
         }
         if (data.getClass().isArray()) {
             Object index = matcher.resolve(this.index, cur);
-            if (index instanceof Number) return matcher.match(Array.get(data, ((Number) index).intValue()), this.rest, cur);
+            if (index instanceof Number) return matcher.match(Array.get(data, ((Number) index).intValue()), this.value, cur);
             YSet<YMap<String, Object>> result = hs();
             if (!(index instanceof MatchVar) && !(index instanceof MatchAny)) BadException.shouldNeverReachHere("" + index);
 
             for (int i = 0; i < Array.getLength(data); i++) {
-                for (YMap<String, Object> m : matcher.match(Array.get(data, i), this.rest, index instanceof MatchVar ? cur.with(((MatchVar) index).name, i) : cur)) {
+                for (YMap<String, Object> m : matcher.match(Array.get(data, i), this.value, index instanceof MatchVar ? cur.with(((MatchVar) index).name, i) : cur)) {
 //                    if (pattern.index == null) result.add(m);
 //                    else result.addAll(match(i, index, m));
                     result.add(m);

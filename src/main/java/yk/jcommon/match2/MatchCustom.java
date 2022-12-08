@@ -9,6 +9,7 @@ import yk.jcommon.collections.YSet;
  * Date: 19/08/16
  * Time: 11:02
  */
+//TODO rename -> MatchCustomPattern / CustomPattern / MatchPatternCustom
 public interface MatchCustom {
     YSet<YMap<String, Object>> match(Matcher matcher, Object data, YMap<String, Object> cur);
 }

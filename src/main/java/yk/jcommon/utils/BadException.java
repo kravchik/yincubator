@@ -26,8 +26,16 @@ public class BadException extends RuntimeException {
         throw new BadException(message);
     }
 
-    public static BadException die(String message, Throwable cause) {
+    public static BadException die(String message, Object... args) {
+        throw new BadException(String.format(message, args));
+    }
+
+    public static BadException die(Throwable cause, String message) {
         throw new BadException(message, cause);
+    }
+
+    public static BadException die(Throwable cause, String message, Object... args) {
+        throw new BadException(String.format(message, args), cause);
     }
 
     public static BadException die(Throwable cause) {

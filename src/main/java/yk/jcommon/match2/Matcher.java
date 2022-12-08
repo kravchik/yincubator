@@ -14,7 +14,6 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
-import static yk.jcommon.collections.YArrayList.al;
 import static yk.jcommon.collections.YHashMap.hm;
 import static yk.jcommon.collections.YHashSet.hs;
 
@@ -25,6 +24,7 @@ import static yk.jcommon.collections.YHashSet.hs;
  * Time: 16:54
  */
 public class Matcher {
+    //TODO rename dataClassMatchers
     public YMap<Class, MatchCustomStatic> classMatchers = hm();
     public Matcher() {
     }
@@ -150,10 +150,10 @@ public class Matcher {
             List l = (List) data;
             Object index = resolve(pattern.index, cur);
 
-            if (pattern.index instanceof Number) return match(l.get(((Number) index).intValue()), pattern.rest, cur);
+            if (pattern.index instanceof Number) return match(l.get(((Number) index).intValue()), pattern.value, cur);
             YSet<YMap<String, Object>> result = hs();
             for (int i = 0; i < l.size(); i++) {
-                for (YMap<String, Object> m : match(l.get(i), pattern.rest, cur)) {
+                for (YMap<String, Object> m : match(l.get(i), pattern.value, cur)) {
                     if (pattern.index == null) result.add(m);
                     else result.addAll(match(i, index, m));
                 }
@@ -162,12 +162,12 @@ public class Matcher {
         }
         if (data.getClass().isArray()) {
             Object index = resolve(pattern.index, cur);
-            if (index instanceof Number) return match(Array.get(data, ((Number) index).intValue()), pattern.rest, cur);
+            if (index instanceof Number) return match(Array.get(data, ((Number) index).intValue()), pattern.value, cur);
             YSet<YMap<String, Object>> result = hs();
             if (!(index instanceof MatchVar) && !(index instanceof MatchAny)) BadException.shouldNeverReachHere("" + index);
 
             for (int i = 0; i < Array.getLength(data); i++) {
-                for (YMap<String, Object> m : match(Array.get(data, i), pattern.rest, index instanceof MatchVar ? cur.with(((MatchVar) index).name, i) : cur)) {
+                for (YMap<String, Object> m : match(Array.get(data, i), pattern.value, index instanceof MatchVar ? cur.with(((MatchVar) index).name, i) : cur)) {
 //                    if (pattern.index == null) result.add(m);
 //                    else result.addAll(match(i, index, m));
                     result.add(m);

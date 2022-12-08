@@ -110,7 +110,7 @@ abstract public class SSearch<STATE> implements Comparator<SSearch.Node<STATE>>,
      * @return
      */
     public float evaluate(Node<STATE> node) {
-        return -node.deepness;
+        return -node.depth;
     }
 
     public Node<STATE> nextSolution(int steps) {
@@ -139,18 +139,25 @@ abstract public class SSearch<STATE> implements Comparator<SSearch.Node<STATE>>,
     public static class Node<STATE> {
         public STATE state;
         public Node<STATE> prevNode;
-        public int deepness;
+        public int depth;
         public float value;
 
         public Node(Node<STATE> prevNode, STATE state) {
             this.prevNode = prevNode;
-            if (prevNode != null) this.deepness = prevNode.deepness + 1;
+            if (prevNode != null) this.depth = prevNode.depth + 1;
             this.state = state;
         }
 
         @Override
         public String toString() {
-            return "Node{prevNode.state=" + (prevNode == null ? "null" : prevNode.state) + ", w=" + deepness + ", state=" + state + "}\n";
+            return "Node{prevNode.state=" + (prevNode == null ? "null" : prevNode.state) + ", w=" + depth + ", state=" + state + "}\n";
+        }
+
+        public YList<STATE> extractPath() {
+            YList<STATE> result = al(state);
+            Node<STATE> cur = this;
+            while((cur = cur.prevNode) != null) result.add(cur.state);
+            return result.reverse();
         }
     }
 

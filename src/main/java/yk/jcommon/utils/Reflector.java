@@ -304,7 +304,7 @@ public class Reflector {
             c.setAccessible(true);
             return (T) c.newInstance();
         } catch (Exception e) {
-            throw BadException.die("Cannot create new instance of " + cls.getName(), e);
+            throw BadException.die(e, "Cannot create new instance of " + cls.getName());
         }
     }
 

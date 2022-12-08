@@ -91,7 +91,6 @@ public class Matrix4 {
 //                result.set(j, i, r);
 //            }
 //        }
-
         //optimized
         float r0 = 0;
         r0 = (r0 + (a.data[0] * b.data[0]));r0 = (r0 + (a.data[4] * b.data[1]));r0 = (r0 + (a.data[8] * b.data[2]));r0 = (r0 + (a.data[12] * b.data[3]));
@@ -123,8 +122,12 @@ public class Matrix4 {
         r7 = (r7 + (a.data[3] * b.data[4]));r7 = (r7 + (a.data[7] * b.data[5]));r7 = (r7 + (a.data[11] * b.data[6]));r7 = (r7 + (a.data[15] * b.data[7]));
         float r11 = 0;
         r11 = (r11 + (a.data[3] * b.data[8]));r11 = (r11 + (a.data[7] * b.data[9]));r11 = (r11 + (a.data[11] * b.data[10]));r11 = (r11 + (a.data[15] * b.data[11]));
-        float r15 = 0;
-        r15 = (r15 + (a.data[3] * b.data[12]));r15 = (r15 + (a.data[7] * b.data[13]));r15 = (r15 + (a.data[11] * b.data[14]));r15 = (r15 + (a.data[15] * b.data[15]));
+
+        //TODO better optimization output
+        //float r15 = 0;
+        //r15 = (r15 + (a.data[3] * b.data[12]));r15 = (r15 + (a.data[7] * b.data[13]));r15 = (r15 + (a.data[11] * b.data[14]));r15 = (r15 + (a.data[15] * b.data[15]));
+        float r15 = 0f + a.data[3] * b.data[12] + a.data[7] * b.data[13] + a.data[11] * b.data[14] + a.data[15] * b.data[15];
+
         result.data[0] = r0;
         result.data[4] = r4;
         result.data[8] = r8;
