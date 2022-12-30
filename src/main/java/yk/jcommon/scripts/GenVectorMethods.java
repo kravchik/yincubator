@@ -159,22 +159,22 @@ public class GenVectorMethods {
 
     public static YList<String> genSeVecOp(String className, String methodName, Tab tab, String op) {
         return al(format("public static void nm%s(%s a, %s b, %s res) {", capitalize(methodName), className, className, className))
-                .with(genSeBodyOp("a", "res", fields(className), fields(className).map(l -> "b." + l), op).map(l -> tab + l)).with("}");
+                .withAll(genSeBodyOp("a", "res", fields(className), fields(className).map(l -> "b." + l), op).map(l -> tab + l)).with("}");
     }
 
     public static YList<String> genSeVecOpA(String className, String methodName, Tab tab, String op) {
         return al(format("public static void nm%s(%s a_res, %s b) {", capitalize(methodName), className, className, className))
-                .with(genSeBodyOp("a_res", "a_res", fields(className), fields(className).map(l -> "b." + l), op).map(l -> tab + l)).with("}");
+                .withAll(genSeBodyOp("a_res", "a_res", fields(className), fields(className).map(l -> "b." + l), op).map(l -> tab + l)).with("}");
     }
 
     public static YList<String> genSeScalarOp(String className, String c2, String methodName, Tab tab, String op) {
         return al(format("public static void nm%s(%s a, %s b, %s res) {", capitalize(methodName), className, c2, className))
-                .with(genSeBodyOp("a", "res", fields(className), fields(className).map(l -> "b"), op).map(l -> tab + l)).with("}");
+                .withAll(genSeBodyOp("a", "res", fields(className), fields(className).map(l -> "b"), op).map(l -> tab + l)).with("}");
     }
 
     public static YList<String> genSeScalarOpA(String className, String c2, String methodName, Tab tab, String op) {
         return al(format("public static void nm%s(%s a_res, %s b) {", capitalize(methodName), className, c2, className))
-                .with(genSeBodyOp("a_res", "a_res", fields(className), fields(className).map(l -> "b"), op).map(l -> tab + l)).with("}");
+                .withAll(genSeBodyOp("a_res", "a_res", fields(className), fields(className).map(l -> "b"), op).map(l -> tab + l)).with("}");
     }
 
     //fun0
@@ -186,7 +186,7 @@ public class GenVectorMethods {
 
     public static YList<String> genSeVecFun0(String c1, String m, String call, Tab tab) {
         return al(format("public static void nm%s(%s v, %s res) {", capitalize(m), c1, c1))
-                .with(genSeBodyFun("v", "res", fields(c1), fields(c1).map(f -> al()), call).map(l -> tab + l)).with("}");
+                .withAll(genSeBodyFun("v", "res", fields(c1), fields(c1).map(f -> al()), call).map(l -> tab + l)).with("}");
     }
     //fun1
     public static YList<String> genVecFun1(String c1, String c2, String m, String call) {
@@ -206,7 +206,7 @@ public class GenVectorMethods {
     }
     public static YList<String> genSeVecFun1(String c1, String m, String call, Tab tab) {
         return al(format("public static void nm%s(%s v1, %s v2, %s res) {", capitalize(m), c1, c1, c1))
-                .with(genSeBodyFun("v1", "res", fields(c1), fields(c1).map(f -> al("v2." + f)), call).map(l -> tab + l)).with("}");
+                .withAll(genSeBodyFun("v1", "res", fields(c1), fields(c1).map(f -> al("v2." + f)), call).map(l -> tab + l)).with("}");
     }
 
 
@@ -215,7 +215,7 @@ public class GenVectorMethods {
         return zip(fields, V2s, (f, of) -> format("%s.%s = %s.%s %s %s;", resName, f, v1Name, f, op, of));
     }
     public static YList<String> genSeBodyFun(String v1Name, String resName, YList<String> fields, YList<YList<String>> V2s, String op) {
-        return zip(fields, V2s, (f, of) -> format("%s.%s = %s(%s);", resName, f, op, al(v1Name + "." + f).with(of).toString(", ")));
+        return zip(fields, V2s, (f, of) -> format("%s.%s = %s(%s);", resName, f, op, al(v1Name + "." + f).withAll(of).toString(", ")));
     }
     public static String genConstructorFun(String className, YList<String> firsts, YList<String> restFields, String method) {
         return format("return new %s(%s);", className, zip(firsts, restFields, (f, rest) -> method + "(" + f + (rest == null ? "" : (", " + rest)) + ")").toString(", "));

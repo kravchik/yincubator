@@ -35,11 +35,11 @@ public class MatcherShortNames {
     }
 
     public static MatchProperty p(Class c, Object... rest) {
-        return MatchProperty.p("getClass", al(c).with((List) al(rest)).toArray());
+        return MatchProperty.p("getClass", al(c).withAll((List) al(rest)).toArray());
     }
 
     public static MatchProperty p1(Class c, Object... rest) {
-        return MatchProperty.p1("getClass", true, al(c).with((List) al(rest)).toArray());
+        return MatchProperty.p1("getClass", true, al(c).withAll((List) al(rest)).toArray());
     }
 
     public static MatchByIndex i(Object value) {

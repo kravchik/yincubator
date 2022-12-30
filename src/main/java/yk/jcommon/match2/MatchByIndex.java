@@ -36,28 +36,32 @@ public class MatchByIndex implements MatchCustom {
 
     @Override
     public YSet<YMap<String, Object>> match(Matcher matcher, Object data, YMap<String, Object> cur) {
+        return match(matcher, data, cur, this.value, this.index);
+    }
+
+    private static YSet<YMap<String, Object>> match(Matcher matcher, Object data, YMap<String, Object> cur, Object pattern, Object index) {
         if (data instanceof List) {
             List l = (List) data;
-            Object index = matcher.resolve(this.index, cur);
+            Object resolvedIndex = matcher.resolve(index, cur);
 
-            if (this.index instanceof Number) return matcher.match(l.get(((Number) index).intValue()), this.value, cur);
+            if (index instanceof Number) return matcher.match(l.get(((Number) resolvedIndex).intValue()), pattern, cur);
             YSet<YMap<String, Object>> result = hs();
             for (int i = 0; i < l.size(); i++) {
-                for (YMap<String, Object> m : matcher.match(l.get(i), this.value, cur)) {
-                    if (this.index == null) result.add(m);
-                    else result.addAll(matcher.match(i, index, m));
+                for (YMap<String, Object> m : matcher.match(l.get(i), pattern, cur)) {
+                    if (index == null) result.add(m);
+                    else result.addAll(matcher.match(i, resolvedIndex, m));
                 }
             }
             return result;
         }
         if (data.getClass().isArray()) {
-            Object index = matcher.resolve(this.index, cur);
-            if (index instanceof Number) return matcher.match(Array.get(data, ((Number) index).intValue()), this.value, cur);
+            Object resolvedIndex = matcher.resolve(index, cur);
+            if (resolvedIndex instanceof Number) return matcher.match(Array.get(data, ((Number) resolvedIndex).intValue()), pattern, cur);
             YSet<YMap<String, Object>> result = hs();
-            if (!(index instanceof MatchVar) && !(index instanceof MatchAny)) BadException.shouldNeverReachHere("" + index);
+            if (!(resolvedIndex instanceof MatchVar) && !(resolvedIndex instanceof MatchAny)) BadException.shouldNeverReachHere("" + resolvedIndex);
 
             for (int i = 0; i < Array.getLength(data); i++) {
-                for (YMap<String, Object> m : matcher.match(Array.get(data, i), this.value, index instanceof MatchVar ? cur.with(((MatchVar) index).name, i) : cur)) {
+                for (YMap<String, Object> m : matcher.match(Array.get(data, i), pattern, resolvedIndex instanceof MatchVar ? cur.with(((MatchVar) resolvedIndex).name, i) : cur)) {
 //                    if (pattern.index == null) result.add(m);
 //                    else result.addAll(match(i, index, m));
                     result.add(m);

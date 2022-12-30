@@ -16,8 +16,16 @@ import static yk.jcommon.collections.YHashSet.hs;
 public class MatchOr implements MatchCustom {
     public YList<Object> variants;
 
+    public MatchOr() {
+    }
+
     public MatchOr(Object... variants) {
         this.variants = al(variants);
+    }
+
+    public MatchOr setVariants(YList<Object> variants) {
+        this.variants = variants;
+        return this;
     }
 
     @Override

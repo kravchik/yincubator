@@ -27,6 +27,7 @@ public class MatchList implements MatchCustom {//TODO rename?
     @Override
     public YSet<YMap<String, Object>> match(Matcher matcher, Object data, YMap<String, Object> cur) {
         if (!(data instanceof List)) return hs();
+        //TODO implement with fillers ?
         return matchRest2(matcher, data instanceof YList ? (YList) data : toYList((List) data), this.pattern, cur);
         //return matchRest(matcher, data instanceof YList ? (YList) data : toYList((List) data), this.pattern, cur);
     }

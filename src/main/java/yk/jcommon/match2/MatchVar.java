@@ -8,7 +8,7 @@ package yk.jcommon.match2;
  */
 public class MatchVar {
     public String name;
-    public Object rest;
+    public Object rest;//TODO rename -> value
 
     public MatchVar(String name) {
         this.name = name;
