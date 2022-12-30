@@ -4,7 +4,7 @@
 
     <groupId>yk</groupId>
     <artifactId>yincubator</artifactId>
-    <version>0.04-SNAPSHOT</version>
+    <version>0.04</version>
 
     <packaging>jar</packaging>
     <name>yincubator</name>
@@ -116,7 +116,7 @@
         <dependency>
             <groupId>yk</groupId>
             <artifactId>jcommon</artifactId>
-            <version>0.124-SNAPSHOT</version>
+            <version>0.124</version>
         </dependency>
     </dependencies>
 
