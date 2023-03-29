@@ -3,6 +3,7 @@ package yk.jcommon.match2;
 import yk.jcommon.collections.YList;
 import yk.jcommon.collections.YMap;
 import yk.jcommon.collections.YSet;
+import yk.jcommon.utils.BadException;
 
 import static yk.jcommon.collections.YArrayList.al;
 import static yk.jcommon.collections.YHashSet.hs;
@@ -20,10 +21,12 @@ public class MatchOr implements MatchCustom {
     }
 
     public MatchOr(Object... variants) {
+        if (variants.length < 2) BadException.die("Variants size should be > 1");
         this.variants = al(variants);
     }
 
     public MatchOr setVariants(YList<Object> variants) {
+        if (variants.size() < 2) BadException.die("Variants size should be > 1");
         this.variants = variants;
         return this;
     }
@@ -35,5 +38,12 @@ public class MatchOr implements MatchCustom {
             if (result.notEmpty()) return result;
         }
         return hs();
+    }
+
+    @Override
+    public String toString() {
+        return "MatchOr{" +
+                "variants=" + variants +
+                '}';
     }
 }

@@ -10,27 +10,27 @@ import java.util.Iterator;
  */
 public class XYit implements Iterable<XYit>, Iterator<XYit> {
     //WARNING IT IS SLOWER THEN TWO FORS   (0.016 vs 0.013)
-    public final int r, t;
+    public final int r, t;//inclusive
     public final int l, b;
 
     public int x;
     public int y;
 
-    public XYit(BufferedImage im) {
+    private XYit(BufferedImage im) {
         r = im.getWidth();
         t = im.getHeight();
         l = 0;
         b = 0;
     }
 
-    public XYit(int width, int height) {
-        r = width;
-        t = height;
+    private XYit(int width, int height) {
+        r = width - 1;
+        t = height - 1;
         l = 0;
         b = 0;
     }
 
-    public XYit(int l, int b, int r, int t) {
+    private XYit(int l, int b, int r, int t) {
         this.r = r;
         this.l = l;
         this.t = t;
@@ -45,25 +45,38 @@ public class XYit implements Iterable<XYit>, Iterator<XYit> {
         return new XYit(width, height);
     }
 
+    public static XYit lbrt(int l, int b, int r, int t) {
+        return new XYit(l, b, r, t);
+    }
+
+    @Override
     public Iterator<XYit> iterator() {
-        x = l-1;
-        y = b;
+        if (r - l < 0 || t - b < 0) {
+            x = r;
+            y = t;
+        } else {
+            x = l - 1;
+            y = b;
+        }
         return this;
     }
 
+    @Override
     public boolean hasNext() {
-        return x != r - 1 || y != t - 1;
+        return y <= t && (y != t || x < r);
     }
 
+    @Override
     public XYit next() {
         x++;
-        if (x == r) {
+        if (x > r) {
             x = l;
             y++;
         }
         return this;
     }
 
+    @Override
     public void remove() {
         throw new RuntimeException("not supported");
     }

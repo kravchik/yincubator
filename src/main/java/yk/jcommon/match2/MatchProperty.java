@@ -50,4 +50,11 @@ public class MatchProperty {
             this.value = value;
         }
     }
+
+    @Override
+    public String toString() {
+        return "MatchProperty{" +
+                "pp=" + pp +
+                '}';
+    }
 }
