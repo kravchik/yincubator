@@ -63,7 +63,7 @@ public class XYit implements Iterable<XYit>, Iterator<XYit> {
 
     @Override
     public boolean hasNext() {
-        return y <= t && (y != t || x < r);
+        return x != r || y != t;
     }
 
     @Override
