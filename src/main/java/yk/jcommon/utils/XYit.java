@@ -12,18 +12,18 @@ public class XYit implements Iterable<XYit>, Iterator<XYit> {
     //WARNING IT IS SLOWER THEN TWO FORS   (0.016 vs 0.013)
     public final int r, t;//inclusive
     public final int l, b;
+    public final int w, h;
 
     public int x;
     public int y;
 
     private XYit(BufferedImage im) {
-        r = im.getWidth();
-        t = im.getHeight();
-        l = 0;
-        b = 0;
+        this(im.getWidth(), im.getHeight());
     }
 
     private XYit(int width, int height) {
+        w = width;
+        h = height;
         r = width - 1;
         t = height - 1;
         l = 0;
@@ -31,6 +31,8 @@ public class XYit implements Iterable<XYit>, Iterator<XYit> {
     }
 
     private XYit(int l, int b, int r, int t) {
+        w = 0;//undefined for lbrt
+        h = 0;
         this.r = r;
         this.l = l;
         this.t = t;
@@ -59,6 +61,10 @@ public class XYit implements Iterable<XYit>, Iterator<XYit> {
             y = b;
         }
         return this;
+    }
+
+    public int getIndex() {
+        return x + y * w;
     }
 
     @Override
