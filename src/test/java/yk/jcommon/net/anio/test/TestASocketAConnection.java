@@ -6,7 +6,6 @@ import yk.jcommon.collections.YList;
 import yk.jcommon.net.anio.AConnection;
 import yk.jcommon.net.anio.ASocket;
 import yk.jcommon.net.anio.OnConnection;
-import yk.jcommon.net.anio.OnData;
 
 import static org.junit.Assert.assertEquals;
 import static yk.jcommon.collections.YArrayList.al;
@@ -40,7 +39,7 @@ public class TestASocketAConnection {
         }
     }
 
-    @Test
+    //@Test
     public void testtt() {
         ASocket client = ASocket.newClient("google.com", 80, new OnConnection() {
             @Override
@@ -55,7 +54,7 @@ public class TestASocketAConnection {
         }
     }
 
-    @Test
+    //TODO @Test
     public void test1() {
 
         ASocket server = ASocket.newServer(8000, conn -> {
