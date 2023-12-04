@@ -1,12 +1,12 @@
 package yk.jcommon.match;
 
-import yk.jcommon.collections.YList;
+import yk.ycollections.YList;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
-import static yk.jcommon.collections.YArrayList.al;
+import static yk.ycollections.YArrayList.al;
 //import java.util.function.Function;
 
 /**

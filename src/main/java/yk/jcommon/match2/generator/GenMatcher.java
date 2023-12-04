@@ -1,10 +1,10 @@
 package yk.jcommon.match2.generator;
 
-import yk.jcommon.collections.YMap;
 import yk.jcommon.match2.MatchVar;
 import yk.jcommon.utils.Util;
+import yk.ycollections.YMap;
 
-import static yk.jcommon.collections.YHashMap.hm;
+import static yk.ycollections.YHashMap.hm;
 
 /**
  * Created by Yuri Kravchik on 19/11/16.

@@ -1,12 +1,12 @@
 package yk.jcommon.match2;
 
-import yk.jcommon.collections.YMap;
-import yk.jcommon.collections.YSet;
+import yk.ycollections.YMap;
+import yk.ycollections.YSet;
 
 import java.util.Map;
 
-import static yk.jcommon.collections.YHashMap.toYMap;
-import static yk.jcommon.collections.YHashSet.hs;
+import static yk.ycollections.YHashMap.toYMap;
+import static yk.ycollections.YHashSet.hs;
 
 /**
  * Created with IntelliJ IDEA.

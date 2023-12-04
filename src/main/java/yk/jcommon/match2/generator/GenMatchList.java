@@ -1,7 +1,7 @@
 package yk.jcommon.match2.generator;
 
-import yk.jcommon.collections.YList;
-import yk.jcommon.collections.YMap;
+import yk.ycollections.YList;
+import yk.ycollections.YMap;
 
 import java.util.List;
 

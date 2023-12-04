@@ -1,13 +1,13 @@
 package yk.jcommon.utils;
 
-import yk.jcommon.collections.YList;
-import yk.jcommon.collections.YSet;
+import yk.ycollections.YList;
+import yk.ycollections.YSet;
 
 import java.io.File;
 import java.net.URL;
 
-import static yk.jcommon.collections.YArrayList.al;
-import static yk.jcommon.collections.YHashSet.hs;
+import static yk.ycollections.YArrayList.al;
+import static yk.ycollections.YHashSet.hs;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,12 +1,12 @@
 package yk.jcommon.utils;
 
-import yk.jcommon.collections.YList;
+import yk.ycollections.YList;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.List;
 
-import static yk.jcommon.collections.YArrayList.al;
+import static yk.ycollections.YArrayList.al;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,7 +19,7 @@ import static yk.jcommon.collections.YArrayList.al;
 // It is very important that you turn off WPS, as WPS has major security holes.
 // Also, I recommend that you use WPA2; avoid WPA-TKIP, and never use WEP.
 public class Psw {
-    public static YList<String> EXCLUDE = al("O", "0", "I", "l");
+    public static YList<String> EXCLUDE = al("O", "0", "I", "l", "1");
 
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
@@ -43,8 +43,9 @@ public class Psw {
         //Random rnd = new Random(System.nanoTime());
         SecureRandom rnd = new SecureRandom();
         //SecureRandom rnd = SecureRandom.getInstanceStrong();// hangs on my system
-        for (int i = 0; i < 5; i++) {
-            gen(rnd, 12, ".", classes);
+        for (int i = 0; i < 10; i++) {
+            gen(rnd, 8, "", classes);
+            //gen(rnd, 12, ".", classes);
             System.out.println();
         }
     }

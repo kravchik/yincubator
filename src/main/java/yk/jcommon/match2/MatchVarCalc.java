@@ -1,7 +1,7 @@
 package yk.jcommon.match2;
 
-import yk.jcommon.collections.YMap;
-import yk.jcommon.collections.YSet;
+import yk.ycollections.YMap;
+import yk.ycollections.YSet;
 
 /**
  * Created with IntelliJ IDEA.

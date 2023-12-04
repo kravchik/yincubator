@@ -1,12 +1,12 @@
 package yk.jcommon.net.services;
 
-import yk.jcommon.collections.YMap;
+import yk.ycollections.YMap;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import static yk.jcommon.collections.YHashMap.hm;
+import static yk.ycollections.YHashMap.hm;
 
 /**
  * Created with IntelliJ IDEA.

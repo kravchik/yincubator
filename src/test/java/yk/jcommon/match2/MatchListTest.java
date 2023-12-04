@@ -1,18 +1,18 @@
 package yk.jcommon.match2;
 
 import org.junit.Test;
-import yk.jcommon.collections.YArrayList;
-import yk.jcommon.collections.YList;
-import yk.jcommon.collections.YMap;
-import yk.jcommon.collections.YSet;
 import yk.jcommon.utils.StopWatch;
+import yk.ycollections.YArrayList;
+import yk.ycollections.YList;
+import yk.ycollections.YMap;
+import yk.ycollections.YSet;
 
 import static org.junit.Assert.assertEquals;
-import static yk.jcommon.collections.YArrayList.al;
-import static yk.jcommon.collections.YHashMap.hm;
-import static yk.jcommon.collections.YHashSet.hs;
 import static yk.jcommon.match2.MatcherShortNames.listFiller;
 import static yk.jcommon.match2.MatcherShortNames.var;
+import static yk.ycollections.YArrayList.al;
+import static yk.ycollections.YHashMap.hm;
+import static yk.ycollections.YHashSet.hs;
 
 /**
  * Created by Yuri Kravchik on 18/11/16.

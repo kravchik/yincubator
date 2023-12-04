@@ -1,17 +1,17 @@
 package yk.jcommon.scripts;
 
-import yk.jcommon.collections.YList;
-import yk.jcommon.collections.YMap;
-import yk.jcommon.collections.YSet;
 import yk.jcommon.utils.IO;
 import yk.jcommon.utils.Tab;
 import yk.jcommon.utils.Util;
+import yk.ycollections.YList;
+import yk.ycollections.YMap;
+import yk.ycollections.YSet;
 
 import static java.lang.String.format;
-import static yk.jcommon.collections.YArrayList.al;
-import static yk.jcommon.collections.YCollections.zip;
-import static yk.jcommon.collections.YHashMap.hm;
-import static yk.jcommon.collections.YHashSet.hs;
+import static yk.ycollections.YArrayList.al;
+import static yk.ycollections.YCollections.zip;
+import static yk.ycollections.YHashMap.hm;
+import static yk.ycollections.YHashSet.hs;
 
 public class GenVectorMethods {
 

@@ -1,6 +1,6 @@
 package yk.jcommon.match2.generator;
 
-import yk.jcommon.collections.YMap;
+import yk.ycollections.YMap;
 
 /**
  * Created by Yuri Kravchik on 19/11/16.

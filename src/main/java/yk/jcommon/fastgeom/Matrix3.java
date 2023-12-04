@@ -4,7 +4,7 @@ import java.nio.FloatBuffer;
 import java.util.Arrays;
 import java.util.List;
 
-import static yk.jcommon.collections.YArrayList.al;
+import static yk.ycollections.YArrayList.al;
 
 /**
  * Created with IntelliJ IDEA.

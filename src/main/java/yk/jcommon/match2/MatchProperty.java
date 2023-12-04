@@ -1,8 +1,8 @@
 package yk.jcommon.match2;
 
-import yk.jcommon.collections.YMap;
+import yk.ycollections.YMap;
 
-import static yk.jcommon.collections.YHashMap.hm;
+import static yk.ycollections.YHashMap.hm;
 
 /**
  * Created with IntelliJ IDEA.

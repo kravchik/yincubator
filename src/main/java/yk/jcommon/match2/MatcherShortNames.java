@@ -1,13 +1,13 @@
 package yk.jcommon.match2;
 
-import yk.jcommon.collections.Tuple;
-import yk.jcommon.collections.YList;
 import yk.jcommon.utils.BadException;
 import yk.jcommon.utils.Reflector;
+import yk.ycollections.Tuple;
+import yk.ycollections.YList;
 
 import java.util.List;
 
-import static yk.jcommon.collections.YArrayList.al;
+import static yk.ycollections.YArrayList.al;
 
 /**
  * Created with IntelliJ IDEA.

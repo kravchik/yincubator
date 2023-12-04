@@ -1,18 +1,18 @@
 package yk.jcommon.utils;
 
-import yk.jcommon.collections.YList;
 import yk.jcommon.fastgeom.FloatRange;
 import yk.jcommon.fastgeom.IntRange;
 import yk.jcommon.fastgeom.Vec2f;
 import yk.jcommon.fastgeom.Vec3f;
+import yk.ycollections.YList;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import static yk.jcommon.collections.YArrayList.al;
-import static yk.jcommon.collections.YArrayList.toYList;
+import static yk.ycollections.YArrayList.al;
+import static yk.ycollections.YArrayList.toYList;
 
 /**
  * Created with IntelliJ IDEA.

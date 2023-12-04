@@ -3,9 +3,9 @@ package yk.jcommon.match2;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static yk.jcommon.collections.YArrayList.al;
-import static yk.jcommon.collections.YHashSet.hs;
 import static yk.jcommon.match2.MatcherShortNames.var;
+import static yk.ycollections.YArrayList.al;
+import static yk.ycollections.YHashSet.hs;
 
 /**
  * Created by Yuri Kravchik on 05.01.2019

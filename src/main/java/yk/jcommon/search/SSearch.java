@@ -1,13 +1,13 @@
 package yk.jcommon.search;
 
-import yk.jcommon.collections.YList;
-import yk.jcommon.collections.YMap;
+import yk.ycollections.YList;
+import yk.ycollections.YMap;
 
 import java.util.*;
 import java.util.function.Consumer;
 
-import static yk.jcommon.collections.YArrayList.al;
-import static yk.jcommon.collections.YHashMap.hm;
+import static yk.ycollections.YArrayList.al;
+import static yk.ycollections.YHashMap.hm;
 
 /**
  * Created with IntelliJ IDEA.

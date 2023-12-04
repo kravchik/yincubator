@@ -1,15 +1,15 @@
 package yk.jcommon.match.util;
 
-import yk.jcommon.collections.YSet;
 import yk.jcommon.fastgeom.Vec2i;
 import yk.jcommon.match.JM;
 import yk.jcommon.match.JVar;
+import yk.ycollections.YSet;
 
 import java.util.Map;
 import java.util.Set;
 
-import static yk.jcommon.collections.YHashSet.hs;
 import static yk.jcommon.utils.Util.copy;
+import static yk.ycollections.YHashSet.hs;
 
 /**
  * Created with IntelliJ IDEA.

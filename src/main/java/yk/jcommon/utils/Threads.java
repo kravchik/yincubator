@@ -1,10 +1,10 @@
 package yk.jcommon.utils;
 
-import yk.jcommon.collections.YList;
+import yk.ycollections.YList;
 
 import java.util.function.Function;
 
-import static yk.jcommon.collections.YArrayList.al;
+import static yk.ycollections.YArrayList.al;
 
 /**
  * Created with IntelliJ IDEA.

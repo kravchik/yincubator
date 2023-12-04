@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.Collections.emptyList;
-import static yk.jcommon.collections.YArrayList.al;
 import static yk.jcommon.utils.Util.copy;
 import static yk.jcommon.utils.Util.list;
+import static yk.ycollections.YArrayList.al;
 
 /**
  * Created with IntelliJ IDEA.

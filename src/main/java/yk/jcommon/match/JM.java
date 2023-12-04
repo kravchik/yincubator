@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static yk.jcommon.collections.YHashSet.hs;
 import static yk.jcommon.utils.Util.*;
+import static yk.ycollections.YHashSet.hs;
 
 /**
  * Kravchik Yuri

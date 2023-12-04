@@ -1,6 +1,6 @@
 package yk.jcommon.match2;
 
-import yk.jcommon.collections.YList;
+import yk.ycollections.YList;
 
 /**
  * Created with IntelliJ IDEA.

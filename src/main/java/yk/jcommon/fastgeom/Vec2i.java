@@ -1,8 +1,8 @@
 package yk.jcommon.fastgeom;
 
-import yk.jcommon.collections.YList;
 import yk.jcommon.utils.MyMath;
 import yk.jcommon.utils.Reflector;
+import yk.ycollections.YList;
 
 import java.io.Serializable;
 

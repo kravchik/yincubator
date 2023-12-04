@@ -1,13 +1,13 @@
 package yk.jcommon.match2;
 
-import yk.jcommon.collections.YList;
-import yk.jcommon.collections.YMap;
-import yk.jcommon.collections.YSet;
+import yk.ycollections.YList;
+import yk.ycollections.YMap;
+import yk.ycollections.YSet;
 
 import java.util.List;
 
-import static yk.jcommon.collections.YArrayList.toYList;
-import static yk.jcommon.collections.YHashSet.hs;
+import static yk.ycollections.YArrayList.toYList;
+import static yk.ycollections.YHashSet.hs;
 
 /**
  * Created with IntelliJ IDEA.

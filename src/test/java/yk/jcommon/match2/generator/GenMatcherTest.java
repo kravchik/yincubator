@@ -3,8 +3,8 @@ package yk.jcommon.match2.generator;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static yk.jcommon.collections.YArrayList.al;
 import static yk.jcommon.match2.MatcherShortNames.var;
+import static yk.ycollections.YArrayList.al;
 
 /**
  * Created by Yuri Kravchik on 19/11/16.

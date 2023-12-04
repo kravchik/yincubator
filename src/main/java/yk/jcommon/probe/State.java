@@ -1,8 +1,8 @@
 package yk.jcommon.probe;
 
-import yk.jcommon.collections.YList;
-import yk.jcommon.collections.YMap;
-import yk.jcommon.collections.YSet;
+import yk.ycollections.YList;
+import yk.ycollections.YMap;
+import yk.ycollections.YSet;
 
 /**
  * Created with IntelliJ IDEA.

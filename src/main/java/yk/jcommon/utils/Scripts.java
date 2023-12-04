@@ -3,7 +3,7 @@ package yk.jcommon.utils;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import static yk.jcommon.collections.YArrayList.al;
+import static yk.ycollections.YArrayList.al;
 
 /**
  * Created with IntelliJ IDEA.

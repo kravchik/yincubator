@@ -1,12 +1,12 @@
 package yk.jcommon.match2;
 
-import yk.jcommon.collections.Tuple;
-import yk.jcommon.collections.YList;
-import yk.jcommon.collections.YMap;
-import yk.jcommon.collections.YSet;
 import yk.jcommon.utils.BadException;
 import yk.jcommon.utils.Reflector;
 import yk.jcommon.utils.Util;
+import yk.ycollections.Tuple;
+import yk.ycollections.YList;
+import yk.ycollections.YMap;
+import yk.ycollections.YSet;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -14,8 +14,8 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
-import static yk.jcommon.collections.YHashMap.hm;
-import static yk.jcommon.collections.YHashSet.hs;
+import static yk.ycollections.YHashMap.hm;
+import static yk.ycollections.YHashSet.hs;
 
 /**
  * Created with IntelliJ IDEA.

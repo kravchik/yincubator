@@ -1,13 +1,13 @@
 package yk.jcommon.utils;
 
-import yk.jcommon.collections.YList;
+import yk.ycollections.YList;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
 
-import static yk.jcommon.collections.YArrayList.al;
+import static yk.ycollections.YArrayList.al;
 
 /**
  * Kravchik Yuri

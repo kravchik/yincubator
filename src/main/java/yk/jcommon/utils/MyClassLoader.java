@@ -1,6 +1,6 @@
 package yk.jcommon.utils;
 
-import yk.jcommon.collections.YSet;
+import yk.ycollections.YSet;
 
 import java.net.URL;
 import java.net.URLClassLoader;

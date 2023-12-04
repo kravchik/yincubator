@@ -1,7 +1,7 @@
 package yk.jcommon.net.anio;
 
-import yk.jcommon.collections.YList;
 import yk.jcommon.utils.BadException;
+import yk.ycollections.YList;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -10,7 +10,7 @@ import java.nio.channels.SocketChannel;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-import static yk.jcommon.collections.YArrayList.al;
+import static yk.ycollections.YArrayList.al;
 
 /**
  * Created with IntelliJ IDEA.
