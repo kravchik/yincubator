@@ -134,13 +134,13 @@ public final class Vec3f implements Serializable {
 /*2022*///binary functions
 /*2022*/public Vec3f min(Vec3f b) {return new Vec3f(MyMath.min(x, b.x), MyMath.min(y, b.y), MyMath.min(z, b.z));}
 /*2022*/public Vec3f min(float b) {return new Vec3f(MyMath.min(x, b), MyMath.min(y, b), MyMath.min(z, b));}
-/*2022*/public Vec3f min(float x, float y, float z) {return new Vec3f(MyMath.min(x, x), MyMath.min(y, y), MyMath.min(z, z));}
+/*2022*/public Vec3f min(float x, float y, float z) {return new Vec3f(MyMath.min(this.x, x), MyMath.min(this.y, y), MyMath.min(this.z, z));}
 /*2022*/public Vec3f max(Vec3f b) {return new Vec3f(MyMath.max(x, b.x), MyMath.max(y, b.y), MyMath.max(z, b.z));}
 /*2022*/public Vec3f max(float b) {return new Vec3f(MyMath.max(x, b), MyMath.max(y, b), MyMath.max(z, b));}
-/*2022*/public Vec3f max(float x, float y, float z) {return new Vec3f(MyMath.max(x, x), MyMath.max(y, y), MyMath.max(z, z));}
+/*2022*/public Vec3f max(float x, float y, float z) {return new Vec3f(MyMath.max(this.x, x), MyMath.max(this.y, y), MyMath.max(this.z, z));}
 /*2022*/public Vec3f cycle(Vec3f b) {return new Vec3f(MyMath.cycle(x, b.x), MyMath.cycle(y, b.y), MyMath.cycle(z, b.z));}
 /*2022*/public Vec3f cycle(float b) {return new Vec3f(MyMath.cycle(x, b), MyMath.cycle(y, b), MyMath.cycle(z, b));}
-/*2022*/public Vec3f cycle(float x, float y, float z) {return new Vec3f(MyMath.cycle(x, x), MyMath.cycle(y, y), MyMath.cycle(z, z));}
+/*2022*/public Vec3f cycle(float x, float y, float z) {return new Vec3f(MyMath.cycle(this.x, x), MyMath.cycle(this.y, y), MyMath.cycle(this.z, z));}
 //2022 auto generated text
 
 //gglsl auto generated text
