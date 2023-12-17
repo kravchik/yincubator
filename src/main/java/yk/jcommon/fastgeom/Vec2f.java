@@ -5,14 +5,12 @@
  */
 package yk.jcommon.fastgeom;
 
-import yk.jcommon.utils.BadException;
 import yk.jcommon.utils.MyMath;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 import static yk.jcommon.fastgeom.Vec3f.v3;
-import static yk.jcommon.utils.Util.sqr;
 
 /**
  * Vec2f
@@ -29,9 +27,6 @@ public final class Vec2f implements Serializable {
 
     //constructors
     public Vec2f() {}
-    public static Vec2f v2(final float x, final float y) {return new Vec2f(x, y);}
-    public Vec2f(final float x, final float y) {this.x = x;this.y = y;}
-    public Vec2f(final Vec2f v) {this.x = v.x;this.y = v.y;}
     public static Vec2f fromAngle(float angle) {return new Vec2f((float)Math.cos(angle), (float) Math.sin(angle));}
     public Vec2f copy() {return new Vec2f(x, y);}
     public void copyFrom(Vec2f other) {this.x = other.x;this.y = other.y;}
@@ -43,22 +38,7 @@ public final class Vec2f implements Serializable {
     public Vec2f withX(float x) {return new Vec2f(x, y);}
     public Vec2f withY(float y) {return new Vec2f(x, y);}
 
-    //distance
-    public float length() {return (float) Math.sqrt(x * x + y * y);}
-    public float lengthSqr() {return x * x + y * y;}
-    public Vec2f normalized() {return normalized(1);}
-    public float distanceSquared(Vec2f other) {return sqr(other.x - x) + sqr(other.y - y);}
-    public Vec2f normalized(float len) {
-        float m = len / length();
-        if (Float.isNaN(m)) BadException.die("NaN for " + this);
-        if (Float.isInfinite(m)) BadException.die("Infinite for " + this);
-        return new Vec2f(x * m, y * m);
-    }
-    public float dist(Vec2f b) {return sub(b).length();}
-
     //math
-    public float scalarProduct(final Vec2f b) {return x * b.x + y * b.y;}
-    public float dot(final Vec2f b) {return x * b.x + y * b.y;}
     public Vec2f rot90() {return new Vec2f(-y, x);}
     public Vec2f rot_90() {return new Vec2f(y, -x);}
     public float cross(Vec2f other) {return x * other.y - y * other.x;}
@@ -70,9 +50,15 @@ public final class Vec2f implements Serializable {
     public Vec2f cMul(Vec2f other) {return new Vec2f(x*other.x-y*other.y, x*other.y+y*other.x);}
     public float getAngle() {return (float) (Math.atan2(y, x));}
     public boolean isBehind(Vec2f b) {return this.scalarProduct(b) < 0;}
-    public Vec2f negative() {return new Vec2f(-x, -y);}
 
 //2022 auto generated text
+/*2022*///constructors
+/*2022*/public Vec2f(float x, float y) {this.x = x;this.y = y;}
+/*2022*/public Vec2f(Vec2f other) {x = other.x;y = other.y;}
+/*2022*/public Vec2f(float b) {x = b;y = b;}
+/*2022*/public static Vec2f v2(float x, float y) {return new Vec2f(x, y);}
+/*2022*/public static Vec2f v2(float b) {return new Vec2f(b, b);}
+/*2022*/public void fillFrom(Vec2f other) {x = other.x;y = other.y;}
 /*2022*///operators
 /*2022*/public Vec2f add(Vec2f b) {return new Vec2f(x + b.x, y + b.y);}
 /*2022*/public Vec2f add(float b) {return new Vec2f(x + b, y + b);}
@@ -96,18 +82,39 @@ public final class Vec2f implements Serializable {
 /*2022*/public float product() {return x * y;}
 /*2022*/public float min() {return MyMath.min(x, y);}
 /*2022*/public float max() {return MyMath.max(x, y);}
-/*2022*/public float maxAbs() {return Math.max(Math.abs(x), Math.abs(y));}
-/*2022*/public float minAbs() {return Math.min(Math.abs(x), Math.abs(y));}
+/*2022*///distance
+/*2022*/public float lengthSquared() {return x * x + y * y;}
+/*2022*/public float distanceSquared(Vec2f b) {return MyMath.sqr(x - b.x) + MyMath.sqr(y - b.y);}
+/*2022*/public float distanceSquared(float x, float y) {return MyMath.sqr(this.x - x) + MyMath.sqr(this.y - y);}
+/*2022*/public float manhattanLength() {return Math.abs(x) + Math.abs(y);}
+/*2022*/public float manhattanDistance(Vec2f b) {return MyMath.abs(x - b.x) + MyMath.abs(y - b.y);}
+/*2022*/public float manhattanDistance(float x, float y) {return MyMath.abs(this.x - x) + MyMath.abs(this.y - y);}
+/*2022*/public float length() {return MyMath.sqrt(x * x + y * y);}
+/*2022*/public Vec2f normalized() {
+/*2022*/    float m = 1f / MyMath.sqrt(x * x + y * y);
+/*2022*/    return new Vec2f(x * m, y * m);
+/*2022*/}
+/*2022*/public Vec2f normalized(float len) {
+/*2022*/    float m = len / (float)Math.sqrt(x * x + y * y);
+/*2022*/    return new Vec2f(x * m, y * m);
+/*2022*/}
+/*2022*/public float distance(Vec2f b) {return MyMath.sqrt(MyMath.sqr(x - b.x) + MyMath.sqr(y - b.y));}
+/*2022*/public float distance(float x, float y) {return MyMath.sqrt(MyMath.sqr(this.x - x) + MyMath.sqr(this.y - y));}
+/*2022*///math
+/*2022*/public float dot(Vec2f b) {return x * b.x + y * b.y;}
+/*2022*/public float dot(float x, float y) {return this.x * x + this.y * y;}
+/*2022*/public float scalarProduct(Vec2f b) {return dot(b);}
+/*2022*/public Vec2f negative() {return new Vec2f(-x, -y);}
 /*2022*///binary functions
 /*2022*/public Vec2f min(Vec2f b) {return new Vec2f(MyMath.min(x, b.x), MyMath.min(y, b.y));}
 /*2022*/public Vec2f min(float b) {return new Vec2f(MyMath.min(x, b), MyMath.min(y, b));}
-/*2022*/public Vec2f min(float x, float y) {return new Vec2f(MyMath.min(x, x), MyMath.min(y, y));}
+/*2022*/public Vec2f min(float x, float y) {return new Vec2f(MyMath.min(this.x, x), MyMath.min(this.y, y));}
 /*2022*/public Vec2f max(Vec2f b) {return new Vec2f(MyMath.max(x, b.x), MyMath.max(y, b.y));}
 /*2022*/public Vec2f max(float b) {return new Vec2f(MyMath.max(x, b), MyMath.max(y, b));}
-/*2022*/public Vec2f max(float x, float y) {return new Vec2f(MyMath.max(x, x), MyMath.max(y, y));}
+/*2022*/public Vec2f max(float x, float y) {return new Vec2f(MyMath.max(this.x, x), MyMath.max(this.y, y));}
 /*2022*/public Vec2f cycle(Vec2f b) {return new Vec2f(MyMath.cycle(x, b.x), MyMath.cycle(y, b.y));}
 /*2022*/public Vec2f cycle(float b) {return new Vec2f(MyMath.cycle(x, b), MyMath.cycle(y, b));}
-/*2022*/public Vec2f cycle(float x, float y) {return new Vec2f(MyMath.cycle(x, x), MyMath.cycle(y, y));}
+/*2022*/public Vec2f cycle(float x, float y) {return new Vec2f(MyMath.cycle(this.x, x), MyMath.cycle(this.y, y));}
 //2022 auto generated text
 
 //gglsl auto generated text

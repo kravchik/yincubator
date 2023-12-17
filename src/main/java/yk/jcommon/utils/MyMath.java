@@ -122,6 +122,10 @@ public class MyMath {
         return v * v;
     }
 
+    public static int sqr(int v) {
+        return v * v;
+    }
+
 
     //gglsl auto generated text
 public static Float plus(Float arg0, Float arg1) {return arg0 + arg1;}
@@ -264,6 +268,7 @@ public static float sqrt(float arg0) {return (float)Math.sqrt(arg0);}
 public static Vec2f sqrt(Vec2f arg0) {return Vec2f.v2((float)Math.sqrt(arg0.x), (float)Math.sqrt(arg0.y));}
 public static Vec3f sqrt(Vec3f arg0) {return Vec3f.v3((float)Math.sqrt(arg0.x), (float)Math.sqrt(arg0.y), (float)Math.sqrt(arg0.z));}
 public static Vec4f sqrt(Vec4f arg0) {return Vec4f.v4((float)Math.sqrt(arg0.x), (float)Math.sqrt(arg0.y), (float)Math.sqrt(arg0.z), (float)Math.sqrt(arg0.w));}
+public static int abs(int arg0) {return Math.abs(arg0);}
 public static float abs(float arg0) {return Math.abs(arg0);}
 public static Vec2f abs(Vec2f arg0) {return Vec2f.v2(Math.abs(arg0.x), Math.abs(arg0.y));}
 public static Vec3f abs(Vec3f arg0) {return Vec3f.v3(Math.abs(arg0.x), Math.abs(arg0.y), Math.abs(arg0.z));}

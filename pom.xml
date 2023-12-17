@@ -4,7 +4,7 @@
 
     <groupId>yk</groupId>
     <artifactId>yincubator</artifactId>
-    <version>0.05</version>
+    <version>0.06-SNAPSHOT</version>
 
     <packaging>jar</packaging>
     <name>yincubator</name>

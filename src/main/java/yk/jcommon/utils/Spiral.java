@@ -18,30 +18,31 @@ public class Spiral implements Iterator<Vec2i>, Iterable<Vec2i> {
     private int maxR;
 
     public Spiral(Vec2i start, int maxR) {
-        currentPos = start.addY(1);
+        currentPos = start.add(0, 1);
         curR = 0;
         this.maxR = maxR;
     }
 
-
+    @Override
     public boolean hasNext() {
         return curR < maxR;
     }
 
+    @Override
     public Vec2i next() {
         counter++;
         switch(state) {
             case 0:
-                currentPos = currentPos.addX(1);
+                currentPos = currentPos.add(1, 0);
                 break;
             case 1:
-                currentPos = currentPos.addY(1);
+                currentPos = currentPos.add(0, 1);
                 break;
             case 2:
-                currentPos = currentPos.addX(-1);
+                currentPos = currentPos.add(-1, 0);
                 break;
             case 3:
-                currentPos = currentPos.addY(-1);
+                currentPos = currentPos.add(0, -1);
                 break;
         }
 
@@ -54,6 +55,7 @@ public class Spiral implements Iterator<Vec2i>, Iterable<Vec2i> {
         return currentPos;
     }
 
+    @Override
     public void remove() {
         throw new Error();
     }
@@ -64,6 +66,7 @@ public class Spiral implements Iterator<Vec2i>, Iterable<Vec2i> {
         }
     }
 
+    @Override
     public Iterator<Vec2i> iterator() {
         return this;
     }

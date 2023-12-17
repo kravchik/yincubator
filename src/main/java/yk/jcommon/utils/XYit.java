@@ -1,7 +1,11 @@
 package yk.jcommon.utils;
 
+import yk.jcommon.fastgeom.Vec2i;
+
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
+
+import static yk.jcommon.fastgeom.Vec2i.v2i;
 
 /**
  * Kravchik Yuri
@@ -65,6 +69,10 @@ public class XYit implements Iterable<XYit>, Iterator<XYit> {
 
     public int getIndex() {
         return x + y * w;
+    }
+
+    public Vec2i getVec2i() {
+        return v2i(x, y);
     }
 
     @Override
