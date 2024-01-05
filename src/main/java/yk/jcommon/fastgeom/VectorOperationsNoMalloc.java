@@ -952,5 +952,310 @@ public class VectorOperationsNoMalloc {
 /*2022*/    a_res.z = MyMath.cycle(a_res.z, b);
 /*2022*/    a_res.w = MyMath.cycle(a_res.w, b);
 /*2022*/}
+/*2022*/public static void nmAdd(Vec3l res, Vec3l a, Vec3l b) {
+/*2022*/    res.x = a.x + b.x;
+/*2022*/    res.y = a.y + b.y;
+/*2022*/    res.z = a.z + b.z;
+/*2022*/}
+/*2022*/public static void nmAdd(Vec3l a_res, Vec3l b) {
+/*2022*/    a_res.x = a_res.x + b.x;
+/*2022*/    a_res.y = a_res.y + b.y;
+/*2022*/    a_res.z = a_res.z + b.z;
+/*2022*/}
+/*2022*/public static void nmAdd(Vec3l res, Vec3l a, long b) {
+/*2022*/    res.x = a.x + b;
+/*2022*/    res.y = a.y + b;
+/*2022*/    res.z = a.z + b;
+/*2022*/}
+/*2022*/public static void nmAdd(Vec3l a_res, long b) {
+/*2022*/    a_res.x = a_res.x + b;
+/*2022*/    a_res.y = a_res.y + b;
+/*2022*/    a_res.z = a_res.z + b;
+/*2022*/}
+/*2022*/public static void nmSub(Vec3l res, Vec3l a, Vec3l b) {
+/*2022*/    res.x = a.x - b.x;
+/*2022*/    res.y = a.y - b.y;
+/*2022*/    res.z = a.z - b.z;
+/*2022*/}
+/*2022*/public static void nmSub(Vec3l a_res, Vec3l b) {
+/*2022*/    a_res.x = a_res.x - b.x;
+/*2022*/    a_res.y = a_res.y - b.y;
+/*2022*/    a_res.z = a_res.z - b.z;
+/*2022*/}
+/*2022*/public static void nmSub(Vec3l res, Vec3l a, long b) {
+/*2022*/    res.x = a.x - b;
+/*2022*/    res.y = a.y - b;
+/*2022*/    res.z = a.z - b;
+/*2022*/}
+/*2022*/public static void nmSub(Vec3l a_res, long b) {
+/*2022*/    a_res.x = a_res.x - b;
+/*2022*/    a_res.y = a_res.y - b;
+/*2022*/    a_res.z = a_res.z - b;
+/*2022*/}
+/*2022*/public static void nmMul(Vec3l res, Vec3l a, Vec3l b) {
+/*2022*/    res.x = a.x * b.x;
+/*2022*/    res.y = a.y * b.y;
+/*2022*/    res.z = a.z * b.z;
+/*2022*/}
+/*2022*/public static void nmMul(Vec3l a_res, Vec3l b) {
+/*2022*/    a_res.x = a_res.x * b.x;
+/*2022*/    a_res.y = a_res.y * b.y;
+/*2022*/    a_res.z = a_res.z * b.z;
+/*2022*/}
+/*2022*/public static void nmMul(Vec3l res, Vec3l a, long b) {
+/*2022*/    res.x = a.x * b;
+/*2022*/    res.y = a.y * b;
+/*2022*/    res.z = a.z * b;
+/*2022*/}
+/*2022*/public static void nmMul(Vec3l a_res, long b) {
+/*2022*/    a_res.x = a_res.x * b;
+/*2022*/    a_res.y = a_res.y * b;
+/*2022*/    a_res.z = a_res.z * b;
+/*2022*/}
+/*2022*/public static void nmDiv(Vec3l res, Vec3l a, Vec3l b) {
+/*2022*/    res.x = a.x / b.x;
+/*2022*/    res.y = a.y / b.y;
+/*2022*/    res.z = a.z / b.z;
+/*2022*/}
+/*2022*/public static void nmDiv(Vec3l a_res, Vec3l b) {
+/*2022*/    a_res.x = a_res.x / b.x;
+/*2022*/    a_res.y = a_res.y / b.y;
+/*2022*/    a_res.z = a_res.z / b.z;
+/*2022*/}
+/*2022*/public static void nmDiv(Vec3l res, Vec3l a, long b) {
+/*2022*/    res.x = a.x / b;
+/*2022*/    res.y = a.y / b;
+/*2022*/    res.z = a.z / b;
+/*2022*/}
+/*2022*/public static void nmDiv(Vec3l a_res, long b) {
+/*2022*/    a_res.x = a_res.x / b;
+/*2022*/    a_res.y = a_res.y / b;
+/*2022*/    a_res.z = a_res.z / b;
+/*2022*/}
+/*2022*/public static void nmAbs(Vec3l res, Vec3l a) {
+/*2022*/    res.x = MyMath.abs(a.x);
+/*2022*/    res.y = MyMath.abs(a.y);
+/*2022*/    res.z = MyMath.abs(a.z);
+/*2022*/}
+/*2022*/public static void nmMin(Vec3l res, Vec3l a, Vec3l b) {
+/*2022*/    res.x = MyMath.min(a.x, b.x);
+/*2022*/    res.y = MyMath.min(a.y, b.y);
+/*2022*/    res.z = MyMath.min(a.z, b.z);
+/*2022*/}
+/*2022*/public static void nmMin(Vec3l a_res, Vec3l b) {
+/*2022*/    a_res.x = MyMath.min(a_res.x, b.x);
+/*2022*/    a_res.y = MyMath.min(a_res.y, b.y);
+/*2022*/    a_res.z = MyMath.min(a_res.z, b.z);
+/*2022*/}
+/*2022*/public static void nmMin(Vec3l res, Vec3l a, long b) {
+/*2022*/    res.x = MyMath.min(a.x, b);
+/*2022*/    res.y = MyMath.min(a.y, b);
+/*2022*/    res.z = MyMath.min(a.z, b);
+/*2022*/}
+/*2022*/public static void nmMin(Vec3l a_res, long b) {
+/*2022*/    a_res.x = MyMath.min(a_res.x, b);
+/*2022*/    a_res.y = MyMath.min(a_res.y, b);
+/*2022*/    a_res.z = MyMath.min(a_res.z, b);
+/*2022*/}
+/*2022*/public static void nmMax(Vec3l res, Vec3l a, Vec3l b) {
+/*2022*/    res.x = MyMath.max(a.x, b.x);
+/*2022*/    res.y = MyMath.max(a.y, b.y);
+/*2022*/    res.z = MyMath.max(a.z, b.z);
+/*2022*/}
+/*2022*/public static void nmMax(Vec3l a_res, Vec3l b) {
+/*2022*/    a_res.x = MyMath.max(a_res.x, b.x);
+/*2022*/    a_res.y = MyMath.max(a_res.y, b.y);
+/*2022*/    a_res.z = MyMath.max(a_res.z, b.z);
+/*2022*/}
+/*2022*/public static void nmMax(Vec3l res, Vec3l a, long b) {
+/*2022*/    res.x = MyMath.max(a.x, b);
+/*2022*/    res.y = MyMath.max(a.y, b);
+/*2022*/    res.z = MyMath.max(a.z, b);
+/*2022*/}
+/*2022*/public static void nmMax(Vec3l a_res, long b) {
+/*2022*/    a_res.x = MyMath.max(a_res.x, b);
+/*2022*/    a_res.y = MyMath.max(a_res.y, b);
+/*2022*/    a_res.z = MyMath.max(a_res.z, b);
+/*2022*/}
+/*2022*/public static void nmCycle(Vec3l res, Vec3l a, Vec3l b) {
+/*2022*/    res.x = MyMath.cycle(a.x, b.x);
+/*2022*/    res.y = MyMath.cycle(a.y, b.y);
+/*2022*/    res.z = MyMath.cycle(a.z, b.z);
+/*2022*/}
+/*2022*/public static void nmCycle(Vec3l a_res, Vec3l b) {
+/*2022*/    a_res.x = MyMath.cycle(a_res.x, b.x);
+/*2022*/    a_res.y = MyMath.cycle(a_res.y, b.y);
+/*2022*/    a_res.z = MyMath.cycle(a_res.z, b.z);
+/*2022*/}
+/*2022*/public static void nmCycle(Vec3l res, Vec3l a, long b) {
+/*2022*/    res.x = MyMath.cycle(a.x, b);
+/*2022*/    res.y = MyMath.cycle(a.y, b);
+/*2022*/    res.z = MyMath.cycle(a.z, b);
+/*2022*/}
+/*2022*/public static void nmCycle(Vec3l a_res, long b) {
+/*2022*/    a_res.x = MyMath.cycle(a_res.x, b);
+/*2022*/    a_res.y = MyMath.cycle(a_res.y, b);
+/*2022*/    a_res.z = MyMath.cycle(a_res.z, b);
+/*2022*/}
+/*2022*/public static void nmAdd(Vec3d res, Vec3d a, Vec3d b) {
+/*2022*/    res.x = a.x + b.x;
+/*2022*/    res.y = a.y + b.y;
+/*2022*/    res.z = a.z + b.z;
+/*2022*/}
+/*2022*/public static void nmAdd(Vec3d a_res, Vec3d b) {
+/*2022*/    a_res.x = a_res.x + b.x;
+/*2022*/    a_res.y = a_res.y + b.y;
+/*2022*/    a_res.z = a_res.z + b.z;
+/*2022*/}
+/*2022*/public static void nmAdd(Vec3d res, Vec3d a, double b) {
+/*2022*/    res.x = a.x + b;
+/*2022*/    res.y = a.y + b;
+/*2022*/    res.z = a.z + b;
+/*2022*/}
+/*2022*/public static void nmAdd(Vec3d a_res, double b) {
+/*2022*/    a_res.x = a_res.x + b;
+/*2022*/    a_res.y = a_res.y + b;
+/*2022*/    a_res.z = a_res.z + b;
+/*2022*/}
+/*2022*/public static void nmSub(Vec3d res, Vec3d a, Vec3d b) {
+/*2022*/    res.x = a.x - b.x;
+/*2022*/    res.y = a.y - b.y;
+/*2022*/    res.z = a.z - b.z;
+/*2022*/}
+/*2022*/public static void nmSub(Vec3d a_res, Vec3d b) {
+/*2022*/    a_res.x = a_res.x - b.x;
+/*2022*/    a_res.y = a_res.y - b.y;
+/*2022*/    a_res.z = a_res.z - b.z;
+/*2022*/}
+/*2022*/public static void nmSub(Vec3d res, Vec3d a, double b) {
+/*2022*/    res.x = a.x - b;
+/*2022*/    res.y = a.y - b;
+/*2022*/    res.z = a.z - b;
+/*2022*/}
+/*2022*/public static void nmSub(Vec3d a_res, double b) {
+/*2022*/    a_res.x = a_res.x - b;
+/*2022*/    a_res.y = a_res.y - b;
+/*2022*/    a_res.z = a_res.z - b;
+/*2022*/}
+/*2022*/public static void nmMul(Vec3d res, Vec3d a, Vec3d b) {
+/*2022*/    res.x = a.x * b.x;
+/*2022*/    res.y = a.y * b.y;
+/*2022*/    res.z = a.z * b.z;
+/*2022*/}
+/*2022*/public static void nmMul(Vec3d a_res, Vec3d b) {
+/*2022*/    a_res.x = a_res.x * b.x;
+/*2022*/    a_res.y = a_res.y * b.y;
+/*2022*/    a_res.z = a_res.z * b.z;
+/*2022*/}
+/*2022*/public static void nmMul(Vec3d res, Vec3d a, double b) {
+/*2022*/    res.x = a.x * b;
+/*2022*/    res.y = a.y * b;
+/*2022*/    res.z = a.z * b;
+/*2022*/}
+/*2022*/public static void nmMul(Vec3d a_res, double b) {
+/*2022*/    a_res.x = a_res.x * b;
+/*2022*/    a_res.y = a_res.y * b;
+/*2022*/    a_res.z = a_res.z * b;
+/*2022*/}
+/*2022*/public static void nmDiv(Vec3d res, Vec3d a, Vec3d b) {
+/*2022*/    res.x = a.x / b.x;
+/*2022*/    res.y = a.y / b.y;
+/*2022*/    res.z = a.z / b.z;
+/*2022*/}
+/*2022*/public static void nmDiv(Vec3d a_res, Vec3d b) {
+/*2022*/    a_res.x = a_res.x / b.x;
+/*2022*/    a_res.y = a_res.y / b.y;
+/*2022*/    a_res.z = a_res.z / b.z;
+/*2022*/}
+/*2022*/public static void nmDiv(Vec3d res, Vec3d a, double b) {
+/*2022*/    res.x = a.x / b;
+/*2022*/    res.y = a.y / b;
+/*2022*/    res.z = a.z / b;
+/*2022*/}
+/*2022*/public static void nmDiv(Vec3d a_res, double b) {
+/*2022*/    a_res.x = a_res.x / b;
+/*2022*/    a_res.y = a_res.y / b;
+/*2022*/    a_res.z = a_res.z / b;
+/*2022*/}
+/*2022*/public static void nmRound(Vec3d res, Vec3d a) {
+/*2022*/    res.x = Math.round(a.x);
+/*2022*/    res.y = Math.round(a.y);
+/*2022*/    res.z = Math.round(a.z);
+/*2022*/}
+/*2022*/public static void nmFloor(Vec3d res, Vec3d a) {
+/*2022*/    res.x = MyMath.floorFast(a.x);
+/*2022*/    res.y = MyMath.floorFast(a.y);
+/*2022*/    res.z = MyMath.floorFast(a.z);
+/*2022*/}
+/*2022*/public static void nmCeil(Vec3d res, Vec3d a) {
+/*2022*/    res.x = MyMath.ceil(a.x);
+/*2022*/    res.y = MyMath.ceil(a.y);
+/*2022*/    res.z = MyMath.ceil(a.z);
+/*2022*/}
+/*2022*/public static void nmAbs(Vec3d res, Vec3d a) {
+/*2022*/    res.x = MyMath.abs(a.x);
+/*2022*/    res.y = MyMath.abs(a.y);
+/*2022*/    res.z = MyMath.abs(a.z);
+/*2022*/}
+/*2022*/public static void nmMin(Vec3d res, Vec3d a, Vec3d b) {
+/*2022*/    res.x = MyMath.min(a.x, b.x);
+/*2022*/    res.y = MyMath.min(a.y, b.y);
+/*2022*/    res.z = MyMath.min(a.z, b.z);
+/*2022*/}
+/*2022*/public static void nmMin(Vec3d a_res, Vec3d b) {
+/*2022*/    a_res.x = MyMath.min(a_res.x, b.x);
+/*2022*/    a_res.y = MyMath.min(a_res.y, b.y);
+/*2022*/    a_res.z = MyMath.min(a_res.z, b.z);
+/*2022*/}
+/*2022*/public static void nmMin(Vec3d res, Vec3d a, double b) {
+/*2022*/    res.x = MyMath.min(a.x, b);
+/*2022*/    res.y = MyMath.min(a.y, b);
+/*2022*/    res.z = MyMath.min(a.z, b);
+/*2022*/}
+/*2022*/public static void nmMin(Vec3d a_res, double b) {
+/*2022*/    a_res.x = MyMath.min(a_res.x, b);
+/*2022*/    a_res.y = MyMath.min(a_res.y, b);
+/*2022*/    a_res.z = MyMath.min(a_res.z, b);
+/*2022*/}
+/*2022*/public static void nmMax(Vec3d res, Vec3d a, Vec3d b) {
+/*2022*/    res.x = MyMath.max(a.x, b.x);
+/*2022*/    res.y = MyMath.max(a.y, b.y);
+/*2022*/    res.z = MyMath.max(a.z, b.z);
+/*2022*/}
+/*2022*/public static void nmMax(Vec3d a_res, Vec3d b) {
+/*2022*/    a_res.x = MyMath.max(a_res.x, b.x);
+/*2022*/    a_res.y = MyMath.max(a_res.y, b.y);
+/*2022*/    a_res.z = MyMath.max(a_res.z, b.z);
+/*2022*/}
+/*2022*/public static void nmMax(Vec3d res, Vec3d a, double b) {
+/*2022*/    res.x = MyMath.max(a.x, b);
+/*2022*/    res.y = MyMath.max(a.y, b);
+/*2022*/    res.z = MyMath.max(a.z, b);
+/*2022*/}
+/*2022*/public static void nmMax(Vec3d a_res, double b) {
+/*2022*/    a_res.x = MyMath.max(a_res.x, b);
+/*2022*/    a_res.y = MyMath.max(a_res.y, b);
+/*2022*/    a_res.z = MyMath.max(a_res.z, b);
+/*2022*/}
+/*2022*/public static void nmCycle(Vec3d res, Vec3d a, Vec3d b) {
+/*2022*/    res.x = MyMath.cycle(a.x, b.x);
+/*2022*/    res.y = MyMath.cycle(a.y, b.y);
+/*2022*/    res.z = MyMath.cycle(a.z, b.z);
+/*2022*/}
+/*2022*/public static void nmCycle(Vec3d a_res, Vec3d b) {
+/*2022*/    a_res.x = MyMath.cycle(a_res.x, b.x);
+/*2022*/    a_res.y = MyMath.cycle(a_res.y, b.y);
+/*2022*/    a_res.z = MyMath.cycle(a_res.z, b.z);
+/*2022*/}
+/*2022*/public static void nmCycle(Vec3d res, Vec3d a, double b) {
+/*2022*/    res.x = MyMath.cycle(a.x, b);
+/*2022*/    res.y = MyMath.cycle(a.y, b);
+/*2022*/    res.z = MyMath.cycle(a.z, b);
+/*2022*/}
+/*2022*/public static void nmCycle(Vec3d a_res, double b) {
+/*2022*/    a_res.x = MyMath.cycle(a_res.x, b);
+/*2022*/    a_res.y = MyMath.cycle(a_res.y, b);
+/*2022*/    a_res.z = MyMath.cycle(a_res.z, b);
+/*2022*/}
 //2022 auto generated text
 }

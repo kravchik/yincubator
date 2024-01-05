@@ -16,7 +16,7 @@ public class TestQuaternionf {
     @Test
     public void fromTwoVectors() throws Exception {
         Quaternionf q1 = Quaternionf.fromTwoVectors(v3(1, 0, 0), v3(0, 1, 0));
-        assertTrue(q1.rotate(v3(1, 1, 0)).dist(v3(-1, 1, 0)) < 0.0001f);
+        assertTrue(q1.rotate(v3(1, 1, 0)).distance(-1, 1, 0) < 0.0001f);
     }
 
     @Test

@@ -115,6 +115,8 @@ public final class Vec4f implements Serializable {
 /*2022*/public Vec4f cycle(Vec4f b) {return new Vec4f(MyMath.cycle(x, b.x), MyMath.cycle(y, b.y), MyMath.cycle(z, b.z), MyMath.cycle(w, b.w));}
 /*2022*/public Vec4f cycle(float b) {return new Vec4f(MyMath.cycle(x, b), MyMath.cycle(y, b), MyMath.cycle(z, b), MyMath.cycle(w, b));}
 /*2022*/public Vec4f cycle(float x, float y, float z, float w) {return new Vec4f(MyMath.cycle(this.x, x), MyMath.cycle(this.y, y), MyMath.cycle(this.z, z), MyMath.cycle(this.w, w));}
+/*2022*/public Vec4f clamp(Vec4f min, Vec4f max) {return new Vec4f(Math.max(min.x, Math.min(x, max.x)), Math.max(min.y, Math.min(y, max.y)), Math.max(min.z, Math.min(z, max.z)), Math.max(min.w, Math.min(w, max.w)));}
+/*2022*/public Vec4f clamp(float min, float max) {return new Vec4f(Math.max(min, Math.min(x, max)), Math.max(min, Math.min(y, max)), Math.max(min, Math.min(z, max)), Math.max(min, Math.min(w, max)));}
 //2022 auto generated text
 
 //gglsl auto generated text
@@ -148,8 +150,6 @@ public Vec4f sqrt() {return Vec4f.v4((float)Math.sqrt(this.x), (float)Math.sqrt(
 public Vec4f sign() {return Vec4f.v4(Math.signum(this.x), Math.signum(this.y), Math.signum(this.z), Math.signum(this.w));}
 public Vec4f fract() {return Vec4f.v4(this.x - (float)Math.floor(this.x), this.y - (float)Math.floor(this.y), this.z - (float)Math.floor(this.z), this.w - (float)Math.floor(this.w));}
 public Vec4f mod(Vec4f by) {return Vec4f.v4((float)(this.x-by.x*Math.floor(this.x/by.x)), (float)(this.y-by.y*Math.floor(this.y/by.y)), (float)(this.z-by.z*Math.floor(this.z/by.z)), (float)(this.w-by.w*Math.floor(this.w/by.w)));}
-public Vec4f clamp(Vec4f min, Vec4f max) {return Vec4f.v4(Math.max(min.x, Math.min(this.x, max.x)), Math.max(min.y, Math.min(this.y, max.y)), Math.max(min.z, Math.min(this.z, max.z)), Math.max(min.w, Math.min(this.w, max.w)));}
-public Vec4f clamp(float min, float max) {return Vec4f.v4(Math.max(min, Math.min(this.x, max)), Math.max(min, Math.min(this.y, max)), Math.max(min, Math.min(this.z, max)), Math.max(min, Math.min(this.w, max)));}
 public Vec4f mix(Vec4f to, Vec4f progress) {return Vec4f.v4(this.x * (1 - progress.x) + to.x * progress.x, this.y * (1 - progress.y) + to.y * progress.y, this.z * (1 - progress.z) + to.z * progress.z, this.w * (1 - progress.w) + to.w * progress.w);}
 public Vec4f mix(Vec4f to, float progress) {return Vec4f.v4(this.x * (1 - progress) + to.x * progress, this.y * (1 - progress) + to.y * progress, this.z * (1 - progress) + to.z * progress, this.w * (1 - progress) + to.w * progress);}
 public Vec4f step(Vec4f value) {return Vec4f.v4(value.x < this.x ? 0 : 1, value.y < this.y ? 0 : 1, value.z < this.z ? 0 : 1, value.w < this.w ? 0 : 1);}

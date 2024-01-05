@@ -115,6 +115,8 @@ public final class Vec2f implements Serializable {
 /*2022*/public Vec2f cycle(Vec2f b) {return new Vec2f(MyMath.cycle(x, b.x), MyMath.cycle(y, b.y));}
 /*2022*/public Vec2f cycle(float b) {return new Vec2f(MyMath.cycle(x, b), MyMath.cycle(y, b));}
 /*2022*/public Vec2f cycle(float x, float y) {return new Vec2f(MyMath.cycle(this.x, x), MyMath.cycle(this.y, y));}
+/*2022*/public Vec2f clamp(Vec2f min, Vec2f max) {return new Vec2f(Math.max(min.x, Math.min(x, max.x)), Math.max(min.y, Math.min(y, max.y)));}
+/*2022*/public Vec2f clamp(float min, float max) {return new Vec2f(Math.max(min, Math.min(x, max)), Math.max(min, Math.min(y, max)));}
 //2022 auto generated text
 
 //gglsl auto generated text
@@ -148,8 +150,6 @@ public Vec2f sqrt() {return Vec2f.v2((float)Math.sqrt(this.x), (float)Math.sqrt(
 public Vec2f sign() {return Vec2f.v2(Math.signum(this.x), Math.signum(this.y));}
 public Vec2f fract() {return Vec2f.v2(this.x - (float)Math.floor(this.x), this.y - (float)Math.floor(this.y));}
 public Vec2f mod(Vec2f by) {return Vec2f.v2((float)(this.x-by.x*Math.floor(this.x/by.x)), (float)(this.y-by.y*Math.floor(this.y/by.y)));}
-public Vec2f clamp(Vec2f min, Vec2f max) {return Vec2f.v2(Math.max(min.x, Math.min(this.x, max.x)), Math.max(min.y, Math.min(this.y, max.y)));}
-public Vec2f clamp(float min, float max) {return Vec2f.v2(Math.max(min, Math.min(this.x, max)), Math.max(min, Math.min(this.y, max)));}
 public Vec2f mix(Vec2f to, Vec2f progress) {return Vec2f.v2(this.x * (1 - progress.x) + to.x * progress.x, this.y * (1 - progress.y) + to.y * progress.y);}
 public Vec2f mix(Vec2f to, float progress) {return Vec2f.v2(this.x * (1 - progress) + to.x * progress, this.y * (1 - progress) + to.y * progress);}
 public Vec2f step(Vec2f value) {return Vec2f.v2(value.x < this.x ? 0 : 1, value.y < this.y ? 0 : 1);}

@@ -31,6 +31,7 @@ public final class Vec3f implements Serializable {
     public Vec3f(Vec2f v, float z) {this(v.x, v.y, z);}
     public static Vec3f v3(Vec2f v, float z) {return new Vec3f(v.x, v.y, z);}
     public Vec3i toVec3i() {return v3i((int)x, (int)y, (int)z);}
+    public Vec3l toVec3L() {return Vec3l.v3l((long)x, (long)y, (long)z);}
     public Vec2f getXy() {return new Vec2f(x, y);}
     public Vec2f getXz() {return new Vec2f(x, z);}
     public Vec2f getYz() {return new Vec2f(y, z);}
@@ -137,6 +138,8 @@ public final class Vec3f implements Serializable {
 /*2022*/public Vec3f cycle(Vec3f b) {return new Vec3f(MyMath.cycle(x, b.x), MyMath.cycle(y, b.y), MyMath.cycle(z, b.z));}
 /*2022*/public Vec3f cycle(float b) {return new Vec3f(MyMath.cycle(x, b), MyMath.cycle(y, b), MyMath.cycle(z, b));}
 /*2022*/public Vec3f cycle(float x, float y, float z) {return new Vec3f(MyMath.cycle(this.x, x), MyMath.cycle(this.y, y), MyMath.cycle(this.z, z));}
+/*2022*/public Vec3f clamp(Vec3f min, Vec3f max) {return new Vec3f(Math.max(min.x, Math.min(x, max.x)), Math.max(min.y, Math.min(y, max.y)), Math.max(min.z, Math.min(z, max.z)));}
+/*2022*/public Vec3f clamp(float min, float max) {return new Vec3f(Math.max(min, Math.min(x, max)), Math.max(min, Math.min(y, max)), Math.max(min, Math.min(z, max)));}
 //2022 auto generated text
 
 //gglsl auto generated text
@@ -171,8 +174,6 @@ public Vec3f sqrt() {return Vec3f.v3((float)Math.sqrt(this.x), (float)Math.sqrt(
 public Vec3f sign() {return Vec3f.v3(Math.signum(this.x), Math.signum(this.y), Math.signum(this.z));}
 public Vec3f fract() {return Vec3f.v3(this.x - (float)Math.floor(this.x), this.y - (float)Math.floor(this.y), this.z - (float)Math.floor(this.z));}
 public Vec3f mod(Vec3f by) {return Vec3f.v3((float)(this.x-by.x*Math.floor(this.x/by.x)), (float)(this.y-by.y*Math.floor(this.y/by.y)), (float)(this.z-by.z*Math.floor(this.z/by.z)));}
-public Vec3f clamp(Vec3f min, Vec3f max) {return Vec3f.v3(Math.max(min.x, Math.min(this.x, max.x)), Math.max(min.y, Math.min(this.y, max.y)), Math.max(min.z, Math.min(this.z, max.z)));}
-public Vec3f clamp(float min, float max) {return Vec3f.v3(Math.max(min, Math.min(this.x, max)), Math.max(min, Math.min(this.y, max)), Math.max(min, Math.min(this.z, max)));}
 public Vec3f mix(Vec3f to, Vec3f progress) {return Vec3f.v3(this.x * (1 - progress.x) + to.x * progress.x, this.y * (1 - progress.y) + to.y * progress.y, this.z * (1 - progress.z) + to.z * progress.z);}
 public Vec3f mix(Vec3f to, float progress) {return Vec3f.v3(this.x * (1 - progress) + to.x * progress, this.y * (1 - progress) + to.y * progress, this.z * (1 - progress) + to.z * progress);}
 public Vec3f step(Vec3f value) {return Vec3f.v3(value.x < this.x ? 0 : 1, value.y < this.y ? 0 : 1, value.z < this.z ? 0 : 1);}

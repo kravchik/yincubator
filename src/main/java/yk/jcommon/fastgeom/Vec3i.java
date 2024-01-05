@@ -89,6 +89,8 @@ public final class Vec3i implements Serializable {
 /*2022*/public Vec3i cycle(Vec3i b) {return new Vec3i(MyMath.cycle(x, b.x), MyMath.cycle(y, b.y), MyMath.cycle(z, b.z));}
 /*2022*/public Vec3i cycle(int b) {return new Vec3i(MyMath.cycle(x, b), MyMath.cycle(y, b), MyMath.cycle(z, b));}
 /*2022*/public Vec3i cycle(int x, int y, int z) {return new Vec3i(MyMath.cycle(this.x, x), MyMath.cycle(this.y, y), MyMath.cycle(this.z, z));}
+/*2022*/public Vec3i clamp(Vec3i min, Vec3i max) {return new Vec3i(Math.max(min.x, Math.min(x, max.x)), Math.max(min.y, Math.min(y, max.y)), Math.max(min.z, Math.min(z, max.z)));}
+/*2022*/public Vec3i clamp(int min, int max) {return new Vec3i(Math.max(min, Math.min(x, max)), Math.max(min, Math.min(y, max)), Math.max(min, Math.min(z, max)));}
 //2022 auto generated text
 
     public String toString() {

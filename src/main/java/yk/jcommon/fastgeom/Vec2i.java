@@ -87,6 +87,8 @@ public final class Vec2i implements Serializable {
 /*2022*/public Vec2i cycle(Vec2i b) {return new Vec2i(MyMath.cycle(x, b.x), MyMath.cycle(y, b.y));}
 /*2022*/public Vec2i cycle(int b) {return new Vec2i(MyMath.cycle(x, b), MyMath.cycle(y, b));}
 /*2022*/public Vec2i cycle(int x, int y) {return new Vec2i(MyMath.cycle(this.x, x), MyMath.cycle(this.y, y));}
+/*2022*/public Vec2i clamp(Vec2i min, Vec2i max) {return new Vec2i(Math.max(min.x, Math.min(x, max.x)), Math.max(min.y, Math.min(y, max.y)));}
+/*2022*/public Vec2i clamp(int min, int max) {return new Vec2i(Math.max(min, Math.min(x, max)), Math.max(min, Math.min(y, max)));}
 //2022 auto generated text
 
     @Override

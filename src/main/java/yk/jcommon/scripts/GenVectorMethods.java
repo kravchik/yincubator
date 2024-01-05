@@ -22,21 +22,38 @@ public class GenVectorMethods {
     );
 
     public static YMap<String, String> CLASS_FILES = hm(
-            "Vec2f", "src/main/java/yk/jcommon/fastgeom/Vec2f.java",
             "Vec2i", "src/main/java/yk/jcommon/fastgeom/Vec2i.java",
-            "Vec4i", "src/main/java/yk/jcommon/fastgeom/Vec4i.java",
-            "Vec3f", "src/main/java/yk/jcommon/fastgeom/Vec3f.java",
             "Vec3i", "src/main/java/yk/jcommon/fastgeom/Vec3i.java",
-            "Vec4f", "src/main/java/yk/jcommon/fastgeom/Vec4f.java"
+            "Vec4i", "src/main/java/yk/jcommon/fastgeom/Vec4i.java",
+
+            "Vec2f", "src/main/java/yk/jcommon/fastgeom/Vec2f.java",
+            "Vec3f", "src/main/java/yk/jcommon/fastgeom/Vec3f.java",
+            "Vec4f", "src/main/java/yk/jcommon/fastgeom/Vec4f.java",
+
+            "Vec3l", "src/main/java/yk/jcommon/fastgeom/Vec3l.java",
+            "Vec3d", "src/main/java/yk/jcommon/fastgeom/Vec3d.java"
     );
 
     public static YMap<String, YList<String>> VEC_FIELDS = hm(
             "Vec2i", al("x", "y"),
             "Vec3i", al("x", "y", "z"),
             "Vec4i", al("x", "y", "z", "w"),
+
             "Vec2f", al("x", "y"),
             "Vec3f", al("x", "y", "z"),
-            "Vec4f", al("x", "y", "z", "w")
+            "Vec4f", al("x", "y", "z", "w"),
+
+            "Vec2Long", al("x", "y"),
+            "Vec3l", al("x", "y", "z"),
+            "Vec4Long", al("x", "y", "z", "w"),
+
+            "Vec2Double", al("x", "y"),
+            "Vec3d", al("x", "y", "z"),
+            "Vec4Double", al("x", "y", "z", "w"),
+
+            "Vec2BigInteger", al("x", "y"),
+            "Vec3BigInteger", al("x", "y", "z"),
+            "Vec4BigInteger", al("x", "y", "z", "w")
     );
 
     public static YMap<String, String> CLASS_TO_CONSTRUCTOR_NAME = hm(
@@ -45,15 +62,36 @@ public class GenVectorMethods {
             "Vec4i", "v4i",
             "Vec2f", "v2",
             "Vec3f", "v3",
-            "Vec4f", "v4"
+            "Vec4f", "v4",
+
+            "Vec3l", "v3l",
+            "Vec3d", "v3d",
+            "Vec3BigInteger", "v3bi"
     );
     public static YMap<String, String> ELEMENT_CLASS = hm(
             "Vec2i", "int",
             "Vec3i", "int",
             "Vec4i", "int",
+
             "Vec2f", "float",
             "Vec3f", "float",
-            "Vec4f", "float"
+            "Vec4f", "float",
+
+            "Vec2l", "long",
+            "Vec3l", "long",
+            "Vec4l", "long",
+
+            "Vec2d", "double",
+            "Vec3d", "double",
+            "Vec4d", "double",
+
+            "Vec2BigInteger", "BigInteger",
+            "Vec3BigInteger", "BigInteger",
+            "Vec4BigInteger", "BigInteger"
+    );
+
+    public static YSet<String> IS_INT = hs(
+        "int", "long", "BigInteger"
     );
 
     public static YMap<String, String> METHOD_TO_OP = hm(
@@ -68,66 +106,52 @@ public class GenVectorMethods {
 
     public static final YSet<String> FLOAT_ONLY = hs("floor", "ceil", "round", "length", "normalized");
 
-    public static final YMap<String, String> METHOD_TO_0_FUN = hm(
-            "round", "Math.round",
-            "floor", "MyMath.floorFast",
-            "ceil", "MyMath.ceil",
-            "abs", "MyMath.abs"
-    );
-
-    public static final YMap<String, String> REDUCERS = hm(
-            "sum", "+",
-            "product", "*",
-            "min", "MyMath.min",
-            "max", "MyMath.max"
-    );
-
-    public static YMap<String, String> METHOD_TO_1_FUN = hm(
-            "min", "MyMath.min",
-            "max", "MyMath.max",
-            "cycle", "MyMath.cycle"
-    );
-
-    public static YMap<String, String> METHOD_TO_2_FUN = hm(
-            "clamp", "MyMath.clamp"
-    );
-
     public static void main(String[] args) {
-        YList<String> seLines = al();
         Tab tab = new Tab("    ").inc();
+
+        YList<String> allSeLines = al();
+
+        YList<String> seLines;
         for (String className : VEC_FIELDS.keySet()) {
-            //if (!className.equals("Vec2i")) continue;
+            seLines = al();
+            if (!className.equals("Vec3BigInteger")) continue;
 
             YList<String> lines = al();
 
             lines.add("//constructors");
             String elementClass = ELEMENT_CLASS.get(className);
             lines.add(format("public %s(%s) {%s}", className,
-                    fields(className).map(f -> format("%s %s", elementClass, f)).toString(", "),
-                    fields(className).map(f -> format("this.%s = %s", f, f)).toStringSuffix(";")));
+                fields(className).map(f -> format("%s %s", elementClass, f)).toString(", "),
+                fields(className).map(f -> format("this.%s = %s", f, f)).toStringSuffix(";")));
             lines.add(format("public %s(%s other) {%s}", className, className,
-                    fields(className).map(f -> format("%s = other.%s", f, f)).toStringSuffix(";")));
+                fields(className).map(f -> format("%s = other.%s", f, f)).toStringSuffix(";")));
             lines.add(format("public %s(%s b) {%s}", className, elementClass,
-                    fields(className).map(f -> format("%s = b", f)).toStringSuffix(";")));
+                fields(className).map(f -> format("%s = b", f)).toStringSuffix(";")));
 
             lines.add(format("public static %s %s(%s) {return new %s(%s);}",
-                    className, CLASS_TO_CONSTRUCTOR_NAME.get(className),
-                    fields(className).map(f -> format("%s %s", elementClass, f)).toString(", "),
-                    className, fields(className).toString(", ")));
+                className, CLASS_TO_CONSTRUCTOR_NAME.get(className),
+                fields(className).map(f -> format("%s %s", elementClass, f)).toString(", "),
+                className, fields(className).toString(", ")));
             lines.add(format("public static %s %s(%s b) {return new %s(%s);}", className,
-                    CLASS_TO_CONSTRUCTOR_NAME.get(className), elementClass,
-                    className, fields(className).map(f -> "b").toString(", ")));
+                CLASS_TO_CONSTRUCTOR_NAME.get(className), elementClass,
+                className, fields(className).map(f -> "b").toString(", ")));
             lines.add(format("public void fillFrom(%s other) {%s}", className,
-                    fields(className).map(f -> format("%s = other.%s", f, f)).toStringSuffix(";")));
+                fields(className).map(f -> format("%s = other.%s", f, f)).toStringSuffix(";")));
 
             lines.add("//operators");
             for (String m : METHOD_TO_OP.keySet()) {
-                genVariants(className, m, METHOD_TO_OP.get(m), lines, seLines);
+                genMethods_V_I(className, m, METHOD_TO_OP.get(m), lines, seLines);
             }
 
             lines.add("//0 args functions");
+            YMap<String, String> METHOD_TO_0_FUN = hm(
+                "round", "Math.round",
+                "floor", "MyMath.floorFast",
+                "ceil", "MyMath.ceil",
+                "abs", "MyMath.abs"
+            );
             for (String m : METHOD_TO_0_FUN.keySet()) {
-                if (elementClass.equals("int") && FLOAT_ONLY.contains(m)) continue;
+                if (IS_INT.contains(elementClass) && FLOAT_ONLY.contains(m)) continue;
                 //v.floor() -> v
                 lines.addAll(genUnary(className, m, unaryOp(METHOD_TO_0_FUN.get(m))));
 
@@ -135,8 +159,14 @@ public class GenVectorMethods {
                 seLines.addAll(genSe_Vo_V(className, m, tab, unaryOp(METHOD_TO_0_FUN.get(m))));
             }
             lines.add("//reducers");
+            YMap<String, String> REDUCERS = hm(
+                "sum", "+",
+                "product", "*",
+                "min", "MyMath.min",
+                "max", "MyMath.max"
+            );
             for (String m : REDUCERS.keySet()) {
-                if (elementClass.equals("int") && FLOAT_ONLY.contains(m)) continue;
+                if (IS_INT.contains(elementClass) && FLOAT_ONLY.contains(m)) continue;
                 //v.sum() -> i
                 String op = REDUCERS.get(m);
                 lines.addAll(genReducerUnary(className, m, binaryOp(op)));
@@ -154,52 +184,58 @@ public class GenVectorMethods {
             lines.add(format("public %s lengthSquared() {return %s;}", elementClass, fields(className).map(f -> f + " * " + f).reduce(binaryOp("+"))));
 
             lines.addAll(genBinaryReducers(className, "distanceSquared",
-                    (arg1, arg2) -> unaryOp("MyMath.sqr").apply(binaryOp("-").apply(arg1, arg2)),
-                    binaryOp("+"), Function.identity()));
+                (arg1, arg2) -> unaryOp("MyMath.sqr").apply(binaryOp("-").apply(arg1, arg2)),
+                binaryOp("+"), Function.identity()));
 
             lines.addAll(genReducerUnary(className, "manhattanLength", unaryOp("Math.abs"), binaryOp("+")));
             lines.addAll(genBinaryReducers(className, "manhattanDistance",
-                    (arg1, arg2) -> unaryOp("MyMath.abs").apply(binaryOp("-").apply(arg1, arg2)),
-                    binaryOp("+"), Function.identity()));
+                (arg1, arg2) -> unaryOp("MyMath.abs").apply(binaryOp("-").apply(arg1, arg2)),
+                binaryOp("+"), Function.identity()));
 
-            if (elementClass.equals("float")) {
+            if (elementClass.equals("float") || elementClass.equals("double")) {
                 //length
                 lines.add(format("public %s length() {return MyMath.sqrt(%s);}", elementClass, fields(className).map(f -> f + " * " + f).reduce(binaryOp("+"))));
                 //normalized
                 lines.add(format("public %s normalized() {", className));
-                lines.add(tab + format("float m = 1f / MyMath.sqrt(%s);", fields(className)
-                        .map(f -> format("%s * %s", f, f)).reduce(binaryOp("+"))));
+                lines.add(tab + format("%s m = 1f / MyMath.sqrt(%s);", elementClass, fields(className)
+                    .map(f -> format("%s * %s", f, f)).reduce(binaryOp("+"))));
                 lines.add(tab + format("return new %s(%s);", className, fields(className)
-                        .map(f -> format("%s * m", f)).toString(", ")));
+                    .map(f -> format("%s * m", f)).toString(", ")));
                 lines.add("}");
                 //normalized(len)
                 lines.add(format("public %s normalized(%s len) {", className, elementClass));
-                lines.add(tab + format("float m = len / (float)Math.sqrt(%s);", fields(className)
-                        .map(f -> format("%s * %s", f, f)).reduce(binaryOp("+"))));
+                lines.add(tab + format("%s m = len / (%s)Math.sqrt(%s);", elementClass, elementClass, fields(className)
+                    .map(f -> format("%s * %s", f, f)).reduce(binaryOp("+"))));
                 lines.add(tab + format("return new %s(%s);", className, fields(className)
-                        .map(f -> format("%s * m", f)).toString(", ")));
+                    .map(f -> format("%s * m", f)).toString(", ")));
                 lines.add("}");
 
                 lines.addAll(genBinaryReducers(className, "distance",
-                        (arg1, arg2) -> unaryOp("MyMath.sqr").apply(binaryOp("-").apply(arg1, arg2)),
-                        binaryOp("+"), unaryOp("MyMath.sqrt")));
-                //lines.add(format("public %s distance(%s to) {return %s;}", elementClass, className,
-                //        "MyMath.sqrt(" + fields(className).map(f -> format("MyMath.sqr(%s - to.%s)", f, f)).reduce(binaryOp("+")) + ")"));
+                    (arg1, arg2) -> unaryOp("MyMath.sqr").apply(binaryOp("-").apply(arg1, arg2)),
+                    binaryOp("+"), unaryOp("MyMath.sqrt")));
             }
-            
+
             lines.add("//math");
 
             lines.addAll(genBinaryReducers(className, "dot", binaryOp("*"), binaryOp("+"), Function.identity()));
             lines.add(format("public %s scalarProduct(%s b) {return dot(b);}", elementClass, className));
 
             lines.add(format("public %s negative() {return new %s(%s);}", className, className,
-                    fields(className).map(f -> "-" + f).toString(", ")));
+                fields(className).map(f -> "-" + f).toString(", ")));
 
 
             lines.add("//binary functions");
+            YMap<String, String> METHOD_TO_1_FUN = hm(
+                "min", "MyMath.min",
+                "max", "MyMath.max",
+                "cycle", "MyMath.cycle"
+            );
             for (String m : METHOD_TO_1_FUN.keySet()) {
-                genVariants(className, m, METHOD_TO_1_FUN.get(m), lines, seLines);
+                genMethods_V_I(className, m, METHOD_TO_1_FUN.get(m), lines, seLines);
             }
+
+            genMethods_V_II(className, "clamp", lines, seLines, "min", "max",
+                (v, min, max) -> String.format("Math.max(%s, Math.min(%s, %s))", min, v, max));
 
             String fileName = CLASS_FILES.get(className);
             if (fileName != null) {
@@ -208,39 +244,61 @@ public class GenVectorMethods {
             } else {
                 System.out.println("No file defined for " + className);
             }
+
+            if (!elementClass.equals("BigInteger")) {
+                allSeLines.addAll(seLines);
+            }
+
         }
 
         String seFile = "src/main/java/yk/jcommon/fastgeom/VectorOperationsNoMalloc.java";
         System.out.println("Writing lines to " + seFile);
-        IO.writeFile(seFile, Util.insertLines(IO.readFile(seFile), "2022", seLines));
+        if (allSeLines.notEmpty()) IO.writeFile(seFile, Util.insertLines(IO.readFile(seFile), "2022", allSeLines));
     }
 
-    private static YList<String> genBinaryReducers(String className, String methodName,
-                           BiFunction<String, String, String> combine, BiFunction<String, String, String> reduce,
-                            Function<String, String> map) {
+    //
+    public static YList<String> genBinaryReducers(String className, String methodName,
+                                                   BiFunction<String, String, String> combine,
+                                                   BiFunction<String, String, String> reduce,
+                                                   Function<String, String> map) {
         YList<String> lines = al();
-
         lines.addAll(genBinaryReducer(className, methodName, combine, reduce, map));
-        lines.addAll(genBinaryReducerAllElements(className, methodName, combine, reduce, map));
+        lines.addAll(genBinaryReducerXyz(className, methodName, combine, reduce, map));
 
         return lines;
     }
 
-    private static void genVariants(String className, String m, String op, YList<String> lines, YList<String> seLines) {
+    private static void genMethods_V_I(String className, String m, String op, YList<String> lines, YList<String> seLines) {
+        String elementClass = ELEMENT_CLASS.get(className);
         Tab tab = new Tab("    ").inc();
         //v.min(v) -> v
-        lines.addAll(genBinaryMethod(className, m, binaryOp(op)));
+        lines.addAll(genMethod_V_V(className, m, binaryOp(op)));
         //v.min(i) -> v
-        lines.addAll(genBinaryMethodBy1Element(className, m, binaryOp(op)));
+        lines.addAll(genMethod_V_S(className, m, binaryOp(op)));
         //v.min(x, y) -> v
-        lines.addAll(genBinaryMethodByAllElements(className, m, binaryOp(op)));
+        lines.addAll(genMethod_V_xyz(className, m, binaryOp(op)));
 
-        //VectorOperationsNoMalloc.nmMin(v1, v2, vRes)
-
+        if (elementClass.equals("BigInteger")) return;
         seLines.addAll(genSe_Vo_VV(className, m, tab, binaryOp(op)));
         seLines.addAll(genSe_Vio_V(className, m, tab, binaryOp(op)));
         seLines.addAll(genSe_Vo_VS(className, m, tab, binaryOp(op)));
         seLines.addAll(genSe_Vio_S(className, m, tab, binaryOp(op)));
+    }
+
+    public static void genMethods_V_II(String className, String m, YList<String> lines, YList<String> seLines, String n1, String n2, Function3<String, String, String, String> op) {
+
+        //v.clamp(v, v) -> v
+        lines.addAll(genMethod_V_VV(className, m, n1, n2, op));
+        //v.clamp(s, s) -> v
+        lines.addAll(genMethod_V_SS(className, m, n1, n2, f -> op.apply(f, n1, n2)));
+        //not implemented, too many args
+        //lines.addAll(genMethod_V_XyzXyzXyz(className, m, binaryOp(op)));
+        //
+        //Tab tab = new Tab("    ").inc();
+        //seLines.addAll(genSe_Vo_VV(className, m, tab, binaryOp(op)));
+        //seLines.addAll(genSe_Vio_V(className, m, tab, binaryOp(op)));
+        //seLines.addAll(genSe_Vo_VS(className, m, tab, binaryOp(op)));
+        //seLines.addAll(genSe_Vio_S(className, m, tab, binaryOp(op)));
     }
 
     public static YList<String> genSe_Vo_VV(String className, String methodName, Tab tab,
@@ -289,36 +347,36 @@ public class GenVectorMethods {
                 .with("}");
     }
 
-    public static YList<String> genBinaryMethod(String className, String method,
-                                                BiFunction<String, String, String> forField) {
+    public static YList<String> genMethod_V_V(String className, String method,
+                                              BiFunction<String, String, String> forField) {
         //TODO if too long
         return al(format("public %s %s(%s b) {return new %s(%s);}",
                 className, method, className, className, fields(className).map(f -> forField.apply(f, "b." + f)).toString(", ")));
     }
 
-    public static YList<String> genBinaryReducer(String className, String method,
-                                                BiFunction<String, String, String> forField) {
-        return genBinaryReducer(className, method, forField, reduceComma(), Function.identity());
+    public static YList<String> genMethod_V_VV(String className, String method, String n1, String n2,
+                                               Function3<String, String, String, String> forField) {
+        //TODO if too long
+        return al(format("public %s %s(%s %s, %s %s) {return new %s(%s);}",
+                className, method, className, n1, className, n2, className, fields(className)
+                .map(f -> forField.apply(f, n1 + "." + f, n2 + "." + f)).toString(", ")));
     }
-    public static YList<String> genBinaryReducer(String className, String method,
-                                                BiFunction<String, String, String> combine,
+
+    public static YList<String> genBinaryReducer(String className, String methodName,
+                                                BiFunction<String, String, String> sum,
                                                 BiFunction<String, String, String> reduce,
-                                                Function<String, String> map) {
+                                                Function<String, String> mapResult) {
         //TODO if too long
         return al(format("public %s %s(%s b) {return %s;}",
-                ELEMENT_CLASS.get(className), method, className,
-                map.apply(fields(className).map(f -> combine.apply(f, "b." + f)).reduce(reduce))
+                ELEMENT_CLASS.get(className), methodName, className,
+                mapResult.apply(fields(className).map(f -> sum.apply(f, "b." + f)).reduce(reduce))
         ));
     }
 
-    public static YList<String> genBinaryReducerAllElements(String className, String method,
-                                                BiFunction<String, String, String> forField) {
-        return genBinaryReducer(className, method, forField, reduceComma(), Function.identity());
-    }
-    public static YList<String> genBinaryReducerAllElements(String className, String method,
-                                                BiFunction<String, String, String> combine,
-                                                BiFunction<String, String, String> reduce,
-                                                Function<String, String> map) {
+    public static YList<String> genBinaryReducerXyz(String className, String method,
+                                                    BiFunction<String, String, String> combine,
+                                                    BiFunction<String, String, String> reduce,
+                                                    Function<String, String> map) {
         //TODO if too long
         return al(format("public %s %s(%s) {return %s;}",
                 ELEMENT_CLASS.get(className), method, fields(className)
@@ -326,14 +384,14 @@ public class GenVectorMethods {
                 map.apply(fields(className).map(f -> combine.apply("this." + f, f)).reduce(reduce))));
     }
 
-    public static YList<String> genBinaryMethodByAllElements(String className, String method,
-                                                             BiFunction<String, String, String> forField) {
-        return genBinaryMethodByAllElements(className, method, forField, reduceComma());
+    public static YList<String> genMethod_V_xyz(String className, String method,
+                                                BiFunction<String, String, String> forField) {
+        return genMethod_V_xyz(className, method, forField, reduceComma());
     }
 
-    public static YList<String> genBinaryMethodByAllElements(String className, String method,
-                                                             BiFunction<String, String, String> map,
-                                                             BiFunction<String, String, String> reduce) {
+    public static YList<String> genMethod_V_xyz(String className, String method,
+                                                BiFunction<String, String, String> map,
+                                                BiFunction<String, String, String> reduce) {
         //TODO if too long
         return al(format("public %s %s(%s) {return new %s(%s);}",
                 className, method,
@@ -342,12 +400,21 @@ public class GenVectorMethods {
                 fields(className).map(f -> map.apply("this." + f, f)).reduce(reduce)));
     }
 
-    public static YList<String> genBinaryMethodBy1Element(String className, String method,
-                                                          BiFunction<String, String, String> forField) {
+    public static YList<String> genMethod_V_S(String className, String method,
+                                              BiFunction<String, String, String> forField) {
         //TODO if too long
         return al(format("public %s %s(%s %s) {return new %s(%s);}",
                 className, method, ELEMENT_CLASS.get(className), "b", className,
                 fields(className).map(f -> forField.apply(f, "b")).toString(", ")));
+    }
+
+    public static YList<String> genMethod_V_SS(String className, String method, String n1, String n2,
+                                               Function<String, String> forField) {
+        //TODO if too long
+        String elClass = ELEMENT_CLASS.get(className);
+        return al(format("public %s %s(%s %s, %s %s) {return new %s(%s);}",
+                className, method, elClass, n1, elClass, n2, className,
+                fields(className).map(forField).toString(", ")));
     }
 
     public static YList<String> genUnary(String className, String method, Function<String, String> forField) {
@@ -379,21 +446,16 @@ public class GenVectorMethods {
     }
 
     public static BiFunction<String, String, String> binaryOp(String op) {
-        return (arg1, arg2) -> OPERATORS.contains(op)
-                ? format("%s %s %s", arg1, op, arg2)
-                : format("%s(%s, %s)", op, arg1, arg2);
-    }
+        if (op.startsWith(".")) return ((arg1, arg2) -> format("%s%s(%s)", arg1, op, arg2));
 
-    public static Function<String, String> binaryOpWithB(String op) {
-        return f -> binaryOp(op).apply(f, "b." + f);
+        return OPERATORS.contains(op)
+            ? ((arg1, arg2) -> format("%s %s %s", arg1, op, arg2))
+            : ((arg1, arg2) -> format("%s(%s, %s)", op, arg1, arg2));
     }
 
     public static Function<String, String> unaryOp(String op) {
+        if (op.startsWith(".")) return (arg) -> format("%s%s()", arg, op);
         return (arg) -> format("%s(%s)", op, arg);
-    }
-
-    public static Function<String, String> unaryOp(String op, Function<String, String> arg) {
-        return (a) -> format("%s(%s)", op, arg.apply(a));
     }
 
     private static String capitalize(String methodName) {
@@ -407,4 +469,9 @@ public class GenVectorMethods {
     private static BiFunction<String, String, String> reduceComma() {
         return (res, cur) -> res + ", " + cur;
     }
+
+    public interface Function3<I1, I2, I3, R> {
+        R apply(I1 i1, I2 i2, I3 i3);
+    }
+
 }

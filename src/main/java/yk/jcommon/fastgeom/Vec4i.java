@@ -126,6 +126,8 @@ public final class Vec4i implements Serializable {
 /*2022*/public Vec4i cycle(Vec4i b) {return new Vec4i(MyMath.cycle(x, b.x), MyMath.cycle(y, b.y), MyMath.cycle(z, b.z), MyMath.cycle(w, b.w));}
 /*2022*/public Vec4i cycle(int b) {return new Vec4i(MyMath.cycle(x, b), MyMath.cycle(y, b), MyMath.cycle(z, b), MyMath.cycle(w, b));}
 /*2022*/public Vec4i cycle(int x, int y, int z, int w) {return new Vec4i(MyMath.cycle(this.x, x), MyMath.cycle(this.y, y), MyMath.cycle(this.z, z), MyMath.cycle(this.w, w));}
+/*2022*/public Vec4i clamp(Vec4i min, Vec4i max) {return new Vec4i(Math.max(min.x, Math.min(x, max.x)), Math.max(min.y, Math.min(y, max.y)), Math.max(min.z, Math.min(z, max.z)), Math.max(min.w, Math.min(w, max.w)));}
+/*2022*/public Vec4i clamp(int min, int max) {return new Vec4i(Math.max(min, Math.min(x, max)), Math.max(min, Math.min(y, max)), Math.max(min, Math.min(z, max)), Math.max(min, Math.min(w, max)));}
 //2022 auto generated text
 
     @Override

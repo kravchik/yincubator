@@ -35,6 +35,11 @@ public class MyMath {
         return res < 0 ? res + period : res;
     }
 
+    public static long cycle(long value, long period) {
+        long res = value % period;
+        return res < 0 ? res + period : res;
+    }
+
     /**
      * Maps any value to be inside some period. As in angles.
      * <br>
@@ -53,10 +58,19 @@ public class MyMath {
         return res < 0 ? res + period : res;
     }
 
+    public static double cycle(double value, double period) {
+        double res = value % period;
+        return res < 0 ? res + period : res;
+    }
+
     // This method is a *lot* faster than using (int)Math.floor(x) (quote from SimplexNoise)
     // my estimation - it could be 150ms vs 500ms faster
     // Try avoid using java.lang.Math
     public static int floorFast(float f) {
+        int fi = (int)f;
+        return f < fi ? fi - 1 : fi;
+    }
+    public static int floorFast(double f) {
         int fi = (int)f;
         return f < fi ? fi - 1 : fi;
     }
@@ -122,7 +136,15 @@ public class MyMath {
         return v * v;
     }
 
+    public static double sqr(double v) {
+        return v * v;
+    }
+
     public static int sqr(int v) {
+        return v * v;
+    }
+
+    public static long sqr(long v) {
         return v * v;
     }
 
@@ -265,11 +287,14 @@ public static Vec2f log(Vec2f arg0) {return Vec2f.v2((float)Math.log(arg0.x), (f
 public static Vec3f log(Vec3f arg0) {return Vec3f.v3((float)Math.log(arg0.x), (float)Math.log(arg0.y), (float)Math.log(arg0.z));}
 public static Vec4f log(Vec4f arg0) {return Vec4f.v4((float)Math.log(arg0.x), (float)Math.log(arg0.y), (float)Math.log(arg0.z), (float)Math.log(arg0.w));}
 public static float sqrt(float arg0) {return (float)Math.sqrt(arg0);}
+public static double sqrt(double arg0) {return Math.sqrt(arg0);}
 public static Vec2f sqrt(Vec2f arg0) {return Vec2f.v2((float)Math.sqrt(arg0.x), (float)Math.sqrt(arg0.y));}
 public static Vec3f sqrt(Vec3f arg0) {return Vec3f.v3((float)Math.sqrt(arg0.x), (float)Math.sqrt(arg0.y), (float)Math.sqrt(arg0.z));}
 public static Vec4f sqrt(Vec4f arg0) {return Vec4f.v4((float)Math.sqrt(arg0.x), (float)Math.sqrt(arg0.y), (float)Math.sqrt(arg0.z), (float)Math.sqrt(arg0.w));}
 public static int abs(int arg0) {return Math.abs(arg0);}
+public static long abs(long arg0) {return Math.abs(arg0);}
 public static float abs(float arg0) {return Math.abs(arg0);}
+public static double abs(double arg0) {return Math.abs(arg0);}
 public static Vec2f abs(Vec2f arg0) {return Vec2f.v2(Math.abs(arg0.x), Math.abs(arg0.y));}
 public static Vec3f abs(Vec3f arg0) {return Vec3f.v3(Math.abs(arg0.x), Math.abs(arg0.y), Math.abs(arg0.z));}
 public static Vec4f abs(Vec4f arg0) {return Vec4f.v4(Math.abs(arg0.x), Math.abs(arg0.y), Math.abs(arg0.z), Math.abs(arg0.w));}
@@ -278,10 +303,12 @@ public static Vec2f sign(Vec2f arg0) {return Vec2f.v2(Math.signum(arg0.x), Math.
 public static Vec3f sign(Vec3f arg0) {return Vec3f.v3(Math.signum(arg0.x), Math.signum(arg0.y), Math.signum(arg0.z));}
 public static Vec4f sign(Vec4f arg0) {return Vec4f.v4(Math.signum(arg0.x), Math.signum(arg0.y), Math.signum(arg0.z), Math.signum(arg0.w));}
 public static float ceil(float arg0) {return (float)Math.ceil(arg0);}
+public static double ceil(double arg0) {return Math.ceil(arg0);}
 public static Vec2f ceil(Vec2f arg0) {return Vec2f.v2((float)Math.ceil(arg0.x), (float)Math.ceil(arg0.y));}
 public static Vec3f ceil(Vec3f arg0) {return Vec3f.v3((float)Math.ceil(arg0.x), (float)Math.ceil(arg0.y), (float)Math.ceil(arg0.z));}
 public static Vec4f ceil(Vec4f arg0) {return Vec4f.v4((float)Math.ceil(arg0.x), (float)Math.ceil(arg0.y), (float)Math.ceil(arg0.z), (float)Math.ceil(arg0.w));}
 public static float max(float arg0, float arg1) {return Math.max(arg0, arg1);}
+public static double max(double arg0, double arg1) {return Math.max(arg0, arg1);}
 public static Vec2f max(Vec2f arg0, Vec2f arg1) {return Vec2f.v2(Math.max(arg0.x, arg1.x), Math.max(arg0.y, arg1.y));}
 public static Vec3f max(Vec3f arg0, Vec3f arg1) {return Vec3f.v3(Math.max(arg0.x, arg1.x), Math.max(arg0.y, arg1.y), Math.max(arg0.z, arg1.z));}
 public static Vec4f max(Vec4f arg0, Vec4f arg1) {return Vec4f.v4(Math.max(arg0.x, arg1.x), Math.max(arg0.y, arg1.y), Math.max(arg0.z, arg1.z), Math.max(arg0.w, arg1.w));}
@@ -384,6 +411,9 @@ public static Vec4f smoothstep(float from, float to, Vec4f progress) {return Vec
                 ((value.w - (by.w * floorFast(value.w / by.w)))));
     }
     public static float min(float arg0, float arg1) {
+        return arg0 < arg1 ? arg0 : arg1;
+    }
+    public static double min(double arg0, double arg1) {
         return arg0 < arg1 ? arg0 : arg1;
     }
     public static Vec2f min(Vec2f arg0, Vec2f arg1) {
