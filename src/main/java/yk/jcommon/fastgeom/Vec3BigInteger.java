@@ -4,6 +4,7 @@ import yk.jcommon.utils.BigIntegerMath;
 
 import java.math.BigInteger;
 import java.util.Objects;
+import java.util.function.Function;
 
 public class Vec3BigInteger {
     public BigInteger x, y, z;
@@ -38,6 +39,7 @@ public class Vec3BigInteger {
 /*2022*/public Vec3BigInteger div(Vec3BigInteger b) {return new Vec3BigInteger(x.divide(b.x), y.divide(b.y), z.divide(b.z));}
 /*2022*/public Vec3BigInteger div(BigInteger b) {return new Vec3BigInteger(x.divide(b), y.divide(b), z.divide(b));}
 /*2022*/public Vec3BigInteger div(BigInteger x, BigInteger y, BigInteger z) {return new Vec3BigInteger(this.x.divide(x), this.y.divide(y), this.z.divide(z));}
+/*2022*/public Vec3BigInteger map(Function<BigInteger, BigInteger> mapper) {return new Vec3BigInteger(mapper.apply(x), mapper.apply(y), mapper.apply(z));}
 /*2022*///0 args functions
 /*2022*/public Vec3BigInteger abs() {return new Vec3BigInteger(x.abs(), y.abs(), z.abs());}
 /*2022*///reducers

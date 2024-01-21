@@ -63,6 +63,7 @@ public final class Vec2i implements Serializable {
 /*2022*///reducers
 /*2022*/public int sum() {return x + y;}
 /*2022*/public int product() {return x * y;}
+/*2022*/public int ratio() {return x / y;}
 /*2022*/public int min() {return MyMath.min(x, y);}
 /*2022*/public int max() {return MyMath.max(x, y);}
 /*2022*///distance

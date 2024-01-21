@@ -106,6 +106,7 @@ public class IO {
         }
     }
 
+    //Use -Djava.awt.headless=true if this method hangs or throws exception
     public static BufferedImage readImage(String path) {
         try {
             return ImageIO.read(new File(path));

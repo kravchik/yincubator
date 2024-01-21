@@ -43,13 +43,13 @@ public class GenVectorMethods {
             "Vec3f", al("x", "y", "z"),
             "Vec4f", al("x", "y", "z", "w"),
 
-            "Vec2Long", al("x", "y"),
+            "Vec2l", al("x", "y"),
             "Vec3l", al("x", "y", "z"),
-            "Vec4Long", al("x", "y", "z", "w"),
+            "Vec4l", al("x", "y", "z", "w"),
 
-            "Vec2Double", al("x", "y"),
+            "Vec2d", al("x", "y"),
             "Vec3d", al("x", "y", "z"),
-            "Vec4Double", al("x", "y", "z", "w"),
+            "Vec4d", al("x", "y", "z", "w"),
 
             "Vec2BigInteger", al("x", "y"),
             "Vec3BigInteger", al("x", "y", "z"),
@@ -64,9 +64,17 @@ public class GenVectorMethods {
             "Vec3f", "v3",
             "Vec4f", "v4",
 
+            "Vec2l", "v2l",
             "Vec3l", "v3l",
+            "Vec4l", "v4l",
+
+            "Vec2d", "v2d",
             "Vec3d", "v3d",
-            "Vec3BigInteger", "v3bi"
+            "Vec4d", "v4d",
+
+            "Vec2BigInteger", "v2bi",
+            "Vec3BigInteger", "v3bi",
+            "Vec4BigInteger", "v4bi"
     );
     public static YMap<String, String> ELEMENT_CLASS = hm(
             "Vec2i", "int",
@@ -96,11 +104,8 @@ public class GenVectorMethods {
 
     public static YMap<String, String> METHOD_TO_OP = hm(
             "add", "+",
-            //"plus", "+",
             "sub", "-",
-            //"minus", "-",
             "mul", "*",
-            //"multiply", "*",
             "div", "/"
     );
 
@@ -112,10 +117,8 @@ public class GenVectorMethods {
         YList<String> allSeLines = al();
 
         YList<String> seLines;
-        for (String className : VEC_FIELDS.keySet()) {
+        for (String className : CLASS_FILES.keySet()) {
             seLines = al();
-            if (!className.equals("Vec3BigInteger")) continue;
-
             YList<String> lines = al();
 
             lines.add("//constructors");
@@ -162,11 +165,13 @@ public class GenVectorMethods {
             YMap<String, String> REDUCERS = hm(
                 "sum", "+",
                 "product", "*",
+                "ratio", "/",
                 "min", "MyMath.min",
                 "max", "MyMath.max"
             );
             for (String m : REDUCERS.keySet()) {
                 if (IS_INT.contains(elementClass) && FLOAT_ONLY.contains(m)) continue;
+                if (m.equals("ratio") && VEC_FIELDS.get(className).size() != 2) continue;
                 //v.sum() -> i
                 String op = REDUCERS.get(m);
                 lines.addAll(genReducerUnary(className, m, binaryOp(op)));

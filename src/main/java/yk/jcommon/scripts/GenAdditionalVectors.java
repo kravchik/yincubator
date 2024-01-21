@@ -55,6 +55,8 @@ public class GenAdditionalVectors {
             for (String m : METHOD_TO_OP.keySet()) {
                 genMethods_V_I(className, m, METHOD_TO_OP.get(m), lines);
             }
+            lines.addAll(al(format("public %s map(Function<%s, %s> mapper) {return new %s(%s);}",
+                className, elementClass, elementClass, className, fields(className).map(unaryOp("mapper.apply")).toString(", "))));
 
             lines.add("//0 args functions");
             YMap<String, String> METHOD_TO_0_FUN = hm(
@@ -125,7 +127,6 @@ public class GenAdditionalVectors {
     }
 
     private static void genMethods_V_I(String className, String m, String op, YList<String> lines) {
-        String elementClass = ELEMENT_CLASS.get(className);
         Tab tab = new Tab("    ").inc();
 
         YMap<String, String> ops = hm(
