@@ -79,6 +79,9 @@ public final class Vec2f implements Serializable {
 /*2022*/public Vec2f floor() {return new Vec2f(MyMath.floorFast(x), MyMath.floorFast(y));}
 /*2022*/public Vec2f ceil() {return new Vec2f(MyMath.ceil(x), MyMath.ceil(y));}
 /*2022*/public Vec2f abs() {return new Vec2f(MyMath.abs(x), MyMath.abs(y));}
+/*2022*/public Vec2f sign() {return new Vec2f(MyMath.sign(x), MyMath.sign(y));}
+/*2022*/public Vec2f sqr() {return new Vec2f(MyMath.sqr(x), MyMath.sqr(y));}
+/*2022*/public Vec2f sqrt() {return new Vec2f(MyMath.sqrt(x), MyMath.sqrt(y));}
 /*2022*///reducers
 /*2022*/public float sum() {return x + y;}
 /*2022*/public float product() {return x * y;}
@@ -149,8 +152,6 @@ public Vec2f atan(Vec2f x) {return Vec2f.v2((float)Math.atan2(this.x, x.x), (flo
 public Vec2f pow(Vec2f power) {return Vec2f.v2((float)Math.pow(this.x, power.x), (float)Math.pow(this.y, power.y));}
 public Vec2f exp() {return Vec2f.v2((float)Math.exp(this.x), (float)Math.exp(this.y));}
 public Vec2f log() {return Vec2f.v2((float)Math.log(this.x), (float)Math.log(this.y));}
-public Vec2f sqrt() {return Vec2f.v2((float)Math.sqrt(this.x), (float)Math.sqrt(this.y));}
-public Vec2f sign() {return Vec2f.v2(Math.signum(this.x), Math.signum(this.y));}
 public Vec2f fract() {return Vec2f.v2(this.x - (float)Math.floor(this.x), this.y - (float)Math.floor(this.y));}
 public Vec2f mod(Vec2f by) {return Vec2f.v2((float)(this.x-by.x*Math.floor(this.x/by.x)), (float)(this.y-by.y*Math.floor(this.y/by.y)));}
 public Vec2f mix(Vec2f to, Vec2f progress) {return Vec2f.v2(this.x * (1 - progress.x) + to.x * progress.x, this.y * (1 - progress.y) + to.y * progress.y);}

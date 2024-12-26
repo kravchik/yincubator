@@ -100,6 +100,9 @@ public final class Vec3f implements Serializable {
 /*2022*/public Vec3f floor() {return new Vec3f(MyMath.floorFast(x), MyMath.floorFast(y), MyMath.floorFast(z));}
 /*2022*/public Vec3f ceil() {return new Vec3f(MyMath.ceil(x), MyMath.ceil(y), MyMath.ceil(z));}
 /*2022*/public Vec3f abs() {return new Vec3f(MyMath.abs(x), MyMath.abs(y), MyMath.abs(z));}
+/*2022*/public Vec3f sign() {return new Vec3f(MyMath.sign(x), MyMath.sign(y), MyMath.sign(z));}
+/*2022*/public Vec3f sqr() {return new Vec3f(MyMath.sqr(x), MyMath.sqr(y), MyMath.sqr(z));}
+/*2022*/public Vec3f sqrt() {return new Vec3f(MyMath.sqrt(x), MyMath.sqrt(y), MyMath.sqrt(z));}
 /*2022*///reducers
 /*2022*/public float sum() {return x + y + z;}
 /*2022*/public float product() {return x * y * z;}
@@ -170,8 +173,6 @@ public Vec3f atan(Vec3f x) {return Vec3f.v3((float)Math.atan2(this.x, x.x), (flo
 public Vec3f pow(Vec3f power) {return Vec3f.v3((float)Math.pow(this.x, power.x), (float)Math.pow(this.y, power.y), (float)Math.pow(this.z, power.z));}
 public Vec3f exp() {return Vec3f.v3((float)Math.exp(this.x), (float)Math.exp(this.y), (float)Math.exp(this.z));}
 public Vec3f log() {return Vec3f.v3((float)Math.log(this.x), (float)Math.log(this.y), (float)Math.log(this.z));}
-public Vec3f sqrt() {return Vec3f.v3((float)Math.sqrt(this.x), (float)Math.sqrt(this.y), (float)Math.sqrt(this.z));}
-public Vec3f sign() {return Vec3f.v3(Math.signum(this.x), Math.signum(this.y), Math.signum(this.z));}
 public Vec3f fract() {return Vec3f.v3(this.x - (float)Math.floor(this.x), this.y - (float)Math.floor(this.y), this.z - (float)Math.floor(this.z));}
 public Vec3f mod(Vec3f by) {return Vec3f.v3((float)(this.x-by.x*Math.floor(this.x/by.x)), (float)(this.y-by.y*Math.floor(this.y/by.y)), (float)(this.z-by.z*Math.floor(this.z/by.z)));}
 public Vec3f mix(Vec3f to, Vec3f progress) {return Vec3f.v3(this.x * (1 - progress.x) + to.x * progress.x, this.y * (1 - progress.y) + to.y * progress.y, this.z * (1 - progress.z) + to.z * progress.z);}

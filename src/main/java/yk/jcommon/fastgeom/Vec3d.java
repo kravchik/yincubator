@@ -78,6 +78,9 @@ public class Vec3d {
 /*2022*/public Vec3d floor() {return new Vec3d(MyMath.floorFast(x), MyMath.floorFast(y), MyMath.floorFast(z));}
 /*2022*/public Vec3d ceil() {return new Vec3d(MyMath.ceil(x), MyMath.ceil(y), MyMath.ceil(z));}
 /*2022*/public Vec3d abs() {return new Vec3d(MyMath.abs(x), MyMath.abs(y), MyMath.abs(z));}
+/*2022*/public Vec3d sign() {return new Vec3d(MyMath.sign(x), MyMath.sign(y), MyMath.sign(z));}
+/*2022*/public Vec3d sqr() {return new Vec3d(MyMath.sqr(x), MyMath.sqr(y), MyMath.sqr(z));}
+/*2022*/public Vec3d sqrt() {return new Vec3d(MyMath.sqrt(x), MyMath.sqrt(y), MyMath.sqrt(z));}
 /*2022*///reducers
 /*2022*/public double sum() {return x + y + z;}
 /*2022*/public double product() {return x * y * z;}
@@ -96,7 +99,7 @@ public class Vec3d {
 /*2022*/    return new Vec3d(x * m, y * m, z * m);
 /*2022*/}
 /*2022*/public Vec3d normalized(double len) {
-/*2022*/    double m = len / Math.sqrt(x * x + y * y + z * z);
+/*2022*/    double m = len / (double)Math.sqrt(x * x + y * y + z * z);
 /*2022*/    return new Vec3d(x * m, y * m, z * m);
 /*2022*/}
 /*2022*/public double distance(Vec3d b) {return MyMath.sqrt(MyMath.sqr(x - b.x) + MyMath.sqr(y - b.y) + MyMath.sqr(z - b.z));}

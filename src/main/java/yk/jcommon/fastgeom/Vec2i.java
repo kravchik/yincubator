@@ -60,6 +60,8 @@ public final class Vec2i implements Serializable {
 /*2022*/public Vec2i div(int x, int y) {return new Vec2i(this.x / x, this.y / y);}
 /*2022*///0 args functions
 /*2022*/public Vec2i abs() {return new Vec2i(MyMath.abs(x), MyMath.abs(y));}
+/*2022*/public Vec2i sign() {return new Vec2i(MyMath.sign(x), MyMath.sign(y));}
+/*2022*/public Vec2i sqr() {return new Vec2i(MyMath.sqr(x), MyMath.sqr(y));}
 /*2022*///reducers
 /*2022*/public int sum() {return x + y;}
 /*2022*/public int product() {return x * y;}

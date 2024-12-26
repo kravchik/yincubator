@@ -99,6 +99,8 @@ public final class Vec4i implements Serializable {
 /*2022*/public Vec4i div(int x, int y, int z, int w) {return new Vec4i(this.x / x, this.y / y, this.z / z, this.w / w);}
 /*2022*///0 args functions
 /*2022*/public Vec4i abs() {return new Vec4i(MyMath.abs(x), MyMath.abs(y), MyMath.abs(z), MyMath.abs(w));}
+/*2022*/public Vec4i sign() {return new Vec4i(MyMath.sign(x), MyMath.sign(y), MyMath.sign(z), MyMath.sign(w));}
+/*2022*/public Vec4i sqr() {return new Vec4i(MyMath.sqr(x), MyMath.sqr(y), MyMath.sqr(z), MyMath.sqr(w));}
 /*2022*///reducers
 /*2022*/public int sum() {return x + y + z + w;}
 /*2022*/public int product() {return x * y * z * w;}

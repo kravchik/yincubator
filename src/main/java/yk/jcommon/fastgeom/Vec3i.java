@@ -62,6 +62,8 @@ public final class Vec3i implements Serializable {
 /*2022*/public Vec3i div(int x, int y, int z) {return new Vec3i(this.x / x, this.y / y, this.z / z);}
 /*2022*///0 args functions
 /*2022*/public Vec3i abs() {return new Vec3i(MyMath.abs(x), MyMath.abs(y), MyMath.abs(z));}
+/*2022*/public Vec3i sign() {return new Vec3i(MyMath.sign(x), MyMath.sign(y), MyMath.sign(z));}
+/*2022*/public Vec3i sqr() {return new Vec3i(MyMath.sqr(x), MyMath.sqr(y), MyMath.sqr(z));}
 /*2022*///reducers
 /*2022*/public int sum() {return x + y + z;}
 /*2022*/public int product() {return x * y * z;}

@@ -1,8 +1,8 @@
 package yk.jcommon.scripts;
 
 import yk.jcommon.utils.IO;
+import yk.jcommon.utils.Scripts;
 import yk.jcommon.utils.Tab;
-import yk.jcommon.utils.Util;
 import yk.ycollections.YList;
 import yk.ycollections.YMap;
 
@@ -118,7 +118,7 @@ public class GenAdditionalVectors {
             String fileName = CLASS_FILES.get(className);
             if (fileName != null) {
                 System.out.println("Writing lines to " + fileName);
-                IO.writeFile(fileName, Util.insertLines(IO.readFile(fileName), "2022", lines));
+                IO.writeFile(fileName, Scripts.insertLines(IO.readFile(fileName), "2022", lines));
             } else {
                 System.out.println("No file defined for " + className);
             }

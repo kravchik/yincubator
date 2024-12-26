@@ -1,8 +1,8 @@
 package yk.jcommon.scripts;
 
 import yk.jcommon.utils.IO;
+import yk.jcommon.utils.Scripts;
 import yk.jcommon.utils.Tab;
-import yk.jcommon.utils.Util;
 import yk.ycollections.YArrayList;
 import yk.ycollections.YList;
 import yk.ycollections.YMap;
@@ -17,6 +17,9 @@ import static yk.ycollections.YHashMap.hm;
 import static yk.ycollections.YHashSet.hs;
 public class GenVectorMethods {
 
+    //TODO migrate 'gglsl generated' methods here (so that they would be present for all versions of vectors)
+
+    public static final String PUBLIC_STATIC_VOID_NM = "public static void nm";
     public static YSet<String> OPERATORS = hs(
             "+", "-", "*", "/", "%"
     );
@@ -109,7 +112,7 @@ public class GenVectorMethods {
             "div", "/"
     );
 
-    public static final YSet<String> FLOAT_ONLY = hs("floor", "ceil", "round", "length", "normalized");
+    public static final YSet<String> FLOAT_ONLY = hs("floor", "ceil", "round", "length", "normalized", "sqrt");
 
     public static void main(String[] args) {
         Tab tab = new Tab("    ").inc();
@@ -151,7 +154,10 @@ public class GenVectorMethods {
                 "round", "Math.round",
                 "floor", "MyMath.floorFast",
                 "ceil", "MyMath.ceil",
-                "abs", "MyMath.abs"
+                "abs", "MyMath.abs",
+                "sign", "MyMath.sign",
+                "sqr", "MyMath.sqr",
+                "sqrt", "MyMath.sqrt"
             );
             for (String m : METHOD_TO_0_FUN.keySet()) {
                 if (IS_INT.contains(elementClass) && FLOAT_ONLY.contains(m)) continue;
@@ -245,7 +251,7 @@ public class GenVectorMethods {
             String fileName = CLASS_FILES.get(className);
             if (fileName != null) {
                 System.out.println("Writing lines to " + fileName);
-                IO.writeFile(fileName, Util.insertLines(IO.readFile(fileName), "2022", lines));
+                IO.writeFile(fileName, Scripts.insertLines(IO.readFile(fileName), "2022", lines));
             } else {
                 System.out.println("No file defined for " + className);
             }
@@ -258,7 +264,7 @@ public class GenVectorMethods {
 
         String seFile = "src/main/java/yk/jcommon/fastgeom/VectorOperationsNoMalloc.java";
         System.out.println("Writing lines to " + seFile);
-        if (allSeLines.notEmpty()) IO.writeFile(seFile, Util.insertLines(IO.readFile(seFile), "2022", allSeLines));
+        if (allSeLines.notEmpty()) IO.writeFile(seFile, Scripts.insertLines(IO.readFile(seFile), "2022", allSeLines));
     }
 
     //
@@ -308,28 +314,28 @@ public class GenVectorMethods {
 
     public static YList<String> genSe_Vo_VV(String className, String methodName, Tab tab,
                                             BiFunction<String, String, String> forField) {
-        return genSe(className, tab, format("public static void nm%s(%s res, %s a, %s b) {",
+        return genSe(className, tab, format(PUBLIC_STATIC_VOID_NM + "%s(%s res, %s a, %s b) {",
                         capitalize(methodName), className, className, className),
                 f -> format("res.%s = %s", f, forField.apply("a." + f, "b." + f)));
     }
 
     public static YList<String> genSe_Vio_V(String className, String methodName, Tab tab,
                                             BiFunction<String, String, String> forField) {
-        return genSe(className, tab, format("public static void nm%s(%s a_res, %s b) {",
+        return genSe(className, tab, format(PUBLIC_STATIC_VOID_NM + "%s(%s a_res, %s b) {",
                         capitalize(methodName), className, className),
                 f -> format("a_res.%s = %s", f, forField.apply("a_res." + f, "b." + f)));
     }
 
     public static YList<String> genSe_Vo_VS(String className, String methodName, Tab tab,
                                             BiFunction<String, String, String> forField) {
-        return genSe(className, tab, format("public static void nm%s(%s res, %s a, %s b) {",
+        return genSe(className, tab, format(PUBLIC_STATIC_VOID_NM + "%s(%s res, %s a, %s b) {",
                         capitalize(methodName), className, className, ELEMENT_CLASS.get(className)),
                 f -> format("res.%s = %s", f, forField.apply("a." + f, "b")));
     }
 
     public static YList<String> genSe_Vo_V(String className, String methodName, Tab tab,
                                            Function<String, String> forField) {
-        return genSe(className, tab, format("public static void nm%s(%s res, %s a) {",
+        return genSe(className, tab, format(PUBLIC_STATIC_VOID_NM + "%s(%s res, %s a) {",
                 capitalize(methodName), className, className),
                 f -> format("res.%s = %s", f, forField.apply("a." + f)));
     }
@@ -344,7 +350,7 @@ public class GenVectorMethods {
 
     public static YList<String> genSe_Vio_S(String className, String methodName, Tab tab,
                                             BiFunction<String, String, String> forField) {
-        return al(format("public static void nm%s(%s a_res, %s b) {",
+        return al(format(PUBLIC_STATIC_VOID_NM + "%s(%s a_res, %s b) {",
                 capitalize(methodName), className, ELEMENT_CLASS.get(className)))
                 .withAll(fields(className)
                         .map(f -> format("a_res.%s = %s", f, forField.apply("a_res." + f, "b")))

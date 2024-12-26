@@ -77,6 +77,9 @@ public final class Vec4f implements Serializable {
 /*2022*/public Vec4f floor() {return new Vec4f(MyMath.floorFast(x), MyMath.floorFast(y), MyMath.floorFast(z), MyMath.floorFast(w));}
 /*2022*/public Vec4f ceil() {return new Vec4f(MyMath.ceil(x), MyMath.ceil(y), MyMath.ceil(z), MyMath.ceil(w));}
 /*2022*/public Vec4f abs() {return new Vec4f(MyMath.abs(x), MyMath.abs(y), MyMath.abs(z), MyMath.abs(w));}
+/*2022*/public Vec4f sign() {return new Vec4f(MyMath.sign(x), MyMath.sign(y), MyMath.sign(z), MyMath.sign(w));}
+/*2022*/public Vec4f sqr() {return new Vec4f(MyMath.sqr(x), MyMath.sqr(y), MyMath.sqr(z), MyMath.sqr(w));}
+/*2022*/public Vec4f sqrt() {return new Vec4f(MyMath.sqrt(x), MyMath.sqrt(y), MyMath.sqrt(z), MyMath.sqrt(w));}
 /*2022*///reducers
 /*2022*/public float sum() {return x + y + z + w;}
 /*2022*/public float product() {return x * y * z * w;}
@@ -146,8 +149,6 @@ public Vec4f atan(Vec4f x) {return Vec4f.v4((float)Math.atan2(this.x, x.x), (flo
 public Vec4f pow(Vec4f power) {return Vec4f.v4((float)Math.pow(this.x, power.x), (float)Math.pow(this.y, power.y), (float)Math.pow(this.z, power.z), (float)Math.pow(this.w, power.w));}
 public Vec4f exp() {return Vec4f.v4((float)Math.exp(this.x), (float)Math.exp(this.y), (float)Math.exp(this.z), (float)Math.exp(this.w));}
 public Vec4f log() {return Vec4f.v4((float)Math.log(this.x), (float)Math.log(this.y), (float)Math.log(this.z), (float)Math.log(this.w));}
-public Vec4f sqrt() {return Vec4f.v4((float)Math.sqrt(this.x), (float)Math.sqrt(this.y), (float)Math.sqrt(this.z), (float)Math.sqrt(this.w));}
-public Vec4f sign() {return Vec4f.v4(Math.signum(this.x), Math.signum(this.y), Math.signum(this.z), Math.signum(this.w));}
 public Vec4f fract() {return Vec4f.v4(this.x - (float)Math.floor(this.x), this.y - (float)Math.floor(this.y), this.z - (float)Math.floor(this.z), this.w - (float)Math.floor(this.w));}
 public Vec4f mod(Vec4f by) {return Vec4f.v4((float)(this.x-by.x*Math.floor(this.x/by.x)), (float)(this.y-by.y*Math.floor(this.y/by.y)), (float)(this.z-by.z*Math.floor(this.z/by.z)), (float)(this.w-by.w*Math.floor(this.w/by.w)));}
 public Vec4f mix(Vec4f to, Vec4f progress) {return Vec4f.v4(this.x * (1 - progress.x) + to.x * progress.x, this.y * (1 - progress.y) + to.y * progress.y, this.z * (1 - progress.z) + to.z * progress.z, this.w * (1 - progress.w) + to.w * progress.w);}

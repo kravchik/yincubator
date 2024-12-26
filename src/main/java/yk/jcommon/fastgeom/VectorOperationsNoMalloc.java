@@ -105,6 +105,14 @@ public class VectorOperationsNoMalloc {
 /*2022*/    res.x = MyMath.abs(a.x);
 /*2022*/    res.y = MyMath.abs(a.y);
 /*2022*/}
+/*2022*/public static void nmSign(Vec2i res, Vec2i a) {
+/*2022*/    res.x = MyMath.sign(a.x);
+/*2022*/    res.y = MyMath.sign(a.y);
+/*2022*/}
+/*2022*/public static void nmSqr(Vec2i res, Vec2i a) {
+/*2022*/    res.x = MyMath.sqr(a.x);
+/*2022*/    res.y = MyMath.sqr(a.y);
+/*2022*/}
 /*2022*/public static void nmMin(Vec2i res, Vec2i a, Vec2i b) {
 /*2022*/    res.x = MyMath.min(a.x, b.x);
 /*2022*/    res.y = MyMath.min(a.y, b.y);
@@ -237,6 +245,16 @@ public class VectorOperationsNoMalloc {
 /*2022*/    res.x = MyMath.abs(a.x);
 /*2022*/    res.y = MyMath.abs(a.y);
 /*2022*/    res.z = MyMath.abs(a.z);
+/*2022*/}
+/*2022*/public static void nmSign(Vec3i res, Vec3i a) {
+/*2022*/    res.x = MyMath.sign(a.x);
+/*2022*/    res.y = MyMath.sign(a.y);
+/*2022*/    res.z = MyMath.sign(a.z);
+/*2022*/}
+/*2022*/public static void nmSqr(Vec3i res, Vec3i a) {
+/*2022*/    res.x = MyMath.sqr(a.x);
+/*2022*/    res.y = MyMath.sqr(a.y);
+/*2022*/    res.z = MyMath.sqr(a.z);
 /*2022*/}
 /*2022*/public static void nmMin(Vec3i res, Vec3i a, Vec3i b) {
 /*2022*/    res.x = MyMath.min(a.x, b.x);
@@ -400,6 +418,18 @@ public class VectorOperationsNoMalloc {
 /*2022*/    res.z = MyMath.abs(a.z);
 /*2022*/    res.w = MyMath.abs(a.w);
 /*2022*/}
+/*2022*/public static void nmSign(Vec4i res, Vec4i a) {
+/*2022*/    res.x = MyMath.sign(a.x);
+/*2022*/    res.y = MyMath.sign(a.y);
+/*2022*/    res.z = MyMath.sign(a.z);
+/*2022*/    res.w = MyMath.sign(a.w);
+/*2022*/}
+/*2022*/public static void nmSqr(Vec4i res, Vec4i a) {
+/*2022*/    res.x = MyMath.sqr(a.x);
+/*2022*/    res.y = MyMath.sqr(a.y);
+/*2022*/    res.z = MyMath.sqr(a.z);
+/*2022*/    res.w = MyMath.sqr(a.w);
+/*2022*/}
 /*2022*/public static void nmMin(Vec4i res, Vec4i a, Vec4i b) {
 /*2022*/    res.x = MyMath.min(a.x, b.x);
 /*2022*/    res.y = MyMath.min(a.y, b.y);
@@ -552,6 +582,18 @@ public class VectorOperationsNoMalloc {
 /*2022*/    res.x = MyMath.abs(a.x);
 /*2022*/    res.y = MyMath.abs(a.y);
 /*2022*/}
+/*2022*/public static void nmSign(Vec2f res, Vec2f a) {
+/*2022*/    res.x = MyMath.sign(a.x);
+/*2022*/    res.y = MyMath.sign(a.y);
+/*2022*/}
+/*2022*/public static void nmSqr(Vec2f res, Vec2f a) {
+/*2022*/    res.x = MyMath.sqr(a.x);
+/*2022*/    res.y = MyMath.sqr(a.y);
+/*2022*/}
+/*2022*/public static void nmSqrt(Vec2f res, Vec2f a) {
+/*2022*/    res.x = MyMath.sqrt(a.x);
+/*2022*/    res.y = MyMath.sqrt(a.y);
+/*2022*/}
 /*2022*/public static void nmMin(Vec2f res, Vec2f a, Vec2f b) {
 /*2022*/    res.x = MyMath.min(a.x, b.x);
 /*2022*/    res.y = MyMath.min(a.y, b.y);
@@ -699,6 +741,21 @@ public class VectorOperationsNoMalloc {
 /*2022*/    res.x = MyMath.abs(a.x);
 /*2022*/    res.y = MyMath.abs(a.y);
 /*2022*/    res.z = MyMath.abs(a.z);
+/*2022*/}
+/*2022*/public static void nmSign(Vec3f res, Vec3f a) {
+/*2022*/    res.x = MyMath.sign(a.x);
+/*2022*/    res.y = MyMath.sign(a.y);
+/*2022*/    res.z = MyMath.sign(a.z);
+/*2022*/}
+/*2022*/public static void nmSqr(Vec3f res, Vec3f a) {
+/*2022*/    res.x = MyMath.sqr(a.x);
+/*2022*/    res.y = MyMath.sqr(a.y);
+/*2022*/    res.z = MyMath.sqr(a.z);
+/*2022*/}
+/*2022*/public static void nmSqrt(Vec3f res, Vec3f a) {
+/*2022*/    res.x = MyMath.sqrt(a.x);
+/*2022*/    res.y = MyMath.sqrt(a.y);
+/*2022*/    res.z = MyMath.sqrt(a.z);
 /*2022*/}
 /*2022*/public static void nmMin(Vec3f res, Vec3f a, Vec3f b) {
 /*2022*/    res.x = MyMath.min(a.x, b.x);
@@ -880,6 +937,24 @@ public class VectorOperationsNoMalloc {
 /*2022*/    res.z = MyMath.abs(a.z);
 /*2022*/    res.w = MyMath.abs(a.w);
 /*2022*/}
+/*2022*/public static void nmSign(Vec4f res, Vec4f a) {
+/*2022*/    res.x = MyMath.sign(a.x);
+/*2022*/    res.y = MyMath.sign(a.y);
+/*2022*/    res.z = MyMath.sign(a.z);
+/*2022*/    res.w = MyMath.sign(a.w);
+/*2022*/}
+/*2022*/public static void nmSqr(Vec4f res, Vec4f a) {
+/*2022*/    res.x = MyMath.sqr(a.x);
+/*2022*/    res.y = MyMath.sqr(a.y);
+/*2022*/    res.z = MyMath.sqr(a.z);
+/*2022*/    res.w = MyMath.sqr(a.w);
+/*2022*/}
+/*2022*/public static void nmSqrt(Vec4f res, Vec4f a) {
+/*2022*/    res.x = MyMath.sqrt(a.x);
+/*2022*/    res.y = MyMath.sqrt(a.y);
+/*2022*/    res.z = MyMath.sqrt(a.z);
+/*2022*/    res.w = MyMath.sqrt(a.w);
+/*2022*/}
 /*2022*/public static void nmMin(Vec4f res, Vec4f a, Vec4f b) {
 /*2022*/    res.x = MyMath.min(a.x, b.x);
 /*2022*/    res.y = MyMath.min(a.y, b.y);
@@ -1036,6 +1111,16 @@ public class VectorOperationsNoMalloc {
 /*2022*/    res.x = MyMath.abs(a.x);
 /*2022*/    res.y = MyMath.abs(a.y);
 /*2022*/    res.z = MyMath.abs(a.z);
+/*2022*/}
+/*2022*/public static void nmSign(Vec3l res, Vec3l a) {
+/*2022*/    res.x = MyMath.sign(a.x);
+/*2022*/    res.y = MyMath.sign(a.y);
+/*2022*/    res.z = MyMath.sign(a.z);
+/*2022*/}
+/*2022*/public static void nmSqr(Vec3l res, Vec3l a) {
+/*2022*/    res.x = MyMath.sqr(a.x);
+/*2022*/    res.y = MyMath.sqr(a.y);
+/*2022*/    res.z = MyMath.sqr(a.z);
 /*2022*/}
 /*2022*/public static void nmMin(Vec3l res, Vec3l a, Vec3l b) {
 /*2022*/    res.x = MyMath.min(a.x, b.x);
@@ -1196,6 +1281,21 @@ public class VectorOperationsNoMalloc {
 /*2022*/    res.x = MyMath.abs(a.x);
 /*2022*/    res.y = MyMath.abs(a.y);
 /*2022*/    res.z = MyMath.abs(a.z);
+/*2022*/}
+/*2022*/public static void nmSign(Vec3d res, Vec3d a) {
+/*2022*/    res.x = MyMath.sign(a.x);
+/*2022*/    res.y = MyMath.sign(a.y);
+/*2022*/    res.z = MyMath.sign(a.z);
+/*2022*/}
+/*2022*/public static void nmSqr(Vec3d res, Vec3d a) {
+/*2022*/    res.x = MyMath.sqr(a.x);
+/*2022*/    res.y = MyMath.sqr(a.y);
+/*2022*/    res.z = MyMath.sqr(a.z);
+/*2022*/}
+/*2022*/public static void nmSqrt(Vec3d res, Vec3d a) {
+/*2022*/    res.x = MyMath.sqrt(a.x);
+/*2022*/    res.y = MyMath.sqrt(a.y);
+/*2022*/    res.z = MyMath.sqrt(a.z);
 /*2022*/}
 /*2022*/public static void nmMin(Vec3d res, Vec3d a, Vec3d b) {
 /*2022*/    res.x = MyMath.min(a.x, b.x);
